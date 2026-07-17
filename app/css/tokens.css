@@ -1,0 +1,230 @@
+/* ═══════════════════════════════════════════
+   TOKENS — theme-invariant constants + light/dark
+   scales + gradient-weave poles + inverted sections.
+   Every other stylesheet consumes these variables.
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* accents (theme-invariant) */
+  --accent: #6d5efc;        /* South Hustles iridescent violet-blue */
+  --accent-soft: #a99bff;
+  --accent-2: #ff5a7a;      /* holographic pink (hero blob) */
+  /* University palette — the coloured course cards ("perder el
+     miedo a los colores"): red / amber / green / blue tiles */
+  --uni-red: #e8402c;
+  --uni-amber: #f4c542;
+  --uni-green: #2fb872;
+  --uni-blue: #4a6cf0;
+  --uni-ink: #111114;       /* text on coloured tiles */
+  /* holographic gradient (hero blob / iridescent accents) */
+  --holo: linear-gradient(135deg, #ff8ad4 0%, #c08bff 30%, #6d9bff 60%, #57e6ff 100%);
+
+  /* type — South Hustles: heavy grotesk headlines + italic serif accents */
+  --font-grotesk: 'Archivo', 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Archivo', 'Inter Tight', system-ui, sans-serif; /* big headlines are grotesk here, not serif */
+  --font-serif: 'Instrument Serif', 'DM Serif Display', Georgia, serif; /* HUSTLES / SYSTEM / everything italics */
+  --font-italic: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --font-ui: 'Archivo', 'Inter Tight', ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  /* geometry */
+  --radius-s: 6px;
+  --radius-m: 14px;
+  --radius-l: 28px;
+  --maxw: 1180px;
+  --maxw-wide: 1560px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+  /* South Hustles neutral grey — matches the Webflow ~#e6e6e6 canvas,
+     NOT pure white. Surfaces (cards, nav) go brighter than the page. */
+  --bg-0: #e6e6e6;
+  --bg-1: #ededed;
+  --bg-2: #dcdcdc;
+  --bg-glass: rgba(230, 230, 230, 0.72);
+  --ink-0: #0d0d0f;
+  --ink-1: #46464b;
+  --ink-2: #77777d;
+  --ink-3: #a9a9ad;
+  --line: #cfcfcf;
+  --line-soft: #dcdcdc;
+  /* gradient weave poles: every section blends between these.
+     Kept close so the page reads as one calm grey field with
+     dark chapters punched in. */
+  --pole-hi: #ececec;
+  --pole-lo: #d8d8d8;
+  --surface: #f4f4f4;      /* raised cards / nav pill */
+  --surface-ink: #ffffff;  /* pure-white raised blocks (SOUTH HUSTLES card) */
+  --shadow-card: 0 1px 2px rgba(13, 13, 15, 0.04), 0 16px 40px -24px rgba(13, 13, 15, 0.16);
+  --shadow-lift: 0 2px 6px rgba(13, 13, 15, 0.08), 0 24px 60px -28px rgba(13, 13, 15, 0.24);
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --bg-0: #09090b;
+  --bg-1: #111113;
+  --bg-2: #1a1a1f;
+  --bg-glass: rgba(14, 14, 17, 0.72);
+  --ink-0: #f4f4f5;
+  --ink-1: #b7b7bf;
+  --ink-2: #82828c;
+  --ink-3: #4a4a52;
+  --line: #26262c;
+  --line-soft: #1e1e24;
+  --pole-hi: #17171c;
+  --pole-lo: #050507;
+  --surface: #16161a;
+  --surface-ink: #1c1c22;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 24px 60px -28px rgba(0, 0, 0, 0.85);
+}
+
+/* ── gradient weave ──
+   Sections alternate direction so adjacent edges share a stop
+   and the page reads as one continuous white↔black wave. */
+.section {
+  position: relative;
+  background: linear-gradient(180deg, var(--pole-hi), var(--pole-lo));
+}
+.section[data-grad='up'] {
+  background: linear-gradient(0deg, var(--pole-hi), var(--pole-lo));
+}
+
+/* ── inverted sections (Books, Machines) ──
+   Locally re-declare the scales so every child restyles itself.
+   These are the literal black poles of the white↔black language. */
+.section--inverted {
+  --bg-0: #0b0b0e;
+  --bg-1: #121216;
+  --bg-2: #1b1b21;
+  --bg-glass: rgba(16, 16, 20, 0.72);
+  --ink-0: #f4f4f5;
+  --ink-1: #b9b9c1;
+  --ink-2: #84848e;
+  --ink-3: #4c4c55;
+  --line: #26262d;
+  --line-soft: #1f1f26;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+  background: linear-gradient(180deg, #111116, #060608 55%, #111116);
+}
+html[data-theme='dark'] .section--inverted {
+  background: linear-gradient(180deg, #0d0d11, #030304 55%, #0d0d11);
+}
+
+/* ── tinted section blocks (rhythm breaks between the
+   white↔black gradient weave) ── */
+.section--tint-violet {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, var(--bg-0)), color-mix(in srgb, var(--accent) 16%, var(--bg-0)));
+}
+.section--tint-warm {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent-2) 8%, var(--bg-0)), color-mix(in srgb, var(--accent-2) 14%, var(--bg-0)));
+}
+
+/* background-only weave connectors — a section can enter from,
+   or exit into, the near-black pole so adjacent chapters share a
+   stop. Stops live inside the section padding; these utilities
+   NEVER touch text color (that was the Colophon contrast bug). */
+.section[data-grad='from-dark'] {
+  background: linear-gradient(180deg, #0b0b0e 0%, var(--pole-hi) 13%, var(--pole-lo) 100%);
+}
+.section[data-grad='to-dark'] {
+  background: linear-gradient(180deg, var(--pole-hi) 0%, var(--pole-lo) 82%, #0b0b0e 100%);
+}
+.section[data-grad='dark-both'] {
+  background: linear-gradient(180deg, #0b0b0e 0%, var(--pole-hi) 14%, var(--pole-lo) 84%, #0b0b0e 100%);
+}
+/* violet bloom — radial accents pushing out of the corners of a
+   dark chapter ("perder el miedo a los colores") */
+.section--violet-bloom {
+  background:
+    radial-gradient(52% 44% at 8% 0%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 70%),
+    radial-gradient(46% 40% at 100% 100%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 72%),
+    linear-gradient(180deg, #0b0b0e, #121216 55%, #0b0b0e);
+  color-scheme: dark;
+}
+
+/* white→gray→near-black transition for the closing
+   chapters of the page. */
+.section--gradient-bn {
+  /* the light stretch stays inside the top padding, so the forced
+     light text below is always sitting on near-black (contrast fix) */
+  background: linear-gradient(180deg, var(--bg-0) 0%, #17171c 12%, #0b0b0e 55%, #0b0b0e 100%);
+}
+html[data-theme='dark'] .section--gradient-bn {
+  background: linear-gradient(180deg, var(--bg-0) 0%, #101014 12%, #000000 60%, #000000 100%);
+}
+.section--gradient-bn .eyebrow,
+.section--gradient-bn h2,
+.section--gradient-bn p:not(.lede) { color: #f4f4f5; }
+.section--gradient-bn .lede { color: rgba(244, 244, 245, 0.72); }
+
+/* ghost background words — large outline-only type sitting
+   behind a section title. Purely decorative. */
+.bg-word {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  font-family: var(--font-display);
+  font-size: clamp(90px, 22vw, 280px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink-0) 12%, transparent);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.section-head, .repo-header, .glosario-header { position: relative; z-index: 1; }
+
+/* hand-written margin annotations — mono notes pinned at an angle
+   over section backgrounds (runbook-in-the-margins language) */
+.bg-note {
+  position: absolute;
+  z-index: 1;
+  max-width: 240px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  padding: 10px 14px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg-0) 72%, transparent);
+  backdrop-filter: blur(3px);
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+.bg-note b { color: var(--accent); font-weight: 500; }
+.bg-note--right { transform: rotate(1.8deg); }
+.bg-note--warm { border-color: color-mix(in srgb, var(--accent-2) 45%, transparent); }
+.bg-note--warm b { color: var(--accent-2); }
+@media (max-width: 900px) { .bg-note { display: none; } }
+
+/* ── colored hairlines (the mid-section outline language) ── */
+.hairline {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    transparent
+  );
+}
+.hairline--warm {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent-2) 55%, transparent),
+    transparent
+  );
+}

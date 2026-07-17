@@ -1,0 +1,364 @@
+/* ═══════════════════════════════════════════
+   SH2 TOYS — physics playgrounds.
+   1) #stickers — sticker room (DVD-bounce + drag)
+   2) #reel — short horizontal scroll-jacked strip
+   3) .site-footer — floating buoyant balls canvas
+   Consumes tokens.css only. Additive — no overrides
+   of existing components beyond .site-footer stacking.
+   ═══════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────
+   1. STICKER ROOM
+   ───────────────────────────────────────────── */
+
+/* light section with a dotted-grid feel (.bg-dots language) */
+.section.sec-light {
+  background:
+    radial-gradient(
+      color-mix(in srgb, var(--ink-0) 9%, transparent) 1px,
+      transparent 1.6px
+    ) 0 0 / 24px 24px,
+    linear-gradient(180deg, var(--pole-hi), var(--pole-lo));
+}
+
+.sticker-hint {
+  margin: 14px 0 0;
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 3.2vw, 2.2rem);
+  color: var(--ink-0);
+}
+.sticker-hint .mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.55em;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  vertical-align: middle;
+  margin-right: 0.6em;
+}
+.sticker-hint em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-1);
+}
+
+/* the playground — stickers bounce inside these walls */
+.sticker-stage {
+  position: relative;
+  height: min(70vh, 720px);
+  min-height: 420px;
+  margin-top: clamp(24px, 4vh, 44px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  /* faint inner vignette so the toys read as "inside a room" */
+  box-shadow: inset 0 0 60px color-mix(in srgb, var(--ink-0) 5%, transparent);
+}
+
+.sticker-stage__corner {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  z-index: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  pointer-events: none;
+  user-select: none;
+}
+.sticker-stage__corner--tl {
+  right: auto;
+  bottom: auto;
+  left: 14px;
+  top: 10px;
+  transform: rotate(-1.5deg);
+  color: color-mix(in srgb, var(--accent) 70%, var(--ink-3));
+}
+
+.sticker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--s, 110px);
+  height: auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none; /* pointer-drag owns the gesture on the sticker itself */
+  will-change: transform;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
+  transition: filter 0.25s var(--ease-out);
+}
+.sticker.is-grabbed {
+  cursor: grabbing;
+  z-index: 6;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.3));
+}
+html[data-theme='dark'] .sticker {
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55));
+}
+html[data-theme='dark'] .sticker.is-grabbed {
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.75));
+}
+
+@media (max-width: 700px) {
+  .sticker-stage { min-height: 380px; }
+  .sticker { --scale-m: 0.8; width: calc(var(--s, 110px) * 0.8); }
+}
+
+/* ─────────────────────────────────────────────
+   2. REEL — short horizontal scroll strip
+   ───────────────────────────────────────────── */
+
+.reel-sec { padding-left: 0; padding-right: 0; }
+
+.reel { height: 250vh; }
+
+.reel__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.reel__head {
+  position: absolute;
+  top: clamp(18px, 3.4vh, 36px);
+  left: clamp(20px, 4vw, 48px);
+  right: clamp(20px, 4vw, 48px);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.reel__hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-2);
+  animation: reel-nudge 2.4s var(--ease-out) infinite;
+}
+@keyframes reel-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+.reel__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+  padding: 0 clamp(24px, 6vw, 96px);
+  will-change: transform;
+}
+
+.reel-panel {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(78vw, 620px);
+  height: min(64vh, 560px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: clamp(22px, 3vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  /* thin hairline running down the left edge */
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 40%, transparent),
+    transparent
+  );
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.reel-panel--light {
+  background-color: var(--surface);
+  color: var(--ink-0);
+}
+.reel-panel--dark {
+  background-color: #0b0b0e;
+  color: #f4f4f5;
+  border-color: #26262c;
+}
+
+.reel-panel__num {
+  position: absolute;
+  top: clamp(16px, 2.4vw, 28px);
+  left: clamp(18px, 2.6vw, 32px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--ink-2);
+}
+.reel-panel--dark .reel-panel__num { color: rgba(244, 244, 245, 0.4); }
+
+.reel-panel__big {
+  margin: 0;
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  font-size: clamp(2.2rem, 6.4vw, 4.6rem);
+  text-transform: uppercase;
+}
+.reel-panel__big em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--accent);
+}
+.reel-panel--dark .reel-panel__big em { color: var(--accent-soft); }
+.reel-panel__big .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.6px color-mix(in srgb, currentColor 60%, transparent);
+}
+
+.reel-panel__brand { font-size: clamp(2.6rem, 7vw, 5.4rem); }
+.reel-panel__r {
+  font-size: 0.34em;
+  vertical-align: super;
+  color: var(--accent-2);
+  -webkit-text-stroke: 0;
+}
+
+.reel-panel__still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+.reel-panel__cap {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: currentColor;
+  opacity: 0.75;
+}
+.reel-panel--dark .reel-panel__cap {
+  background: rgba(9, 9, 11, 0.6);
+  padding: 6px 10px;
+  border-radius: 4px;
+  align-self: flex-start;
+  backdrop-filter: blur(4px);
+}
+
+/* Cloudflare asset slot label (mono placeholder) */
+.reel-panel .cf-slot {
+  position: absolute;
+  top: clamp(16px, 2.4vw, 28px);
+  right: clamp(18px, 2.6vw, 32px);
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: rgba(244, 244, 245, 0.35);
+  border: 1px dashed rgba(244, 244, 245, 0.25);
+  padding: 3px 7px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.reel-panel--sticker {
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.reel-panel__sticker {
+  width: min(46%, 240px);
+  height: auto;
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.22));
+}
+
+.reel-panel--quote { justify-content: center; }
+.reel-panel__quote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+  line-height: 1.25;
+  color: rgba(244, 244, 245, 0.92);
+  max-width: 22ch;
+}
+.reel-panel__quote footer {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(244, 244, 245, 0.45);
+}
+
+/* native fallback — mobile media query AND .reel--native
+   (reduced motion / coarse pointer on any width) */
+@media (max-width: 860px) {
+  .reel { height: auto; }
+  .reel__sticky { position: static; height: auto; display: block; overflow: visible; }
+  .reel__head { position: static; margin: 0 20px 18px; }
+  .reel__track {
+    transform: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 20px 26px;
+    scrollbar-width: thin;
+  }
+  .reel-panel { scroll-snap-align: center; width: min(84vw, 460px); height: min(56vh, 460px); }
+}
+.reel--native .reel { height: auto; }
+.reel--native .reel__sticky { position: static; height: auto; display: block; overflow: visible; }
+.reel--native .reel__head { position: static; margin: 0 20px 18px; }
+.reel--native .reel__track {
+  transform: none !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 20px 26px;
+  scrollbar-width: thin;
+}
+.reel--native .reel-panel { scroll-snap-align: center; }
+.reel--native .reel__hint { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reel__hint { animation: none; }
+}
+
+/* ─────────────────────────────────────────────
+   3. FOOTER BALLS — buoyant canvas behind text
+   ───────────────────────────────────────────── */
+
+.site-footer {
+  position: relative;
+  overflow: hidden;
+}
+/* footer text sits ABOVE the canvas */
+.site-footer > :not(.footer-balls) {
+  position: relative;
+  z-index: 1;
+}
+.footer-balls {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}

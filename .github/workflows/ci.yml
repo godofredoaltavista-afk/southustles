@@ -1,0 +1,89 @@
+name: CI — validate pull requests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build and validate
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch the repository content for validation.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Fail fast if the expected structure is missing.
+      - name: Validate repository structure
+        run: |
+          test -f app/Dockerfile
+          test -f app/index.html
+          test -d infra
+          test -d docs
+
+      # Build the static site image from the app directory.
+      - name: Build Docker image
+        run: docker build -t south-hustles ./app
+
+      # Start the container locally on the runner.
+      - name: Run Docker container
+        run: docker run -d -p 8080:80 --name south-hustles south-hustles
+
+      # Wait until Nginx is ready, then verify the app responds over HTTP.
+      - name: Smoke test application
+        run: |
+          for attempt in {1..30}; do
+            if ! docker ps --filter "name=south-hustles" --filter "status=running" --format "{{.Names}}" | grep -qx "south-hustles"; then
+              echo "Container is not running."
+              exit 1
+            fi
+
+            if curl --fail --silent --show-error http://localhost:8080 > /tmp/south-hustles-response.html; then
+              echo "Application responded successfully."
+              head -n 5 /tmp/south-hustles-response.html
+              exit 0
+            fi
+
+            echo "Application is not ready yet. Attempt ${attempt}/30."
+            sleep 2
+          done
+
+          echo "Application did not become ready within 60 seconds."
+          exit 1
+
+      # Print useful diagnostics only when the Docker run or smoke test fails.
+      - name: Diagnose Docker failure
+        if: failure()
+        run: |
+          docker ps -a
+          docker logs south-hustles || true
+
+      # Always remove the container, even if the smoke test fails.
+      - name: Cleanup Docker container
+        if: always()
+        run: |
+          docker stop south-hustles || true
+          docker rm south-hustles || true
+
+      # Install Terraform for format and syntax validation only.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.5
+
+      # Enforce consistent Terraform formatting.
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive infra
+
+      # Initialize Terraform without remote state or backend configuration.
+      - name: Initialize Terraform without backend
+        run: terraform -chdir=infra init -backend=false
+
+      # Validate Terraform syntax without applying changes.
+      - name: Validate Terraform
+        run: terraform -chdir=infra validate

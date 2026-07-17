@@ -1,0 +1,410 @@
+/* ═══════════════════════════════════════════
+   SH2 — INTERACTION FX (additive layer).
+   1. directional button ink fill (.dirfill)
+   2. magnetic pull (JS drives `translate`; no CSS here
+      beyond a will-change hint)
+   3. hero typewriter v2 (bigger mono + block caret)
+   4. word rotator (+ font-swap v2 reuses .is-mono)
+   5. star-wars overflow fix (.perspective-*)
+   6. nav University bookshelf (.nav-books)
+   7. quick panel drawer (#quick-panel)
+   Everything consumes tokens.css vars → theme-reactive
+   in both light and dark without extra JS.
+   ═══════════════════════════════════════════ */
+
+/* ════════ 1. DIRECTIONAL BUTTON FILL ════════
+   ::before ink layer slides IN from the entry edge and
+   OUT toward the exit edge ([data-dir] stamped by JS).
+   Ink is the inverse of the button: light buttons fill
+   dark, the dark solid pill fills light. */
+
+.dirfill {
+  --fill: var(--ink-0);
+  --fill-ink: var(--bg-0);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.dirfill::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1; /* paints above the element's own bg, below its text */
+  background: var(--fill);
+  border-radius: inherit;
+  transform: translateY(101%); /* resting default: parked at bottom edge */
+  transition: transform var(--dirfill-t, 0.38s) var(--ease-out);
+  pointer-events: none;
+}
+.dirfill[data-dir='top']::before { transform: translateY(-101%); }
+.dirfill[data-dir='bottom']::before { transform: translateY(101%); }
+.dirfill[data-dir='left']::before { transform: translateX(-101%); }
+.dirfill[data-dir='right']::before { transform: translateX(101%); }
+.dirfill:hover::before,
+.dirfill:focus-visible::before { transform: translate(0, 0); }
+
+/* text inverts onto the ink (double class outguns .pill-btn:hover) */
+.dirfill.dirfill:hover,
+.dirfill.dirfill:focus-visible { color: var(--fill-ink); }
+
+/* variant inks */
+.pill-btn--solid.dirfill { --fill: var(--bg-0); --fill-ink: var(--ink-0); }
+.discover-btn.dirfill { --fill: #ffffff; --fill-ink: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dirfill::before { transition: none; }
+}
+
+/* ════════ 2. MAGNETIC PULL (hint only — JS drives it) ════════ */
+[data-magnetic] { will-change: translate; }
+
+/* ════════ 3. HERO TYPEWRITER v2 ════════
+   Bigger mono line + blinking accent block caret ▍.
+   (Old .type-erase caret untouched — this class lives
+   only on the hero span.) */
+
+.hero-typewriter {
+  font-family: var(--font-mono);
+  font-size: clamp(1.02rem, 2.1vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-0);
+}
+.hero-typewriter::after {
+  content: '▍';
+  color: var(--accent);
+  margin-left: 2px;
+  font-size: 1.02em;
+  line-height: 1;
+  animation: sh2-caret 0.8s steps(1, end) infinite;
+}
+@keyframes sh2-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter::after { animation: none; }
+}
+
+/* ════════ 4. WORD ROTATOR ════════
+   inline-grid stacking: every word occupies cell 1/1 so
+   the container is permanently sized by the widest word
+   (no reflow on swap). Crossfade + slide-up. */
+
+.word-rotator {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+.word-rotator > span {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(0.55em);
+  transition: opacity 0.36s ease, transform 0.46s var(--ease-out);
+}
+.word-rotator > span.is-in { opacity: 1; transform: none; }
+.word-rotator > span.is-out { opacity: 0; transform: translateY(-0.55em); }
+@media (prefers-reduced-motion: reduce) {
+  .word-rotator > span { transition: none; }
+}
+
+/* ════════ 5. STAR-WARS OVERFLOW FIX ════════
+   The tilted plane must never escape the section box. */
+
+.perspective-sec { overflow: clip; }
+.perspective-stage {
+  overflow: visible;
+  max-width: min(92vw, 1100px);
+  margin-inline: auto;
+}
+.perspective-text { max-width: 100%; }
+/* wide-desktop clamp: flatten the foreshortening (deeper
+   perspective distance ≈ smaller effective tilt — the JS
+   rotateX is inline, so we relax the lens, not the plane)
+   + a mask ceiling so nothing pokes past the section */
+@media (min-width: 1440px) {
+  .perspective-stage {
+    perspective: 520px;
+    max-height: 72vh;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 74%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 18%, #000 74%, transparent);
+  }
+  .perspective-text { font-size: clamp(1.6rem, 3.9vw, 3.9rem); }
+}
+
+/* ════════ 6. NAV UNIVERSITY BOOKS ════════
+   Tiny bookshelf after the "University" label: 4 mini
+   spines in the --uni-* palette pop up staggered on
+   hover and while scroll-active. Pure CSS art. */
+
+.nav a.has-books {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.nav-books {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.nav-books i {
+  display: block;
+  width: 3px;
+  border-radius: 1.5px 1.5px 0 0;
+  transform: translateY(115%);
+  transform-origin: 50% 100%;
+  transition: transform 0.45s var(--ease-spring);
+}
+.nav-books i:nth-child(1) { height: 9px;  background: var(--uni-red);   transition-delay: 0ms; }
+.nav-books i:nth-child(2) { height: 12px; background: var(--uni-amber); transition-delay: 60ms; }
+.nav-books i:nth-child(3) { height: 8px;  background: var(--uni-green); transition-delay: 120ms; rotate: 9deg; }
+.nav-books i:nth-child(4) { height: 11px; background: var(--uni-blue);  transition-delay: 180ms; }
+.nav a:hover .nav-books i,
+.nav a.is-active .nav-books i { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .nav-books i { transition: none; }
+}
+
+/* ════════ 7. QUICK PANEL ════════
+   Right side-drawer for the + button — same pattern
+   language as css/panel.css (.side-panel), re-declared
+   here because panel.css isn't linked on this page.
+   z: above the menu overlay (100), below the loader (500). */
+
+.quick-panel__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(5, 5, 8, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.quick-panel__backdrop.is-open { opacity: 1; pointer-events: all; cursor: pointer; }
+
+.quick-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 92vw);
+  z-index: 111;
+  background: var(--bg-0);
+  color: var(--ink-0);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-lift);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateX(103%);
+  visibility: hidden;
+  transition: transform 0.55s var(--ease-out), visibility 0s linear 0.55s;
+}
+.quick-panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.6s var(--ease-spring), visibility 0s;
+}
+.quick-panel::-webkit-scrollbar { width: 4px; }
+.quick-panel::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+body.quick-panel-open { overflow: hidden; }
+@supports (overflow: clip) { body.quick-panel-open { overflow: clip; } }
+
+.quick-panel__head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 1.5rem 1.5rem 1.1rem;
+  background: var(--bg-0);
+  border-bottom: 1px solid var(--line-soft);
+}
+.quick-panel__title {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  color: var(--ink-0);
+}
+.quick-panel__title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+.quick-panel__sub {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.quick-panel__close {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-1);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.25s var(--ease-out);
+}
+.quick-panel__close:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  transform: rotate(90deg);
+}
+
+.quick-panel__body { padding: 1.25rem 1.5rem 2.5rem; }
+.quick-panel__section-title {
+  margin: 26px 0 12px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.quick-panel__section-title:first-child { margin-top: 0; }
+
+/* mini section index — mono numbers, giant-ish rows */
+.quick-panel__index { display: flex; flex-direction: column; }
+.quick-panel__index a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 2px;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  color: var(--ink-0);
+  transition: color 0.2s ease, padding-left 0.3s var(--ease-out);
+}
+.quick-panel__index a b {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--ink-3);
+  transition: color 0.2s ease, translate 0.3s var(--ease-out);
+}
+.quick-panel__index a:hover { color: var(--accent); padding-left: 8px; }
+.quick-panel__index a:hover b { color: var(--accent); translate: 4px 0; }
+.qp-num {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+
+/* latest project quick-cards */
+.qp-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  color: var(--ink-0);
+  transition: border-color 0.2s ease, transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+}
+.qp-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+.qp-card__thumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-s);
+  color: #fff;
+  font-size: 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+.qp-card:nth-of-type(2) .qp-card__thumb { background: linear-gradient(135deg, var(--accent-2), var(--accent-soft)); }
+.qp-card:nth-of-type(3) .qp-card__thumb { background: linear-gradient(135deg, var(--uni-blue), var(--uni-green)); }
+.qp-card__name { font-family: var(--font-grotesk); font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em; }
+.qp-card__meta {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.qp-card__go {
+  margin-left: auto;
+  color: var(--ink-3);
+  transition: color 0.2s ease, translate 0.3s var(--ease-out);
+}
+.qp-card:hover .qp-card__go { color: var(--accent); translate: 3px 0; }
+
+/* Cloudflare asset slot — preview strip placeholder */
+.qp-slot {
+  position: relative;
+  aspect-ratio: 16 / 6;
+  border-radius: var(--radius-m);
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  background:
+    radial-gradient(60% 90% at 20% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(50% 80% at 90% 90%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 70%),
+    var(--bg-1);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.qp-slot span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* email CTA */
+.quick-panel__cta {
+  display: block;
+  margin-top: 28px;
+  text-align: center;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: var(--ink-0);
+  color: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.quick-panel__cta:hover { background: var(--accent); color: #fff; }
+
+.quick-panel__foot {
+  margin-top: 18px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick-panel,
+  .quick-panel__backdrop { transition: none; }
+}

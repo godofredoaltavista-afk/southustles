@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <linearGradient id="vw-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a6cf0"/>
+      <stop offset=".5" stop-color="#2fb872"/>
+      <stop offset="1" stop-color="#f4c542"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#vw-g)" stroke-width="1.6" fill="none">
+    <circle cx="200" cy="200" r="30"/>
+    <circle cx="200" cy="200" r="70" opacity=".7"/>
+    <circle cx="200" cy="200" r="110" opacity=".45"/>
+    <circle cx="200" cy="200" r="150" opacity=".25"/>
+    <path d="M50 200h300M200 50v300"/>
+  </g>
+  <circle cx="200" cy="200" r="8" fill="url(#vw-g)"/>
+  <text x="200" y="385" font-family="Archivo, sans-serif" font-size="14" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#111">VISUALIZING WISDOM</text>
+</svg>

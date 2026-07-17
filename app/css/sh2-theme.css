@@ -1,0 +1,327 @@
+/* ═══════════════════════════════════════════
+   SH2 THEME — strict white/dark section polarity,
+   richer backgrounds (grid / dots / beam), parallax
+   hairlines, mobile colour-HUD strip, theme-strip.
+   Additive layer: loads AFTER tokens.css +
+   south-hustles.css and only introduces new classes
+   (plus a dark-mode flip for .section--gradient-bn
+   and the <900px .color-hud reposition).
+   Token-driven: raw hex appears only where tokens.css
+   itself inlines the same scale values (.section--inverted
+   precedent) — locally re-declared pole scales.
+   ═══════════════════════════════════════════ */
+
+/* ── 1a. STRICT POLARITY SKINS ─────────────────
+   .sec-light / .sec-dark override the soft grey
+   gradient weave with a hard light or hard dark
+   panel. In html[data-theme='dark'] the two INVERT
+   so the page keeps alternating polarity.
+   Do not combine with .section--inverted /
+   .section--gradient-bn on the same element. */
+
+/* light panel — flat, faintly gradient, dark ink.
+   Uses the theme scales, so in dark mode it
+   automatically becomes the DARK pole (inversion
+   for free). */
+.section.sec-light,
+.sec-light {
+  color: var(--ink-0);
+  background: linear-gradient(
+    180deg,
+    var(--bg-1) 0%,
+    var(--bg-0) 46%,
+    var(--bg-2) 100%
+  );
+}
+
+/* dark panel — near-black chapter, light ink,
+   full local re-declaration so every child
+   restyles itself (same technique as
+   .section--inverted in tokens.css). */
+.section.sec-dark,
+.sec-dark {
+  --bg-0: #0b0b0e;
+  --bg-1: #121216;
+  --bg-2: #1b1b21;
+  --bg-glass: rgba(16, 16, 20, 0.72);
+  --ink-0: #f4f4f5;
+  --ink-1: #b9b9c1;
+  --ink-2: #84848e;
+  --ink-3: #4c4c55;
+  --line: #26262d;
+  --line-soft: #1f1f26;
+  --pole-hi: #15151a;
+  --pole-lo: #060608;
+  --surface: #16161a;
+  --surface-ink: #1c1c22;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 24px 60px -28px rgba(0, 0, 0, 0.85);
+  color-scheme: dark;
+  color: var(--ink-0);
+  background: linear-gradient(180deg, #0e0e12 0%, #060608 55%, #0d0d11 100%);
+}
+
+/* INVERSION — in dark theme .sec-dark flips to the
+   LIGHT pole (mirrors the light-theme token scale),
+   so alternation survives the theme toggle. */
+html[data-theme='dark'] .section.sec-dark,
+html[data-theme='dark'] .sec-dark {
+  --bg-0: #e6e6e6;
+  --bg-1: #ededed;
+  --bg-2: #dcdcdc;
+  --bg-glass: rgba(230, 230, 230, 0.72);
+  --ink-0: #0d0d0f;
+  --ink-1: #46464b;
+  --ink-2: #77777d;
+  --ink-3: #a9a9ad;
+  --line: #cfcfcf;
+  --line-soft: #dcdcdc;
+  --pole-hi: #ececec;
+  --pole-lo: #d8d8d8;
+  --surface: #f4f4f4;
+  --surface-ink: #ffffff;
+  --shadow-card: 0 1px 2px rgba(13, 13, 15, 0.04), 0 16px 40px -24px rgba(13, 13, 15, 0.16);
+  --shadow-lift: 0 2px 6px rgba(13, 13, 15, 0.08), 0 24px 60px -28px rgba(13, 13, 15, 0.24);
+  color-scheme: light;
+  color: var(--ink-0);
+  background: linear-gradient(180deg, #f0f0f0 0%, #e2e2e2 55%, #ececec 100%);
+}
+
+/* ── 1a-bis. gradient-bn direction flip in dark mode ──
+   Light theme: white→black going down (as shipped).
+   Dark theme: black→grey going DOWN, so the weave
+   direction flips with the polarity. Greys stay dark
+   enough that the forced light text in tokens.css
+   keeps contrast. Overrides the equal-specificity
+   rule in tokens.css by cascade order. */
+html[data-theme='dark'] .section--gradient-bn {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    var(--pole-lo) 38%,
+    var(--pole-hi) 82%,
+    var(--bg-2) 100%
+  );
+}
+
+/* ── 1b/1c. RICHER BACKGROUNDS ─────────────────
+   Additive classes any section can carry (one per
+   section — they share the ::before slot). They
+   never replace the section background: the layer
+   is painted by an inset pseudo sandwiched between
+   the section background and its content
+   (isolation + z-index:-1). Ink-driven, so both
+   themes and both polarity skins work untouched. */
+.bg-grid,
+.bg-dots,
+.bg-beam {
+  position: relative;
+  isolation: isolate;
+}
+.bg-grid::before,
+.bg-dots::before,
+.bg-beam::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* a) faint blueprint grid */
+.bg-grid::before {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--ink-0) 7%, transparent) 0 1px,
+      transparent 1px 56px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ink-0) 7%, transparent) 0 1px,
+      transparent 1px 56px
+    );
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(120% 90% at 50% 40%, #000 55%, transparent 100%);
+}
+
+/* b) dot matrix */
+.bg-dots::before {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink-0) 16%, transparent) 1px,
+    transparent 1.6px
+  );
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(110% 90% at 50% 50%, #000 45%, transparent 100%);
+  mask-image: radial-gradient(110% 90% at 50% 50%, #000 45%, transparent 100%);
+}
+
+/* c) soft diagonal accent beam */
+.bg-beam::before {
+  background:
+    linear-gradient(
+      112deg,
+      transparent 26%,
+      color-mix(in srgb, var(--accent) 13%, transparent) 46%,
+      color-mix(in srgb, var(--accent-2) 9%, transparent) 60%,
+      transparent 80%
+    );
+  filter: blur(0.5px);
+}
+
+/* ── 2. PARALLAX HAIRLINES (styled here, injected
+   by js/sh2-lines.js into [data-lines] sections) ── */
+.sh2-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.sh2-line {
+  position: absolute;
+  left: -6%;
+  width: 112%;
+  height: 1px;
+  transform: rotate(var(--sh2-rot, 0deg));
+  will-change: transform;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 55%, transparent) 32%,
+    color-mix(in srgb, var(--accent) 30%, transparent) 58%,
+    transparent
+  );
+}
+.sh2-line--warm {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent-2) 50%, transparent) 38%,
+    color-mix(in srgb, var(--accent-soft) 40%, transparent) 66%,
+    transparent
+  );
+}
+
+/* ── 3a. HUD DOT TOOLTIPS — mono labels, both
+   breakpoints. data-label is set by sh2-lines.js
+   (initHudMobile) from the dot's aria-label. */
+.color-hud__dot[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  white-space: nowrap;
+  color: var(--ink-0);
+  background: color-mix(in srgb, var(--bg-0) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 5px 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease-out);
+}
+.color-hud__dot:hover::after,
+.color-hud__dot:focus-visible::after {
+  opacity: 1;
+}
+
+/* ── 3b. MOBILE HUD — stays VISIBLE under 900px:
+   compact horizontal strip pinned bottom-left,
+   dots become a row along a horizontal track.
+   (Overrides the display:none at 720px in
+   south-hustles.css by cascade order.)
+   Horizontal dragging is handled by initHudMobile
+   in js/sh2-lines.js; the !important top pin keeps
+   the desktop JS's inline vertical `top` from
+   breaking the row. */
+@media (max-width: 900px) {
+  .color-hud {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
+    transform: none;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: 999px;
+  }
+  .color-hud__track {
+    width: min(150px, 38vw);
+    height: 10px;
+    /* same holo ramp as the desktop track, rotated */
+    background: linear-gradient(90deg, #ff5a7a, #6d5efc 50%, #57e6ff);
+  }
+  .color-hud__dot {
+    top: 50% !important; /* beat the desktop JS inline top */
+    width: 18px;
+    height: 18px;
+  }
+  .color-hud__dot[data-dot='0'] { left: 20%; }
+  .color-hud__dot[data-dot='1'] { left: 50%; }
+  .color-hud__dot[data-dot='2'] { left: 80%; }
+  .color-hud__reset {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+  /* tooltip flips above the dot on the bottom strip */
+  .color-hud__dot[data-label]::after {
+    left: 50%;
+    top: auto;
+    bottom: calc(100% + 12px);
+    translate: -50% 0;
+  }
+}
+
+/* ── 4. THEME STRIP — slim fixed polarity-rhythm
+   indicator on the right edge. Built + updated by
+   initThemeStrip (js/sh2-lines.js): one segment per
+   chapter; filled = dark panel, hollow = light
+   panel, accent = chapter in view. Decorative. */
+.theme-strip {
+  position: fixed;
+  right: 9px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+}
+.theme-strip__seg {
+  width: 3px;
+  height: 13px;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink-0) 34%, transparent);
+  transition:
+    background 0.3s var(--ease-out),
+    height 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+.theme-strip__seg--dark {
+  background: color-mix(in srgb, var(--ink-0) 78%, transparent);
+  box-shadow: none;
+}
+.theme-strip__seg--active {
+  height: 24px;
+  background: var(--accent);
+  box-shadow: none;
+}
+@media (max-width: 900px) {
+  .theme-strip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-strip__seg { transition: none; }
+}
