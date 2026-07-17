@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <radialGradient id="cs-eye" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#57e6ff"/>
+      <stop offset=".5" stop-color="#3a4a6a"/>
+      <stop offset="1" stop-color="#0a0a10"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="#0a0a0c"/>
+  <path d="M110 120c-6 30 0 52 14 66-18 6-30 26-26 50 14-4 28-14 36-28 8 14 22 24 36 28 4-24-8-44-26-50 14-14 20-36 14-66-14 18-14 40 0 58-14-18-28-40-48-58z" stroke="#8fd4e6" stroke-width="1.5" fill="none" opacity=".8"/>
+  <circle cx="150" cy="235" r="34" fill="url(#cs-eye)"/>
+  <circle cx="250" cy="235" r="34" fill="url(#cs-eye)"/>
+  <circle cx="150" cy="235" r="10" fill="#0a0a10"/>
+  <circle cx="250" cy="235" r="10" fill="#0a0a10"/>
+  <text x="200" y="370" font-family="Archivo, sans-serif" font-size="15" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#e6e6e6">CUSA SYSTEM</text>
+</svg>

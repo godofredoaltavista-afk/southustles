@@ -1,0 +1,63 @@
+<!-- ═══════════ CONTACT — budget + service vectors ═══════════ -->
+<section class="section sec-dark" id="contact" data-section>
+  <h2 class="sr-only">Start a project</h2>
+  <div class="bg-word" data-plx data-plx-speed="40" aria-hidden="true">CONTACT</div>
+  <div class="wrap contact-wrap">
+    <div class="sh-label" data-fade>Start A Project <b>[08]</b></div>
+    <p class="contact-lede" data-fade data-delay="80">
+      Tell us what you're building. Pick a budget, mark your vectors,
+      and we answer within <em>48 hours</em>.
+    </p>
+
+    <form class="contact-form" data-contact-form novalidate>
+      <div class="cf-row cf-row--2">
+        <div class="cf-field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" />
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@studio.com" required />
+          <span class="cf-error" data-cf-error hidden>needs a real email</span>
+        </div>
+      </div>
+
+      <fieldset class="cf-group">
+        <legend>Budget <span class="mono-note">// CHF</span></legend>
+        <div class="cf-pills" role="radiogroup">
+          <label class="cf-pill"><input type="radio" name="budget" value="<5K" /><span>&lt; 5K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="5-15K" checked /><span>5 – 15K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="15-50K" /><span>15 – 50K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="50K+" /><span>50K +</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="cf-group">
+        <legend>Vectors <span class="mono-note">// mark all that apply</span></legend>
+        <div class="cf-chips">
+          <label class="cf-chip"><input type="checkbox" name="vector" value="creative-direction" /><i></i><span>Creative Direction</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="branding" /><i></i><span>Branding</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="web-development" /><i></i><span>Web Development</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="creative-coding" /><i></i><span>Creative Coding</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="touchdesigner" /><i></i><span>TouchDesigner</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="university" /><i></i><span>University</span></label>
+        </div>
+      </fieldset>
+
+      <div class="cf-field">
+        <label for="cf-msg">The project</label>
+        <textarea id="cf-msg" name="message" rows="4" placeholder="What are we building together?"></textarea>
+      </div>
+
+      <p class="cf-summary" data-cf-summary aria-live="polite">&gt; pick your vectors…</p>
+
+      <button type="submit" class="cf-submit" data-dirfill data-magnetic>SEND IT →</button>
+
+      <div class="cf-success" data-cf-success hidden>
+        <p class="cf-success__big">RECEIVED.</p>
+        <p>We answer in 48h. Or jump the queue:</p>
+        <a data-cf-mailto href="mailto:hello@southhustles.com">hello@southhustles.com ↗</a>
+      </div>
+    </form>
+  </div>
+</section>

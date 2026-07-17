@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#e6e6e6" />
+  <title>South Hustles — Creative Studio</title>
+  <meta name="description" content="South Hustles Creative Studio — Creative Systems for a Conscious Era. Direction, technology and emotion for experiences that live in digital space." />
+
+  <!-- no-flash theme: set data-theme BEFORE first paint -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('sh-theme') || localStorage.getItem('leo-theme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- import map (three not loaded this pass; reserved for #hero-glb) -->
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }}
+  </script>
+
+  <!-- design system CSS — tokens FIRST, south-hustles LAST (overrides) -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/widgets.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/marquee.css" />
+  <link rel="stylesheet" href="css/collage.css" />
+  <link rel="stylesheet" href="css/motion.css" />
+  <link rel="stylesheet" href="css/overlay.css" />
+  <link rel="stylesheet" href="css/hud.css" />
+  <link rel="stylesheet" href="css/south-hustles.css" />
+  <link rel="stylesheet" href="css/sh2-theme.css" />
+  <link rel="stylesheet" href="css/sh2-fx.css" />
+  <link rel="stylesheet" href="css/sh2-three.css" />
+  <link rel="stylesheet" href="css/sh2-toys.css" />
+  <link rel="stylesheet" href="css/sh2-reader.css" />
+  <link rel="stylesheet" href="css/sh2-content.css" />
+  <link rel="stylesheet" href="css/sh3.css" />
+</head>
+<body>
+
+  <!-- ═══════════ 1. LOADER ═══════════ -->
+  <div id="loader" class="loader-screen" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="loader-wordmark">South Hustles<small>creative studio</small></div>
+      <div class="loader-count" data-loader-count>0%</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 2. NAV ═══════════ -->
+  <header class="site-nav" aria-label="Primary">
+    <div class="sh-nav__left">
+      <nav class="nav">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#university">University</a>
+      </nav>
+    </div>
+
+    <a href="#hero" class="sh-nav__center" aria-label="South Hustles home">
+      <b>South Hustles</b><span>creative studio</span>
+    </a>
+
+    <div class="sh-nav__right">
+      <a href="#work" class="pill-btn pill-btn--works" data-page-open="works">Works</a>
+      <button type="button" class="pill-btn pill-btn--solid" data-menu-open>Menu</button>
+      <button type="button" class="pill-btn pill-btn--plus" data-panel-open aria-label="Open quick panel" aria-expanded="false">
+        <span class="plus-glyph">+</span>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Switch theme">
+        <span class="theme-toggle__grid"></span>
+        <span class="theme-toggle__knob"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════ 3. FULL-SCREEN MENU OVERLAY ═══════════ -->
+  <div id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button type="button" class="menu-overlay__close" data-menu-close aria-label="Close menu">Close ✕</button>
+    <nav class="menu-overlay__nav">
+      <a class="menu-overlay__link" href="#hero">Home <span>01</span></a>
+      <a class="menu-overlay__link" href="#about" data-page-open="about">About <span>02</span></a>
+      <a class="menu-overlay__link" href="#university">University <span>03</span></a>
+      <a class="menu-overlay__link" href="#work" data-page-open="works">Works <span>04</span></a>
+      <a class="menu-overlay__link" href="#ecosystem">Services <span>05</span></a>
+      <a class="menu-overlay__link" href="#work">Projects <span>06</span></a>
+      <a class="menu-overlay__link" href="#about"><em>Blog</em> <span>07</span></a>
+      <a class="menu-overlay__link" href="#footer">Contact <span>08</span></a>
+    </nav>
+    <div class="menu-overlay__foot">
+      <span>hello@southhustles.com</span>
+      <span>Based in Geneva — working worldwide</span>
+      <span>© South Hustles 2026</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ SH2 · QUICK PANEL — right side-drawer (the + button's own thing).
+     Insert directly AFTER #menu-overlay. Styles: css/sh2-fx.css · JS: js/sh2-fx.js
+     (initQuickPanel — opens via [data-panel-open], closes via [data-panel-close]/Esc/backdrop).
+     The orchestrator re-points the nav + button to data-panel-open. ═══════════ -->
+<div class="quick-panel__backdrop" data-panel-close aria-hidden="true"></div>
+<aside id="quick-panel" class="quick-panel" role="dialog" aria-modal="true" aria-label="Quick panel" aria-hidden="true" tabindex="-1">
+  <h2 class="sr-only">Quick panel — index, latest projects and contact</h2>
+
+  <div class="quick-panel__head">
+    <div>
+      <div class="quick-panel__title">Quick <em>Index</em></div>
+      <div class="quick-panel__sub">South Hustles — creative studio</div>
+    </div>
+    <button type="button" class="quick-panel__close" data-panel-close aria-label="Close quick panel">✕</button>
+  </div>
+
+  <div class="quick-panel__body">
+
+    <div class="quick-panel__section-title">Index</div>
+    <nav class="quick-panel__index" aria-label="Quick section index">
+      <a href="#work" data-panel-close><span class="qp-num">01</span> Works <b>→</b></a>
+      <a href="#university" data-panel-close><span class="qp-num">02</span> University <b>→</b></a>
+      <a href="#about" data-panel-close><span class="qp-num">03</span> Journal <b>→</b></a>
+      <a href="#footer" data-panel-close><span class="qp-num">04</span> Contact <b>→</b></a>
+    </nav>
+
+    <div class="quick-panel__section-title">Latest projects</div>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">✦</span>
+      <span>
+        <span class="qp-card__name">Motion Atlas</span>
+        <span class="qp-card__meta">Development · 2024</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">◆</span>
+      <span>
+        <span class="qp-card__name">Neural Canvas</span>
+        <span class="qp-card__meta">Branding · 2023</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">▲</span>
+      <span>
+        <span class="qp-card__name">CodeCraft</span>
+        <span class="qp-card__meta">Development · 2023</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+
+    <div class="quick-panel__section-title">Preview</div>
+    <div class="qp-slot" data-cf-asset="hands-mountain-glb">
+      <span>hands-mountain.glb — asset slot</span>
+    </div>
+
+    <a class="quick-panel__cta" href="mailto:hello@southhustles.com">hello@southhustles.com →</a>
+
+    <div class="quick-panel__foot">Based in Geneva — working worldwide</div>
+  </div>
+</aside>
+
+
+  <!-- ═══════════ 4. COLOUR HUD ═══════════ -->
+  <div class="color-hud" aria-label="Accent palette">
+    <div class="color-hud__track">
+      <div class="color-hud__dot" data-dot="0" data-label="accent" role="slider" tabindex="0" aria-label="Primary accent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20"></div>
+      <div class="color-hud__dot" data-dot="1" data-label="warm" role="slider" tabindex="0" aria-label="Secondary accent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
+      <div class="color-hud__dot" data-dot="2" data-label="soft" role="slider" tabindex="0" aria-label="Soft accent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"></div>
+    </div>
+    <button type="button" class="color-hud__reset">reset</button>
+  </div>
+
+  <!-- follow-icon for marquee menu -->
+  <div class="mq-follow" aria-hidden="true"><span>◆</span></div>
+
+  <!-- ═══════════ 5. HERO ═══════════ -->
+  <section class="section sh-hero" id="hero" data-section>
+    <canvas id="hero-glb" aria-hidden="true"></canvas>
+    <div class="bg-word" data-plx data-plx-speed="-70" aria-hidden="true">STUDIO</div>
+    <span class="sh-hero__side" aria-hidden="true">Creative systems that expand culture.</span>
+
+    <p class="eyebrow sh-hero__eyebrow" data-fade>South Hustles — Creative Studio · [01]</p>
+    <h1 class="sh-giant" data-fade data-delay="80">
+      Creative <em>Systems</em><br />for a <span class="holo-word">Conscious</span> Era
+    </h1>
+    <p class="sh-hero__type" data-fade data-delay="200">
+      <b>&gt;</b> <span class="hero-typewriter"></span>
+    </p>
+    <span class="sh-hero__scroll" aria-hidden="true">Scroll to explore ↓</span>
+    <div class="bg-note bg-note--right" style="right: 6vw; bottom: 12vh;">
+      <b>SH//</b> direction · technology · emotion — built as one living system.
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <!-- ═══════════ 6. BIG STATEMENT 1 + ECOSYSTEM LABEL ═══════════ -->
+  <section class="section" id="statement-1" data-section data-grad="up" data-lines>
+    <h2 class="sr-only">Our mission</h2>
+    <div class="wrap">
+      <p class="sh-statement" data-fade>
+        <span data-fade data-delay="0">WE MERGE DIRECTION,</span><br />
+        <span data-fade data-delay="120">TECHNOLOGY AND EMOTION</span><br />
+        <span data-fade data-delay="240">TO BUILD EXPERIENCES THAT</span>
+        <em data-fade data-delay="360">LIVE</em>
+        <span data-fade data-delay="360">IN DIGITAL SPACE.</span>
+      </p>
+      <hr class="hairline--warm" style="margin: 48px 0;" />
+      <div class="sh-label" data-fade>
+        Our Creative Ecosystem <b>[02]</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 7. ECOSYSTEM CARDS ═══════════ -->
+  <section class="section" id="ecosystem" data-section>
+    <h2 class="sr-only">Our creative ecosystem</h2>
+    <div class="wrap wrap--wide">
+      <div class="eco-grid">
+
+        <article class="eco-card" data-fade>
+          <span class="eco-card__invert"></span>
+          <span class="eco-card__art"><span>SOUTH HUSTLES.PNG</span></span>
+          <div class="eco-card__content">
+            <span class="eco-card__num">[ 01 ]</span>
+            <h3 class="eco-card__title">South <em>Hustles</em></h3>
+          </div>
+          <div class="eco-card__meta">
+            CREATIVE DIRECTION<br />BRANDING<br />ADVERTISING<br />WEB DEVELOPMENT
+          </div>
+        </article>
+
+        <article class="eco-card eco-card--dark" data-fade data-delay="120">
+          <span class="eco-card__invert"></span>
+          <span class="eco-card__art"><span>CUSA SYSTEM.PNG</span></span>
+          <div class="eco-card__content">
+            <span class="eco-card__num">[ 02 ]</span>
+            <h3 class="eco-card__title">Cusa <em>System</em></h3>
+          </div>
+          <div class="eco-card__meta">
+            VISUAL PROGRAMMING<br />TOUCH DESIGNER<br />PLUG-INS<br />CREATIVE CODING
+          </div>
+        </article>
+
+        <article class="eco-card" data-fade data-delay="240">
+          <span class="eco-card__invert"></span>
+          <span class="eco-card__art"><span>VISUALIZING WISDOM.PNG</span></span>
+          <div class="eco-card__content">
+            <span class="eco-card__num">[ 03 ]</span>
+            <h3 class="eco-card__title">Visualizing Wisdom</h3>
+          </div>
+          <div class="eco-card__meta">
+            WHERE WE TEACH THE METHODS<br />BEHIND THE AGENCY AND SYSTEM.
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+<!-- ═══════════ STICKER ROOM — physics toy (insert after #ecosystem) ═══════════ -->
+<section class="section sec-light" id="stickers" data-section>
+  <h2 class="sr-only">Sticker room — interactive playground</h2>
+  <div class="wrap wrap--wide">
+    <div class="sh-label" data-fade>Sticker Room <b>[02·B]</b></div>
+    <p class="sticker-hint" data-fade data-delay="80">
+      <span class="mono">STICKER ROOM //</span> drag them, <em>they fight back.</em>
+    </p>
+
+    <div class="sticker-stage" data-sticker-stage data-fade data-delay="160">
+      <span class="sticker-stage__corner sticker-stage__corner--tl" aria-hidden="true">physics: on · walls: solid</span>
+      <span class="sticker-stage__corner" aria-hidden="true">la caravana · 12 pzs</span>
+
+      <img class="sticker" src="assets/stickers/sticker-49.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="128" data-rot="-8" />
+      <img class="sticker" src="assets/stickers/sticker-51.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="96" data-rot="12" />
+      <img class="sticker" src="assets/stickers/sticker-52.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="140" data-rot="-4" />
+      <img class="sticker" src="assets/stickers/sticker-53.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="104" data-rot="7" />
+      <img class="sticker" src="assets/stickers/sticker-54.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="118" data-rot="-14" />
+      <img class="sticker" src="assets/stickers/sticker-55.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="90" data-rot="4" />
+      <img class="sticker" src="assets/stickers/sticker-56.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="134" data-rot="10" />
+      <img class="sticker" src="assets/stickers/sticker-57.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="100" data-rot="-6" />
+      <img class="sticker" src="assets/stickers/sticker-58.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="122" data-rot="16" />
+      <img class="sticker" src="assets/stickers/sticker-59.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="94" data-rot="-11" />
+      <img class="sticker" src="assets/stickers/sticker-60.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="138" data-rot="5" />
+      <img class="sticker" src="assets/stickers/sticker-62.png" alt="" draggable="false" loading="lazy" decoding="async" data-size="110" data-rot="-2" />
+    </div>
+  </div>
+  <hr class="hairline--warm" style="margin-top: clamp(48px, 7vh, 84px);" />
+</section>
+
+
+  <!-- ═══════════ 8. MARQUEE (dark) ═══════════ -->
+  <div class="marquee marquee--dark" aria-hidden="true" style="--marquee-speed: 28s;">
+    <div class="marquee__track">
+      <span class="marquee__chunk">SERVICES <span class="marquee__sep">✦</span> BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span></span>
+      <span class="marquee__chunk">SERVICES <span class="marquee__sep">✦</span> BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ═══════════ 9. ABOUT / STORY ═══════════ -->
+  <section class="section" id="about" data-section data-grad="up">
+    <h2 class="sr-only">About the studio</h2>
+    <div class="bg-word" data-plx data-plx-speed="60" aria-hidden="true">STUDIO</div>
+    <div class="wrap">
+      <p class="eyebrow" data-fade>The Studio · [03]</p>
+      <p class="sh-story-lead" data-fade data-delay="80">
+        We believe every project has a story to tell — and a system worth building.
+      </p>
+      <div class="sh-editorial">
+        <div data-fade data-fade-dir="left">
+          <h3>What we are thinking of</h3>
+          <p>
+            We design brand languages and living digital experiences where direction meets code.
+            Every South Hustles project starts as a system: a set of rules, motions and visuals that
+            can grow with the culture it speaks to.
+          </p>
+          <p>
+            Art with data. Human touch with algorithmic flow. We treat the studio as a laboratory —
+            testing, breaking and refining until the work belongs to the future.
+          </p>
+        </div>
+        <div data-fade data-fade-dir="right" data-delay="120">
+          <h3>Our approach made easy</h3>
+          <p>
+            Direction, technology and emotion are not three departments — they are one continuous
+            gesture. We prototype fast, ship living systems, and teach the methods behind them.
+          </p>
+          <p>
+            Based in Geneva, working worldwide, building creative systems for a conscious era.
+          </p>
+        </div>
+      </div>
+      <div class="bg-note" style="left: 4vw; bottom: -30px;">
+        <b>note//</b> the studio is the method — not the deliverable.
+      </div>
+    </div>
+  </section>
+
+<!-- ═══════════ STUDIO MANIFESTO — dense about chapter ═══════════ -->
+<section class="section sec-dark" id="studio-manifesto" data-section data-lines>
+  <h2 class="sr-only">Studio manifesto</h2>
+  <div class="bg-word" data-plx data-plx-speed="-50" aria-hidden="true">STUDIO</div>
+  <div class="wrap wrap--wide manif">
+    <div class="sh-label" data-fade>The Studio <b>[03.b]</b></div>
+
+    <p class="manif__lede" data-fade data-delay="80">
+      South Hustles is a <em>creative studio</em> for a conscious era. We merge direction,
+      technology and emotion into systems that keep producing culture after we ship them —
+      born in Geneva, built for everywhere.
+    </p>
+
+    <div class="manif__cols">
+      <div class="manif__col" data-fade data-delay="0">
+        <span class="manif__num">[01]</span>
+        <h3>What we believe</h3>
+        <p>Brands are living systems, not artifacts. If it can't evolve without us, we
+        haven't finished the job. Every identity we build carries its own rules for
+        breaking its rules.</p>
+      </div>
+      <div class="manif__col" data-fade data-delay="120">
+        <span class="manif__num">[02]</span>
+        <h3>How we work</h3>
+        <p>Direction first, pixels last. Async by default, present when it matters.
+        One system per problem, documented so hard it teaches itself. Additive only —
+        we never tear down what works.</p>
+      </div>
+      <div class="manif__col" data-fade data-delay="240">
+        <span class="manif__num">[03]</span>
+        <h3>Who we teach</h3>
+        <p>Everyone who asks. The University shares the methods behind the agency and the
+        system — because students break our tools in ways that improve them, and the best
+        ones never really leave.</p>
+      </div>
+    </div>
+
+    <div class="manif__timeline" data-fade>
+      <div class="mt-beat"><span class="mt-year">2012</span><span class="mt-line"></span><p>First hustle — a borrowed laptop, a music video, a name that stuck.</p></div>
+      <div class="mt-beat"><span class="mt-year">2013</span><span class="mt-line"></span><p>The studio forms: direction + code under one roof for the first time.</p></div>
+      <div class="mt-beat"><span class="mt-year">2015</span><span class="mt-line"></span><p>Global reach — first worldwide clients, first system that outlived its campaign.</p></div>
+      <div class="mt-beat"><span class="mt-year">2020</span><span class="mt-line"></span><p>CUSA System is born: our TouchDesigner practice becomes shippable instruments.</p></div>
+      <div class="mt-beat"><span class="mt-year">NOW</span><span class="mt-line"></span><p>Geneva → worldwide. Agency, system and university running as one ecosystem.</p></div>
+    </div>
+
+    <div class="bg-note" style="left: 4vw; bottom: 8vh;" data-read data-card-id="note-precision"
+         data-read-tag="MARGIN NOTE" data-read-title="Precision is a feeling"
+         data-read-body="Swiss precision gets described as coldness. We disagree: precision is care made visible. The grid is not a cage — it's the drum pattern the melody trusts. Every system we ship is precise so that the emotion riding on it never wobbles.">
+      <b>NOTE//</b> precision is a feeling — open me.
+    </div>
+  </div>
+</section>
+
+
+  <hr class="hairline" />
+
+  <!-- ═══════════ 10. PROJECTS / WORK ═══════════ -->
+  <section class="section section--inverted" id="work" data-section>
+    <h2 class="sr-only">Work and projects</h2>
+    <div class="bg-word" data-plx data-plx-speed="-80" aria-hidden="true">WORK</div>
+    <div class="wrap wrap--wide">
+      <div class="sh-label" data-fade>Selected Projects <b>[04]</b></div>
+
+      <div class="projects-list">
+        <div class="projects-preview" aria-hidden="true"><span>PREVIEW</span></div>
+
+        <div class="project-row" data-fade data-preview="AGENCY.GIF">
+          <div class="project-row__name">South <em>Hustles</em></div>
+          <div class="project-row__col">—</div>
+          <div class="project-row__col">Creative Agency</div>
+          <div class="project-row__col">Studio</div>
+          <div class="project-row__col">—</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="DATA-SYMPHONY.GIF">
+          <div class="project-row__name">Data Symphony</div>
+          <div class="project-row__col">2022</div>
+          <div class="project-row__col">Development</div>
+          <div class="project-row__col">Marcel</div>
+          <div class="project-row__col">July</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="CODECRAFT.GIF">
+          <div class="project-row__name">CodeCraft</div>
+          <div class="project-row__col">2023</div>
+          <div class="project-row__col">Development</div>
+          <div class="project-row__col">Michael</div>
+          <div class="project-row__col">January</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="PIXEL-PERFECT.GIF">
+          <div class="project-row__name">Pixel Perfect</div>
+          <div class="project-row__col">2022</div>
+          <div class="project-row__col">Design</div>
+          <div class="project-row__col">Sarah</div>
+          <div class="project-row__col">September</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="NEURAL-CANVAS.GIF">
+          <div class="project-row__name">Neural <em>Canvas</em></div>
+          <div class="project-row__col">2023</div>
+          <div class="project-row__col">Branding</div>
+          <div class="project-row__col">Ava</div>
+          <div class="project-row__col">March</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="MOTION-ATLAS.GIF">
+          <div class="project-row__name">Motion Atlas</div>
+          <div class="project-row__col">2024</div>
+          <div class="project-row__col">Development</div>
+          <div class="project-row__col">Leo</div>
+          <div class="project-row__col">May</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+
+        <div class="project-row" data-fade data-preview="CHROMATIC.GIF">
+          <div class="project-row__name">Chromatic</div>
+          <div class="project-row__col">2021</div>
+          <div class="project-row__col">Branding</div>
+          <div class="project-row__col">Nadia</div>
+          <div class="project-row__col">November</div>
+          <div class="project-row__disc"><span class="discover-btn">Discover Now →</span></div>
+        </div>
+      </div>
+
+      <!-- holo teaser cards fill space -->
+      <div class="holo-teaser-row">
+        <div class="holo-card" data-rarity="legendary" tabindex="0">
+          <div class="hc-tilt">
+            <div class="hc-art hc-art--glyph" data-tint="violet"><div class="hc-glyph">✦</div></div>
+            <div class="hc-foil"></div><div class="hc-glare"></div><div class="hc-frame"></div>
+            <div class="hc-seal">Case</div><div class="hc-rarity">★★★</div>
+            <div class="hc-plate"><h3>Data Symphony</h3><p>generative visuals · 2022</p></div>
+          </div>
+        </div>
+        <div class="holo-card" data-rarity="epic" tabindex="0">
+          <div class="hc-tilt">
+            <div class="hc-art hc-art--glyph" data-tint="crimson"><div class="hc-glyph">◆</div></div>
+            <div class="hc-foil"></div><div class="hc-glare"></div><div class="hc-frame"></div>
+            <div class="hc-seal">Case</div><div class="hc-rarity">★★</div>
+            <div class="hc-plate"><h3>Neural Canvas</h3><p>brand system · 2023</p></div>
+          </div>
+        </div>
+        <div class="holo-card" data-rarity="rare" tabindex="0">
+          <div class="hc-tilt">
+            <div class="hc-art hc-art--glyph" data-tint="graphite"><div class="hc-glyph">▲</div></div>
+            <div class="hc-foil"></div><div class="hc-glare"></div><div class="hc-frame"></div>
+            <div class="hc-seal">Case</div><div class="hc-rarity">★</div>
+            <div class="hc-plate"><h3>Motion Atlas</h3><p>experience · 2024</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ═══════════ REEL — short horizontal strip ═══════════ -->
+<section class="section reel-sec" id="reel" data-section>
+  <h2 class="sr-only">Horizontal reel</h2>
+  <div class="reel">
+    <div class="reel__sticky">
+      <div class="reel__head">
+        <span class="sh-label">The Reel <b>[04.a]</b></span>
+        <span class="reel__hint">SCROLL → THE ROOM MOVES SIDEWAYS</span>
+      </div>
+      <div class="reel__track">
+        <article class="reel-panel reel-panel--light">
+          <span class="reel-panel__num">R.01</span>
+          <h3 class="reel-panel__big">WE KEEP<br /><span class="outline">MOVING</span></h3>
+          <p class="reel-panel__cap">DIRECTION · TECHNOLOGY · EMOTION</p>
+        </article>
+        <article class="reel-panel reel-panel--dark">
+          <span class="reel-panel__num">R.02</span>
+          <span class="cf-slot">CF-ASSET: PROJECT-GIF-DATA-SYMPHONY</span>
+          <img class="reel-panel__still" src="assets/projects/data-symphony.svg" alt="" aria-hidden="true" data-cf-asset="project-gif-data-symphony" />
+          <p class="reel-panel__cap">DATA SYMPHONY — 2022</p>
+        </article>
+        <article class="reel-panel reel-panel--light reel-panel--sticker">
+          <span class="reel-panel__num">R.03</span>
+          <img class="reel-panel__sticker" src="assets/stickers/sticker-53.png" alt="" aria-hidden="true" />
+          <p class="reel-panel__cap">FROM THE STICKER ROOM</p>
+        </article>
+        <article class="reel-panel reel-panel--dark reel-panel--quote">
+          <span class="reel-panel__num">R.04</span>
+          <blockquote class="reel-panel__quote">
+            Systems that don't just look advanced — they <em>belong</em> to the future.
+            <footer>— STUDIO NOTES, GENEVA</footer>
+          </blockquote>
+        </article>
+        <article class="reel-panel reel-panel--light">
+          <span class="reel-panel__num">R.05</span>
+          <h3 class="reel-panel__big">HUMAN <em>touch</em><br /><span class="outline">ALGORITHMIC</span> FLOW</h3>
+          <p class="reel-panel__cap">THE METHOD BEHIND EVERYTHING</p>
+        </article>
+        <article class="reel-panel reel-panel--dark">
+          <span class="reel-panel__num">R.06</span>
+          <h3 class="reel-panel__big reel-panel__brand">SOUTH<br />HUSTLES<span class="reel-panel__r">®</span></h3>
+          <p class="reel-panel__cap">CREATIVE STUDIO — EST. 2012</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CASE STUDY — one EXAMPLE product page journey ═══════════
+     Real project copy pending from Franco. This chapter is the TEMPLATE:
+     epigraphs, parallax banners, big journey blocks, and a sticky visual
+     that travels/transforms with scroll (sh2-case.js drives it). ═══════ -->
+<section class="section sec-light case" id="case-study" data-section>
+  <h2 class="sr-only">Case study example — Data Symphony</h2>
+
+  <!-- sticky traveler: this visual rides the whole chapter, moving/scaling
+       with scroll. Swap for the real GIF / three.js scene via data-cf-asset. -->
+  <div class="case__traveler" data-case-traveler aria-hidden="true">
+    <img src="assets/projects/data-symphony.svg" alt="" data-cf-asset="project-gif-data-symphony" />
+    <span class="case__traveler-cap">FIG.00 — LIVE SYSTEM PREVIEW · CF-ASSET SLOT</span>
+  </div>
+
+  <!-- 1. case hero -->
+  <header class="case__hero">
+    <p class="case__kicker" data-fade>CASE STUDY <b>[04.b]</b> · <em>example template — real copy landing soon</em></p>
+    <h3 class="case__title" data-fade data-delay="80">DATA<br /><em>SYMPHONY</em></h3>
+    <div class="case__meta" data-fade data-delay="160">
+      <span>CLIENT — CONCERT HALL, GENEVA</span>
+      <span>YEAR — 2022 · MARCEL · JULY</span>
+      <span>VECTORS — DEVELOPMENT · GENERATIVE · IDENTITY</span>
+    </div>
+    <p class="case__epigraph" data-fade data-delay="240">
+      « Forty years of programmes, four thousand concerts, one question:
+      what does a season <em>look</em> like? »
+    </p>
+  </header>
+
+  <!-- 2. journey 01 — brief -->
+  <div class="case__block">
+    <span class="case__num">01 — THE BRIEF</span>
+    <p class="case__big" data-fade>THE HALL WANTED ITS <em>music</em> TO BE SEEN BEFORE IT WAS HEARD.</p>
+    <p class="case__body" data-fade>Their archive held every programme since 1982 — composers, keys,
+    durations, applause lengths. Data nobody had ever looked at twice. Our brief: turn that
+    archive into the visual identity of the coming season.</p>
+    <figure class="case__fig case__fig--left" data-plx data-plx-speed="-30">
+      <div class="case__fig-media" data-cf-asset="case-banner-archive"><span>CF-ASSET · CASE-BANNER-ARCHIVE</span></div>
+      <figcaption>FIG.01 — the raw archive, 1982–2022, before the system touched it.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 3. parallax banner (full-bleed) -->
+  <div class="case__banner" data-plx data-plx-speed="24">
+    <div class="case__banner-inner" data-cf-asset="case-banner-wide">
+      <span class="case__banner-word">LISTENING&nbsp;WITH&nbsp;YOUR&nbsp;EYES</span>
+    </div>
+    <figcaption class="case__epi-strip">FIG.02 — spectral fingerprint of Beethoven 7, rendered by the system.</figcaption>
+  </div>
+
+  <!-- 4. journey 02 — system -->
+  <div class="case__block case__block--right">
+    <span class="case__num">02 — THE SYSTEM</span>
+    <p class="case__big" data-fade>A TOUCHDESIGNER NETWORK THAT <em>composes</em> LIKE THE ORCHESTRA.</p>
+    <p class="case__body" data-fade>Audio analysis drives geometry: key signatures choose palettes,
+    tempo bends the grid, applause length decides how long a frame survives. 40,000 generated
+    frames — curated by hand, red marker on printouts, taste over stamina.</p>
+    <figure class="case__fig case__fig--right" data-plx data-plx-speed="-18">
+      <div class="case__fig-media" data-cf-asset="case-banner-network"><span>CF-ASSET · CASE-BANNER-NETWORK</span></div>
+      <figcaption>FIG.03 — the network. every operator is a musician that never tires.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 5. stats strip -->
+  <div class="case__stats" data-fade>
+    <div><b>40K</b><span>frames generated</span></div>
+    <div><b>312</b><span>concerts mapped</span></div>
+    <div><b>1</b><span>living identity</span></div>
+    <div><b>∞</b><span>seasons it can score</span></div>
+  </div>
+
+  <!-- 6. journey 03 — output -->
+  <div class="case__block">
+    <span class="case__num">03 — THE OUTPUT</span>
+    <p class="case__big" data-fade>EVERY NIGHT'S POSTER IS <em>played</em>, NOT DESIGNED.</p>
+    <p class="case__body" data-fade>The season launched with posters, tickets and façade
+    projections all rendered from the same system — each night unique, all nights unmistakably
+    one voice. The identity now belongs to the hall's own team: they play it, we tuned it.</p>
+  </div>
+
+  <!-- 7. other projects — real copy pending -->
+  <footer class="case__others">
+    <span class="sh-label">More Dossiers <b>[04.c]</b> — <em>awaiting real copy</em></span>
+    <div class="case__others-rows">
+      <div class="case__other"><span>CODECRAFT</span><span>DESIGN · 2023</span><span class="mono-note">// copy pending</span></div>
+      <div class="case__other"><span>PIXEL PERFECT</span><span>BRANDING · 2022</span><span class="mono-note">// copy pending</span></div>
+      <div class="case__other"><span>NEURAL CANVAS</span><span>AI · 2023</span><span class="mono-note">// copy pending</span></div>
+      <div class="case__other"><span>MOTION ATLAS</span><span>WEB · 2024</span><span class="mono-note">// copy pending</span></div>
+    </div>
+  </footer>
+</section>
+
+
+
+  <!-- ═══════════ 11. BIG STATEMENT 2 + PIXELATED ═══════════ -->
+  <section class="section" id="statement-2" data-section data-grad="up">
+    <h2 class="sr-only">What we design</h2>
+    <div class="wrap sh-statement-wrap">
+      <p class="sh-statement" data-fade>
+        WE DESIGN <span class="outline">BRAND LANGUAGES</span>, <em>DIGITAL EXPERIENCES</em>,
+        AND <span class="font-swap type-erase" data-swap>GENERATIVE VISUALS</span> THAT
+        CONNECT <span class="outline">ART</span> WITH DATA, HUMAN TOUCH WITH
+        <em>ALGORITHMIC FLOW.</em>
+      </p>
+
+      <hr class="hairline" style="margin: 60px 0;" />
+
+      <div class="pixelated-block">
+        <div data-fade data-fade-dir="left">
+          <h3>Pixelated <em>everything</em></h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+            elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+            commodo diam libero vitae erat.
+          </p>
+          <p class="mono">Explore the innovative 'Pixelated Everything' concept with our TouchDesigner plugin.</p>
+          <div class="btn-row">
+            <a href="#ecosystem" class="button">Button</a>
+            <a href="#ecosystem" class="button button--primary">Button ›</a>
+          </div>
+        </div>
+        <div class="pixel-grid" data-fade data-fade-dir="right" data-delay="120" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+<section class="section sec-dark" id="magnetic" data-section>
+  <h2 class="sr-only">A field that responds — interactive particle system</h2>
+
+  <!-- reserved Cloudflare asset: hands-on-mountain GLB background -->
+  <div class="sh2-cf-slot" data-cf-asset="hands-mountain-glb" aria-hidden="true">
+    <span class="sh2-cf-slot__note">// cf-asset: hands-mountain-glb — background drops here</span>
+  </div>
+
+  <canvas id="magneticCanvas" class="sh2-three-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap sh2-three-copy sh2-magnetic-copy">
+    <p class="eyebrow sh2-three-eyebrow" data-fade>FIELD&nbsp;//&nbsp;06</p>
+    <p class="sh2-three-giant" data-fade data-delay="80" aria-hidden="true">
+      A FIELD THAT <em>RESPONDS</em>
+    </p>
+    <p class="sh2-three-lede" data-fade data-delay="160">
+      Six thousand particles hold formation until you move. The system bends
+      around your cursor — then settles back into place. Interfaces should
+      behave the same way.
+    </p>
+    <p class="sh2-three-note" data-fade data-delay="240" aria-hidden="true">
+      repulsion r=1.8 · damping <b>0.93</b> · return-to-origin 0.01
+    </p>
+  </div>
+
+  <hr class="hairline" style="position: absolute; left: 0; right: 0; bottom: 0;" aria-hidden="true" />
+</section>
+
+  <!-- ═══════════ marquee menu (giant follow-icon words) ═══════════ -->
+  <div class="mq-menu" aria-label="Menu marquee">
+    <div class="mq-menu__row">
+      <span class="mq-menu__word" data-icon="SVC">SERVICES</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="BLG">BLOG</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="CNT">CONTACT</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="PRJ">PROJECTS</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="ABT">ABOUT</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="SVC">SERVICES</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="BLG">BLOG</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="CNT">CONTACT</span><span class="mq-menu__sep">✦</span>
+    </div>
+    <div class="mq-menu__row mq-menu__row--rev" aria-hidden="true">
+      <span class="mq-menu__word" data-icon="ABT">ABOUT</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="PRJ">PROJECTS</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="CNT">CONTACT</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="BLG">BLOG</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="SVC">SERVICES</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="ABT">ABOUT</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="PRJ">PROJECTS</span><span class="mq-menu__sep">✦</span>
+      <span class="mq-menu__word" data-icon="CNT">CONTACT</span><span class="mq-menu__sep">✦</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ 12. UNIVERSITY ═══════════ -->
+  <section class="section" id="university" data-section data-lines>
+    <h2 class="sr-only">University</h2>
+    <div class="bg-word" data-plx data-plx-speed="70" aria-hidden="true">UNIVERSITY</div>
+    <div class="wrap wrap--wide">
+      <div class="sh-label" data-fade>Visualizing Wisdom · University <b>[05]</b></div>
+      <p class="uni-lead" data-fade data-delay="80">
+        Where we teach the methods behind the agency <em>and system.</em> Expert-led courses,
+        engaging workshops and inspiring resources.
+      </p>
+
+      <div class="uni-grid">
+        <article class="uni-tile uni-tile--red" data-fade>
+          <span class="uni-tile__idx">CRS-01</span>
+          <div>
+            <h4 class="uni-tile__title">Reactive Design Impact</h4>
+            <span class="uni-tile__type">Expert-led course</span>
+          </div>
+        </article>
+        <article class="uni-tile uni-tile--amber" data-fade data-delay="90">
+          <span class="uni-tile__idx">CRS-02</span>
+          <div>
+            <h4 class="uni-tile__title">Power Designs Impact</h4>
+            <span class="uni-tile__type">Engaging workshop</span>
+          </div>
+        </article>
+        <article class="uni-tile uni-tile--green" data-fade data-delay="180">
+          <span class="uni-tile__idx">CRS-03</span>
+          <div>
+            <h4 class="uni-tile__title">TouchDesigner Systems</h4>
+            <span class="uni-tile__type">Inspiring resource</span>
+          </div>
+        </article>
+        <article class="uni-tile uni-tile--blue" data-fade data-delay="270">
+          <span class="uni-tile__idx">CRS-04</span>
+          <div>
+            <h4 class="uni-tile__title">Generative Brand Craft</h4>
+            <span class="uni-tile__type">Expert-led course</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<section class="section sec-dark" id="gravity" data-section>
+  <h2 class="sr-only">Work in zero gravity — floating project frames</h2>
+
+  <canvas id="gravityCanvas" class="sh2-three-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap sh2-three-copy sh2-gravity-copy">
+    <p class="sh2-gravity-idx" data-fade aria-hidden="true">GALLERY&nbsp;//&nbsp;07</p>
+    <p class="sh2-three-giant" data-fade data-delay="80" aria-hidden="true">
+      WORK IN <em>ZERO GRAVITY</em>
+    </p>
+    <p class="sh2-three-note" data-fade data-delay="180" aria-hidden="true">
+      14 frames · fibonacci-sphere spread · parallax ×3 — <b>hover one</b>
+    </p>
+  </div>
+
+  <hr class="hairline hairline--warm" style="position: absolute; left: 0; right: 0; bottom: 0;" aria-hidden="true" />
+</section>
+
+<!-- ═══════════ JOURNAL — field notes: read · paint · mark ═══════════ -->
+<section class="section sec-light" id="journal" data-section data-lines>
+  <h2 class="sr-only">Field notes journal</h2>
+  <div class="wrap wrap--wide">
+    <div class="sh-label" data-fade>Field Notes <b>[07]</b> — <em>read · paint · mark</em></div>
+    <p class="journal-lede" data-fade data-delay="100">
+      Open a note. Highlight what resonates with the mouse. Arm a tool and paint over the page —
+      marker, fineliner, spray or eraser. Everything you mark feeds the
+      <b>DNA strip</b> below. <span class="mono-note">// backend sync coming soon</span>
+    </p>
+
+    <div class="journal-grid">
+      <article class="journal-card jc--red" data-card-id="creative-systems" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">SYSTEMS · 01</span>
+        <h3 class="jc-title">Creative Systems, Not Campaigns</h3>
+        <p class="jc-teaser">Why we build living structures instead of one-off deliverables.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>A campaign ends. A system keeps producing. When we take a brand in, we don't ask
+          "what should this look like" — we ask "what machine, once built, will keep generating
+          this brand's language without us in the room?"</p>
+          <p>That machine has parts: a typographic voice with rules for when it breaks its own
+          rules. A palette that behaves — that reacts to inputs instead of sitting in a PDF.
+          Motion primitives. And a governance layer: who may bend what, and how far.</p>
+          <p>The deliverable is the system. The campaign is just its first output. Everything we
+          ship at South Hustles is built to keep hustling after we leave.</p>
+        </template>
+      </article>
+
+      <article class="journal-card jc--amber" data-card-id="touchdesigner-pipelines" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">CUSA · 02</span>
+        <h3 class="jc-title">TouchDesigner As A Drawing Hand</h3>
+        <p class="jc-teaser">Visual programming pipelines from the CUSA System practice.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>Most people meet TouchDesigner as a VJ tool. We treat it as a drawing hand — a way
+          for data to hold the pencil. A network of operators is a nervous system: audio in,
+          geometry out, feedback loops in between deciding what survives each frame.</p>
+          <p>Our pipelines start on paper. Then the paper becomes CHOPs and TOPs, and the sketch
+          starts breathing. The plug-ins we ship through CUSA System are these sketches,
+          hardened: instruments other studios can play without reading our minds.</p>
+          <p>Rule of the room: if a patch can't surprise you, it isn't finished.</p>
+        </template>
+      </article>
+
+      <article class="journal-card jc--green" data-card-id="branding-rituals" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">STUDIO · 03</span>
+        <h3 class="jc-title">Branding Is A Ritual, Not A Logo</h3>
+        <p class="jc-teaser">The repeatable acts that make identity stick.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>A logo is a signature. A brand is a ritual — the thing an audience does with you,
+          repeatedly, until it becomes theirs. We design the rituals first: the drop, the reveal,
+          the loop, the inside joke that only the community gets.</p>
+          <p>Every South Hustles identity ships with its rituals documented: what happens every
+          Monday, what happens at every launch, what never happens. Consistency isn't sameness —
+          it's a rhythm people can dance to.</p>
+          <p>Then, yes, we draw the logo. It's the easiest part, once you know the dance.</p>
+        </template>
+      </article>
+
+      <article class="journal-card jc--blue" data-card-id="generative-art" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">LAB · 04</span>
+        <h3 class="jc-title">Art With Data, Touch With Flow</h3>
+        <p class="jc-teaser">Where the human hand meets the algorithm — and who leads.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>Generative art fails when the algorithm leads and the human follows. It works when
+          it's a duet: the system proposes, the hand disposes. We curate seeds, prune outputs,
+          and — crucially — allow ourselves to paint over the result.</p>
+          <p>Data Symphony taught us this: 40,000 generated frames, and the final cut came from
+          Marcel physically circling printouts with a red marker. The algorithm is a collaborator
+          with infinite stamina and zero taste. Taste is our job.</p>
+          <p>Human touch with algorithmic flow. In that order.</p>
+        </template>
+      </article>
+
+      <article class="journal-card jc--dark" data-card-id="teaching-methods" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">UNIVERSITY · 05</span>
+        <h3 class="jc-title">Teaching The Method Behind The Magic</h3>
+        <p class="jc-teaser">Visualizing Wisdom — why we open-source our process.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>Every studio has a vault. We decided to teach from ours. Visualizing Wisdom exists
+          because the methods behind the agency and the system are more valuable shared than
+          hoarded — students break our tools in ways that improve them.</p>
+          <p>The courses are workshops, not lectures: you leave with a running patch, a working
+          identity system, a deployed page. Expert-led, but the expert is beside you, not on a
+          stage.</p>
+          <p>Teaching is also how we hire. The best students never really leave.</p>
+        </template>
+      </article>
+
+      <article class="journal-card jc--dark2" data-card-id="geneva-worldwide" tabindex="0" role="button" aria-haspopup="dialog">
+        <span class="jc-tag">PRACTICE · 06</span>
+        <h3 class="jc-title">Based In Geneva, Working Worldwide</h3>
+        <p class="jc-teaser">Running a border-free studio from a very bordered city.</p>
+        <span class="jc-open">OPEN →</span>
+        <template class="jc-body">
+          <p>Geneva gives us precision — the watchmaker's patience, the diplomat's timing. The
+          worldwide part gives us everything else: collaborators in three time zones, launches
+          that follow the sun, references that never come from the same shelf twice.</p>
+          <p>The studio runs async by default: briefs are documents, reviews are annotated
+          screens, decisions are written down. Presence is for the work that deserves it —
+          workshops, shoots, the first hour of every new system.</p>
+          <p>8099 Switzerland on the invoice. Everywhere on the work.</p>
+        </template>
+      </article>
+    </div>
+
+    <!-- DNA strip — every highlight/paint accumulates here -->
+    <div class="dna-strip-wrap">
+      <div class="sh-label">Your DNA <b>[07.b]</b> <span class="mono-note">// what you marked, kept</span></div>
+      <p class="dna-empty" data-dna-empty>Nothing marked yet. Open a note and highlight a phrase, or paint over a page.</p>
+      <div class="dna-strip" data-dna-strip aria-live="polite"></div>
+      <button type="button" class="dna-clear" data-dna-clear hidden>clear DNA</button>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ═══════════ 13. MARQUEE (violet, reverse) ═══════════ -->
+  <div class="marquee marquee--violet marquee--rev" aria-hidden="true" style="--marquee-speed: 32s;">
+    <div class="marquee__track">
+      <span class="marquee__chunk">BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> SERVICES <span class="marquee__sep">✦</span></span>
+      <span class="marquee__chunk">BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> SERVICES <span class="marquee__sep">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ═══════════ 14. PERSPECTIVE (STAR WARS) ═══════════ -->
+  <section class="section section--gradient-bn perspective-sec" id="perspective" data-section>
+    <h2 class="sr-only">Our philosophy</h2>
+    <div class="perspective-img" aria-hidden="true"><span>HANDS · EYES.PNG</span></div>
+    <div class="perspective-stage">
+      <p class="perspective-text">
+        WE COMBINE ARTISTIC <em>INTUITION</em> WITH TECHNOLOGICAL PRECISION TO CREATE VISUAL
+        SYSTEMS THAT DON'T JUST LOOK ADVANCED, THEY <em>BELONG TO THE FUTURE.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 15. SYSTEMS / STACK glass-grid ═══════════ -->
+  <section class="section" id="systems" data-section data-grad="from-dark" data-lines>
+    <h2 class="sr-only">Systems and stack</h2>
+    <div class="wrap">
+      <div class="sh-label" data-fade>Methods &amp; Tools <b>[06]</b></div>
+      <div class="glass-grid">
+        <article class="glass-card" data-fade>
+          <span class="glass-card__icon">✦</span>
+          <div class="glass-card__title">Creative Direction</div>
+          <div class="glass-card__sub">DIRECTION · STORY</div>
+        </article>
+        <article class="glass-card" data-fade data-delay="70">
+          <span class="glass-card__icon">◆</span>
+          <div class="glass-card__title">TouchDesigner</div>
+          <div class="glass-card__sub">VISUAL PROGRAMMING</div>
+        </article>
+        <article class="glass-card" data-fade data-delay="140">
+          <span class="glass-card__icon">▲</span>
+          <div class="glass-card__title">Web Development</div>
+          <div class="glass-card__sub">SYSTEMS · CODE</div>
+        </article>
+        <article class="glass-card" data-fade data-delay="210">
+          <span class="glass-card__icon">✶</span>
+          <div class="glass-card__title">Creative Coding</div>
+          <div class="glass-card__sub">GENERATIVE · SHADERS</div>
+        </article>
+        <article class="glass-card" data-fade data-delay="280">
+          <span class="glass-card__icon">◈</span>
+          <div class="glass-card__title">Branding</div>
+          <div class="glass-card__sub">IDENTITY · LANGUAGE</div>
+        </article>
+        <article class="glass-card" data-fade data-delay="350">
+          <span class="glass-card__icon">❖</span>
+          <div class="glass-card__title">Advertising</div>
+          <div class="glass-card__sub">CAMPAIGN · MOTION</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<!-- ═══════════ CONTACT — budget + service vectors ═══════════ -->
+<section class="section sec-dark" id="contact" data-section>
+  <h2 class="sr-only">Start a project</h2>
+  <div class="bg-word" data-plx data-plx-speed="40" aria-hidden="true">CONTACT</div>
+  <div class="wrap contact-wrap">
+    <div class="sh-label" data-fade>Start A Project <b>[08]</b></div>
+    <p class="contact-lede" data-fade data-delay="80">
+      Tell us what you're building. Pick a budget, mark your vectors,
+      and we answer within <em>48 hours</em>.
+    </p>
+
+    <form class="contact-form" data-contact-form novalidate>
+      <div class="cf-row cf-row--2">
+        <div class="cf-field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" />
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@studio.com" required />
+          <span class="cf-error" data-cf-error hidden>needs a real email</span>
+        </div>
+      </div>
+
+      <fieldset class="cf-group">
+        <legend>Budget <span class="mono-note">// CHF</span></legend>
+        <div class="cf-pills" role="radiogroup">
+          <label class="cf-pill"><input type="radio" name="budget" value="<5K" /><span>&lt; 5K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="5-15K" checked /><span>5 – 15K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="15-50K" /><span>15 – 50K</span></label>
+          <label class="cf-pill"><input type="radio" name="budget" value="50K+" /><span>50K +</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="cf-group">
+        <legend>Vectors <span class="mono-note">// mark all that apply</span></legend>
+        <div class="cf-chips">
+          <label class="cf-chip"><input type="checkbox" name="vector" value="creative-direction" /><i></i><span>Creative Direction</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="branding" /><i></i><span>Branding</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="web-development" /><i></i><span>Web Development</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="creative-coding" /><i></i><span>Creative Coding</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="touchdesigner" /><i></i><span>TouchDesigner</span></label>
+          <label class="cf-chip"><input type="checkbox" name="vector" value="university" /><i></i><span>University</span></label>
+        </div>
+      </fieldset>
+
+      <div class="cf-field">
+        <label for="cf-msg">The project</label>
+        <textarea id="cf-msg" name="message" rows="4" placeholder="What are we building together?"></textarea>
+      </div>
+
+      <p class="cf-summary" data-cf-summary aria-live="polite">&gt; pick your vectors…</p>
+
+      <button type="submit" class="cf-submit" data-dirfill data-magnetic>SEND IT →</button>
+
+      <div class="cf-success" data-cf-success hidden>
+        <p class="cf-success__big">RECEIVED.</p>
+        <p>We answer in 48h. Or jump the queue:</p>
+        <a data-cf-mailto href="mailto:hello@southhustles.com">hello@southhustles.com ↗</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+  <!-- ═══════════ 16. FOOTER ═══════════ -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-menu">
+      <a href="#ecosystem">SERVICES</a>
+      <a href="#about">BLOG</a>
+      <a href="#footer">CONTACT</a>
+      <a href="#work">PROJECTS</a>
+      <a href="#about">ABOUT</a>
+    </div>
+
+    <div class="footer-giant">
+      <p class="footer-giant__type">Create memorable <em>experiences</em> <b>together.</b></p>
+      <div class="footer-email"><a href="mailto:hello@southhustles.com">hello@southhustles.com</a></div>
+
+      <div class="footer-news">
+        <p>Never miss out on the latest updates, trends, and inspirations. Subscribe to our newsletter and join us.</p>
+        <form class="footer-news__form" onsubmit="return false;">
+          <label class="sr-only" for="news-email">Email address</label>
+          <input id="news-email" type="email" name="email" placeholder="Your Email" aria-label="Your Email" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="footer__tagline">BASED IN GENEVA — WORKING WORLDWIDE</div>
+
+      <div class="footer-trust">
+        <div><b>GVA</b><span>Based in Geneva</span></div>
+        <div><b>∞</b><span>Working worldwide</span></div>
+        <div><b>8099</b><span>Switzerland</span></div>
+      </div>
+    </div>
+
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-name">South Hustles</div>
+        <div class="footer__brand-sub">creative studio — creative systems for a conscious era</div>
+        <div class="footer__brand-sub" style="margin-top:14px;">+1 22 123 4567</div>
+        <div class="footer__brand-sub">8099 Switzerland</div>
+      </div>
+      <div>
+        <div class="footer__col-title">Studio</div>
+        <ul class="footer__links">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">Studio</a></li>
+          <li><a href="#ecosystem">Services</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">More</div>
+        <ul class="footer__links">
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#university">University</a></li>
+          <li><a href="#work">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span class="footer__copy">© South Hustles 2026 — Based in Geneva, working worldwide.</span>
+      <div class="footer__socials">
+        <a class="footer__social" href="#" aria-label="LinkedIn">in</a>
+        <a class="footer__social" href="#" aria-label="Instagram">◎</a>
+        <a class="footer__social" href="#" aria-label="Mail">@</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/sh-main.js"></script>
+  <script type="module" src="js/sh2-main.js"></script>
+  <script type="module" src="js/sh3-main.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/*.tfstate
+infra/*.tfstate.*
+infra/*.tfplan
+infra/crash.log
+
+# local env / secrets — never commit AWS keys
+.env
+.env.*

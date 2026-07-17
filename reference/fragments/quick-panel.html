@@ -1,0 +1,62 @@
+<!-- ═══════════ SH2 · QUICK PANEL — right side-drawer (the + button's own thing).
+     Insert directly AFTER #menu-overlay. Styles: css/sh2-fx.css · JS: js/sh2-fx.js
+     (initQuickPanel — opens via [data-panel-open], closes via [data-panel-close]/Esc/backdrop).
+     The orchestrator re-points the nav + button to data-panel-open. ═══════════ -->
+<div class="quick-panel__backdrop" data-panel-close aria-hidden="true"></div>
+<aside id="quick-panel" class="quick-panel" role="dialog" aria-modal="true" aria-label="Quick panel" aria-hidden="true" tabindex="-1">
+  <h2 class="sr-only">Quick panel — index, latest projects and contact</h2>
+
+  <div class="quick-panel__head">
+    <div>
+      <div class="quick-panel__title">Quick <em>Index</em></div>
+      <div class="quick-panel__sub">South Hustles — creative studio</div>
+    </div>
+    <button type="button" class="quick-panel__close" data-panel-close aria-label="Close quick panel">✕</button>
+  </div>
+
+  <div class="quick-panel__body">
+
+    <div class="quick-panel__section-title">Index</div>
+    <nav class="quick-panel__index" aria-label="Quick section index">
+      <a href="#work" data-panel-close><span class="qp-num">01</span> Works <b>→</b></a>
+      <a href="#university" data-panel-close><span class="qp-num">02</span> University <b>→</b></a>
+      <a href="#about" data-panel-close><span class="qp-num">03</span> Journal <b>→</b></a>
+      <a href="#footer" data-panel-close><span class="qp-num">04</span> Contact <b>→</b></a>
+    </nav>
+
+    <div class="quick-panel__section-title">Latest projects</div>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">✦</span>
+      <span>
+        <span class="qp-card__name">Motion Atlas</span>
+        <span class="qp-card__meta">Development · 2024</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">◆</span>
+      <span>
+        <span class="qp-card__name">Neural Canvas</span>
+        <span class="qp-card__meta">Branding · 2023</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+    <a class="qp-card" href="#work" data-panel-close>
+      <span class="qp-card__thumb" aria-hidden="true">▲</span>
+      <span>
+        <span class="qp-card__name">CodeCraft</span>
+        <span class="qp-card__meta">Development · 2023</span>
+      </span>
+      <span class="qp-card__go" aria-hidden="true">→</span>
+    </a>
+
+    <div class="quick-panel__section-title">Preview</div>
+    <div class="qp-slot" data-cf-asset="hands-mountain-glb">
+      <span>hands-mountain.glb — asset slot</span>
+    </div>
+
+    <a class="quick-panel__cta" href="mailto:hello@southhustles.com">hello@southhustles.com →</a>
+
+    <div class="quick-panel__foot">Based in Geneva — working worldwide</div>
+  </div>
+</aside>

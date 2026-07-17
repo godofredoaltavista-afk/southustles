@@ -1,0 +1,55 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     SH2 FRAGMENT — THREE.JS BACKGROUND SECTIONS (two sections)
+     · #magnetic → insert AFTER #statement-2
+     · #gravity  → insert AFTER #university
+     Requires: css/sh2-three.css + js/sh2-three.js
+     (initMagneticField + initGravityFrames)
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════ SH2. MAGNETIC FIELD — anchor: #statement-2 ═══════════ -->
+<section class="section sec-dark" id="magnetic" data-section>
+  <h2 class="sr-only">A field that responds — interactive particle system</h2>
+
+  <!-- reserved Cloudflare asset: hands-on-mountain GLB background -->
+  <div class="sh2-cf-slot" data-cf-asset="hands-mountain-glb" aria-hidden="true">
+    <span class="sh2-cf-slot__note">// cf-asset: hands-mountain-glb — background drops here</span>
+  </div>
+
+  <canvas id="magneticCanvas" class="sh2-three-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap sh2-three-copy sh2-magnetic-copy">
+    <p class="eyebrow sh2-three-eyebrow" data-fade>FIELD&nbsp;//&nbsp;06</p>
+    <p class="sh2-three-giant" data-fade data-delay="80" aria-hidden="true">
+      A FIELD THAT <em>RESPONDS</em>
+    </p>
+    <p class="sh2-three-lede" data-fade data-delay="160">
+      Six thousand particles hold formation until you move. The system bends
+      around your cursor — then settles back into place. Interfaces should
+      behave the same way.
+    </p>
+    <p class="sh2-three-note" data-fade data-delay="240" aria-hidden="true">
+      repulsion r=1.8 · damping <b>0.93</b> · return-to-origin 0.01
+    </p>
+  </div>
+
+  <hr class="hairline" style="position: absolute; left: 0; right: 0; bottom: 0;" aria-hidden="true" />
+</section>
+
+<!-- ═══════════ SH2. GRAVITY FRAMES — anchor: #university ═══════════ -->
+<section class="section sec-dark" id="gravity" data-section>
+  <h2 class="sr-only">Work in zero gravity — floating project frames</h2>
+
+  <canvas id="gravityCanvas" class="sh2-three-canvas" aria-hidden="true"></canvas>
+
+  <div class="wrap sh2-three-copy sh2-gravity-copy">
+    <p class="sh2-gravity-idx" data-fade aria-hidden="true">GALLERY&nbsp;//&nbsp;07</p>
+    <p class="sh2-three-giant" data-fade data-delay="80" aria-hidden="true">
+      WORK IN <em>ZERO GRAVITY</em>
+    </p>
+    <p class="sh2-three-note" data-fade data-delay="180" aria-hidden="true">
+      14 frames · fibonacci-sphere spread · parallax ×3 — <b>hover one</b>
+    </p>
+  </div>
+
+  <hr class="hairline hairline--warm" style="position: absolute; left: 0; right: 0; bottom: 0;" aria-hidden="true" />
+</section>
