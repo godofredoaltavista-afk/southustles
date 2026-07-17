@@ -6,11 +6,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.6"
-    }
   }
 }
 
@@ -18,65 +13,12 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "random_id" "bucket_suffix" {
-  byte_length = 4
-}
-
-resource "aws_s3_bucket" "site_bucket" {
-  bucket = "${var.project_name}-${var.environment}-${random_id.bucket_suffix.hex}"
-
-  tags = {
-    Project     = var.project_name
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-    Owner       = "FrancoAltavista"
-  }
-}
-
-resource "aws_s3_bucket_website_configuration" "site_website" {
-  bucket = aws_s3_bucket.site_bucket.id
-
-  index_document {
-    suffix = "index.html"
-  }
-}
-
-resource "aws_s3_bucket_public_access_block" "site_public_access" {
-  bucket = aws_s3_bucket.site_bucket.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
-}
-
-resource "aws_s3_bucket_policy" "site_policy" {
-  bucket = aws_s3_bucket.site_bucket.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-
-    Statement = [
-      {
-        Sid    = "PublicReadGetObject"
-        Effect = "Allow"
-
-        Principal = "*"
-
-        Action = [
-          "s3:GetObject"
-        ]
-
-        Resource = [
-          "${aws_s3_bucket.site_bucket.arn}/*"
-        ]
-      }
-    ]
-  })
-
-  depends_on = [
-    aws_s3_bucket_public_access_block.site_public_access
-  ]
+# The S3 bucket, static website hosting, and public bucket policy were
+# already created by hand in the AWS console (south-hustles-prod, us-east-1)
+# — referenced here read-only so CloudFront can point at it. Terraform
+# never creates, modifies, or deletes the bucket itself.
+data "aws_s3_bucket" "site_bucket" {
+  bucket = var.bucket_name
 }
 
 resource "aws_cloudfront_distribution" "site_cdn" {
@@ -85,9 +27,15 @@ resource "aws_cloudfront_distribution" "site_cdn" {
   default_root_object = "index.html"
 
   origin {
-    domain_name = aws_s3_bucket_website_configuration.site_website.website_endpoint
-    origin_id   = "s3-website-${aws_s3_bucket.site_bucket.id}"
+    # aws_s3_bucket data source exposes website_endpoint directly once the
+    # bucket has static website hosting enabled — no separate data source
+    # needed (aws_s3_bucket_website_configuration has no `data` variant).
+    domain_name = data.aws_s3_bucket.site_bucket.website_endpoint
+    origin_id   = "s3-website-${data.aws_s3_bucket.site_bucket.id}"
 
+    # S3 website endpoints only ever speak plain HTTP — CloudFront is what
+    # terminates HTTPS for visitors (this is the fix for phones/carriers
+    # that force https:// and got nothing but a connection timeout).
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -97,7 +45,7 @@ resource "aws_cloudfront_distribution" "site_cdn" {
   }
 
   default_cache_behavior {
-    target_origin_id       = "s3-website-${aws_s3_bucket.site_bucket.id}"
+    target_origin_id       = "s3-website-${data.aws_s3_bucket.site_bucket.id}"
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods = ["GET", "HEAD"]
@@ -119,6 +67,9 @@ resource "aws_cloudfront_distribution" "site_cdn" {
   }
 
   viewer_certificate {
+    # Free *.cloudfront.net cert, works immediately — no domain validation
+    # wait. Swap for an ACM cert (us-east-1, required) once southhustles.com
+    # is ready to alias here.
     cloudfront_default_certificate = true
   }
 
@@ -130,7 +81,9 @@ resource "aws_cloudfront_distribution" "site_cdn" {
   }
 }
 
-# Current deployment target: S3 static website hosting behind CloudFront.
-# A custom domain (southhustles.com) + ACM cert + Route53 alias can be
-# added later as a separate, additive Terraform module — this stays
-# untouched until that's requested.
+# Only the CloudFront layer is managed here. The S3 bucket itself (name,
+# static website hosting, public bucket policy) was provisioned by hand in
+# the AWS console and stays that way — `terraform apply` only ever creates
+# the CloudFront distribution on top of it. A custom domain
+# (southhustles.com) + ACM cert (us-east-1) + Route53 alias can be added
+# later as a small, additive change to this same distribution.
