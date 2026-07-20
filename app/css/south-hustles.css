@@ -141,8 +141,17 @@
 body.menu-open .pill-btn--plus .plus-glyph { transform: rotate(135deg); }
 
 @media (max-width: 860px) {
-  .sh-nav__left { display: none; }
+  /* base.css's .nav already has overflow-x:auto + hidden scrollbar built in
+     for exactly this — it just never got a chance to run because this block
+     used to hard-hide .sh-nav__left instead of letting it shrink. min-width:0
+     is what lets a flex item shrink below its content's natural width; the
+     overflow:auto on .nav itself gives it an automatic min-content of 0, so
+     it can go all the way down and become a swipeable strip. */
+  .sh-nav__left { display: flex; min-width: 0; flex: 1 1 auto; }
   .pill-btn--works { display: none; }
+  .pill-btn, .pill-btn--plus, .theme-toggle { flex-shrink: 0; }
+  .sh-nav__center { flex-shrink: 0; }
+  .sh-nav__center span { display: none; }
 }
 
 /* ════════ 3. CUSTOM THEME TOGGLE (distinctive, not a plain sun/moon) ════════ */
@@ -540,6 +549,23 @@ html[data-theme='dark'] .theme-toggle__knob::before {
   letter-spacing: 0.2em;
   color: #fff;
   text-transform: uppercase;
+}
+/* live procedural 3D asset (js/preview-3d.js) fills the card; the label
+   drops to a caption strip along the bottom edge */
+.projects-preview .preview-3d {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.projects-preview:has(.preview-3d) span {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 7px 10px;
+  background: rgba(8, 8, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-align: center;
 }
 @media (max-width: 860px) {
   .project-row { grid-template-columns: 1fr auto; gap: 6px; opacity: 0.85; }
@@ -951,6 +977,294 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(0.8rem, 1.4vw, 1rem);
   color: var(--ink-1);
   margin-top: 8px;
+}
+
+/* ════════ LIVE SYSTEM — ant-on-mars-idiom HUD cards on the existing
+   .section--gradient-bn (white→gray→black) background. Dot-grid + a small
+   connected-dot constellation sit behind two floating cards: a dark
+   telemetry-style one (mono HUD readout) and a light one (stats row). ════════ */
+.live-sys { position: relative; overflow: hidden; padding-block: clamp(70px, 11vh, 130px); }
+.live-sys__dotgrid {
+  position: absolute; inset: 0; z-index: 0;
+  /* two layers: a fine even grid + a coarser scattered "starfield" layer,
+     both visible across the whole section (not just near the cards) */
+  background-image:
+    radial-gradient(rgba(244, 244, 245, 0.5) 1px, transparent 1.4px),
+    radial-gradient(rgba(244, 244, 245, 0.16) 1px, transparent 1px);
+  background-size: 140px 130px, 22px 22px;
+  background-position: 0 0, 0 0;
+}
+.live-sys__telemetry {
+  position: absolute; top: clamp(18px, 3vh, 34px); left: clamp(16px, 3vw, 40px); z-index: 1;
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  color: rgba(244, 244, 245, 0.45);
+  display: grid; gap: 2px;
+}
+.live-sys__telemetry b { color: rgba(244, 244, 245, 0.8); font-weight: 500; margin-left: 6px; }
+.live-sys__constellation {
+  position: absolute; top: 6%; right: 4%; z-index: 0;
+  width: min(38vw, 360px); height: auto; opacity: 0.5;
+}
+.live-sys__constellation line { stroke: var(--accent-soft); stroke-width: 1; }
+.live-sys__constellation circle { fill: var(--accent-soft); }
+.live-sys .wrap { position: relative; z-index: 1; }
+.live-sys .eyebrow { color: rgba(244, 244, 245, 0.72); }
+.live-sys .eyebrow b { color: var(--accent-soft); }
+
+.live-sys__cards {
+  margin-top: clamp(28px, 4vh, 48px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+.live-sys__card {
+  border-radius: var(--radius-m);
+  padding: clamp(22px, 3vw, 32px);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+}
+.live-sys__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+
+.live-sys__card--dark {
+  position: relative; /* anchors the orbital widget */
+  background: rgba(20, 20, 26, 0.7);
+  border: 1px solid rgba(244, 244, 245, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+/* ant-on-mars orbital-rings widget (js/orbital-widget.js) — 150px buffer
+   displayed at 76px so it stays crisp at DPR 2 */
+.live-sys__orbital {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 76px; height: 76px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.live-sys__hud {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 12px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+  margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid rgba(244, 244, 245, 0.12);
+}
+.live-sys__hud span { color: rgba(244, 244, 245, 0.5); text-transform: uppercase; }
+.live-sys__hud b { color: var(--accent-soft); font-weight: 500; text-align: right; }
+.live-sys__card--dark h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-grotesk); font-weight: 800; font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: #f4f4f5;
+}
+.live-sys__card--dark p.lede { margin: 0; font-size: 0.92rem; line-height: 1.6; }
+.live-sys__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.live-sys__tags span {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid rgba(244, 244, 245, 0.18); border-radius: 999px;
+  padding: 5px 12px; color: rgba(244, 244, 245, 0.75);
+}
+
+.live-sys__card--light {
+  background: #f4f4f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 60px -30px rgba(0, 0, 0, 0.5);
+}
+.live-sys__kicker {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #6a6a72; margin-bottom: 14px;
+}
+.live-sys__kicker b { color: var(--accent); }
+.live-sys__card--light h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-grotesk); font-weight: 800; font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: #111114;
+}
+.live-sys__card--light p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: #4a4a52; }
+.live-sys__stats {
+  display: flex; gap: clamp(18px, 3vw, 32px);
+  margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.live-sys__stats div { display: grid; gap: 2px; }
+.live-sys__stats b { font-family: var(--font-grotesk); font-weight: 900; font-size: 1.4rem; color: var(--accent); }
+.live-sys__stats span { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; color: #7a7a82; text-transform: uppercase; }
+
+@media (max-width: 720px) { .live-sys__constellation { display: none; } }
+
+/* ════════ THEME INVERSION for the two strict sections that ignored the
+   toggle (Franco: "hay secciones que no cambian de color con el toggle").
+   Same local-var re-declaration technique sh2-theme.css uses for
+   .sec-dark — in dark theme they flip to the LIGHT pole so the page
+   keeps alternating polarity. ════════ */
+
+/* #ig-feed base (light theme): make its dark bg self-consistent — the
+   section paints dark, so its token scale must be the dark one, or
+   children using var(--ink-*) (the lede) render dark-on-dark */
+.section--violet-bloom {
+  --bg-0: #0b0b0e; --bg-1: #121216; --bg-2: #1b1b21;
+  --ink-0: #f4f4f5; --ink-1: #b9b9c1; --ink-2: #84848e; --ink-3: #4c4c55;
+  --line: #26262d; --line-soft: #1f1f26;
+  --surface: #16161a;
+  color: var(--ink-0);
+}
+html[data-theme='dark'] .section--violet-bloom {
+  --bg-0: #e6e6e6; --bg-1: #f2f2f2; --bg-2: #dcdcdc;
+  --ink-0: #0d0d0f; --ink-1: #46464b; --ink-2: #77777d; --ink-3: #a9a9ad;
+  --line: #cfcfcf; --line-soft: #dcdcdc;
+  --surface: #fafafa;
+  color-scheme: light;
+  color: var(--ink-0);
+  background:
+    radial-gradient(52% 44% at 8% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(46% 40% at 100% 100%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 72%),
+    linear-gradient(180deg, #f0f0f0, #e4e4e8 55%, #f0f0f0);
+}
+
+html[data-theme='dark'] .section--inverted {
+  --bg-0: #e6e6e6; --bg-1: #ededed; --bg-2: #dcdcdc;
+  --bg-glass: rgba(230, 230, 230, 0.72);
+  --ink-0: #0d0d0f; --ink-1: #46464b; --ink-2: #77777d; --ink-3: #a9a9ad;
+  --line: #cfcfcf; --line-soft: #dcdcdc;
+  --surface: #f4f4f4; --surface-ink: #ffffff;
+  --shadow-card: 0 1px 2px rgba(13, 13, 15, 0.04), 0 16px 40px -24px rgba(13, 13, 15, 0.16);
+  color-scheme: light;
+  background: linear-gradient(180deg, #f0f0f0, #e2e2e2 55%, #ececec);
+}
+
+/* ════════ TRANSMISSION — 2nd white→black band: gray text + thin color strips ════════ */
+.transmission { position: relative; overflow: hidden; padding-block: clamp(70px, 11vh, 130px); }
+.transmission__dotgrid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: radial-gradient(rgba(244, 244, 245, 0.14) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+}
+.transmission .wrap { position: relative; z-index: 1; }
+.transmission .eyebrow { color: rgba(244, 244, 245, 0.72); }
+.transmission .eyebrow b { color: var(--accent-soft); }
+/* the "texto gris en el medio" — deliberately mid-gray on the dark stretch */
+.transmission__gray {
+  max-width: 46ch;
+  margin: clamp(20px, 3vh, 34px) auto;
+  text-align: center;
+  font-family: var(--font-grotesk); font-weight: 600;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  line-height: 1.5; letter-spacing: -0.01em;
+  color: #9a9aa4;
+}
+.transmission__strips {
+  max-width: 760px;
+  margin: clamp(26px, 4vh, 44px) auto 0;
+  display: grid; gap: 10px;
+}
+.transmission__strip {
+  display: flex; align-items: center; gap: 16px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--strip) 55%, transparent);
+  background: color-mix(in srgb, var(--strip) 12%, transparent);
+  color: #f4f4f5;
+  transition: transform 0.3s var(--ease-out), background 0.25s ease;
+}
+.transmission__strip:hover { transform: translateX(8px); background: color-mix(in srgb, var(--strip) 26%, transparent); }
+.transmission__strip b { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--strip); }
+.transmission__strip span { font-family: var(--font-grotesk); font-weight: 700; font-size: clamp(0.95rem, 1.6vw, 1.15rem); }
+.transmission__strip i { margin-left: auto; font-style: normal; color: var(--strip); transition: translate 0.3s var(--ease-out); }
+.transmission__strip:hover i { translate: 5px 0; }
+
+/* ════════ FROM THE FEED — IG product banners (two sizes) ════════ */
+.ig-feed { padding-block: clamp(70px, 11vh, 130px); }
+.ig-lede {
+  max-width: 38ch;
+  margin: 16px 0 0;
+  font-family: var(--font-grotesk); font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  letter-spacing: -0.02em;
+  color: var(--ink-0);
+}
+.ig-lede em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent-soft); }
+
+.ig-bento {
+  margin-top: clamp(26px, 4vh, 44px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 2vw, 24px);
+}
+.ig-card {
+  display: grid;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--bg-1);
+  color: var(--ink-0);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.ig-card:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  box-shadow: var(--shadow-lift);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+.ig-card--wide { grid-column: 1 / -1; grid-template-columns: 1.6fr 1fr; }
+@media (max-width: 720px) {
+  .ig-bento { grid-template-columns: 1fr; }
+  .ig-card--wide { grid-template-columns: 1fr; }
+}
+.ig-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(60% 90% at 25% 15%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(50% 80% at 85% 85%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 70%),
+    #101016;
+  overflow: hidden;
+}
+.ig-card--wide .ig-card__media { aspect-ratio: auto; min-height: clamp(220px, 30vw, 380px); }
+.ig-card__media video, .ig-card__media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  /* hidden until their inline onload/onloadeddata flips opacity — a
+     still-fetching (or 404ing) element never paints a black box over
+     the styled placeholder behind it */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.ig-card__slot-note {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 245, 0.5);
+  border: 1px dashed rgba(244, 244, 245, 0.25);
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.ig-card__body { display: grid; gap: 8px; align-content: center; padding: clamp(16px, 2.4vw, 28px); }
+.ig-card__kicker { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--accent); }
+.ig-card__body h3 {
+  margin: 0;
+  font-family: var(--font-grotesk); font-weight: 800;
+  font-size: clamp(1.1rem, 2vw, 1.5rem); letter-spacing: -0.02em;
+}
+.ig-card__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ig-card__tags span {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em;
+  color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 3px 10px;
+}
+.ig-card__cta {
+  margin-top: 4px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em;
+  color: var(--ink-1);
+  transition: color 0.2s ease, translate 0.3s var(--ease-out);
+}
+.ig-card:hover .ig-card__cta { color: var(--accent); translate: 5px 0; }
+.ig-follow {
+  display: inline-block;
+  margin-top: clamp(22px, 3.5vh, 36px);
+  padding: 14px 30px;
+  border: 1px solid var(--ink-0);
+  border-radius: 999px;
+  font-family: var(--font-grotesk); font-weight: 700; font-size: 0.95rem;
+  color: var(--ink-0);
 }
 
 /* screen-reader-only utility (newsletter label, visually-hidden h2s) */

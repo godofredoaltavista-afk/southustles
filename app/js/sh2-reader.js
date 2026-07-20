@@ -11,6 +11,7 @@
    ═══════════════════════════════════════════ */
 
 import { prefersReducedMotion } from './env.js';
+import { lockBodyScroll, unlockBodyScroll } from './scroll-lock.js';
 
 const LS_KEY = 'sh-dna-v1';
 
@@ -217,6 +218,7 @@ export function initReader() {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('menu-open'); // reuse scroll-lock
+    lockBodyScroll();
     sizeCanvas();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     modal.querySelector('.reader-modal__close').focus();
@@ -226,6 +228,7 @@ export function initReader() {
     modal.classList.remove('is-open', 'is-armed');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('menu-open');
+    unlockBodyScroll();
     activeTool = null;
     tools.forEach((b) => b.classList.remove('is-active'));
     if (lastFocus?.focus) lastFocus.focus();

@@ -8,6 +8,7 @@
    ═══════════════════════════════════════════ */
 
 import { fxEnabled, prefersReducedMotion } from './env.js';
+import { lockBodyScroll, unlockBodyScroll } from './scroll-lock.js';
 
 /* ────────────────────────────────────────────
    1. DIRECTIONAL BUTTON FILL
@@ -253,19 +254,32 @@ export function initWordRotator() {
    initFontSwap (2.2s).
    ──────────────────────────────────────────── */
 
+// font voices the swap cycles through — '' is the base grotesk, the rest
+// are additive classes (is-mono defined in south-hustles.css since pass-1;
+// the newer voices live in sh2-fx.css §4c). Franco: "en vez de ser solo
+// 2 fonts, sean varias mas".
+const SWAP_VOICES = ['', 'is-mono', 'is-serif', 'is-unbounded', 'is-bodoni'];
+
 export function initFontSwap2() {
   const els = document.querySelectorAll('[data-swap]');
   if (!els.length || prefersReducedMotion()) return;
+  const clear = (el) => SWAP_VOICES.forEach((v) => { if (v) el.classList.remove(v); });
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       const el = e.target;
       if (e.isIntersecting) {
         if (el._swapTimer2) return;
-        el._swapTimer2 = window.setInterval(() => el.classList.toggle('is-mono'), 1100);
+        el._swapVoice = el._swapVoice || 0;
+        el._swapTimer2 = window.setInterval(() => {
+          el._swapVoice = (el._swapVoice + 1) % SWAP_VOICES.length;
+          clear(el);
+          const v = SWAP_VOICES[el._swapVoice];
+          if (v) el.classList.add(v);
+        }, 1100);
       } else if (el._swapTimer2) {
         window.clearInterval(el._swapTimer2);
         el._swapTimer2 = null;
-        el.classList.remove('is-mono');
+        clear(el);
       }
     });
   }, { threshold: 0.4 });
@@ -318,6 +332,7 @@ export function initQuickPanel() {
     panel.classList.add('is-open');
     backdrop?.classList.add('is-open');
     document.body.classList.add('quick-panel-open');
+    lockBodyScroll();
     panel.setAttribute('aria-hidden', 'false');
     document.querySelectorAll('[data-panel-open]')
       .forEach((b) => b.setAttribute('aria-expanded', 'true'));
@@ -329,6 +344,7 @@ export function initQuickPanel() {
     panel.classList.remove('is-open');
     backdrop?.classList.remove('is-open');
     document.body.classList.remove('quick-panel-open');
+    unlockBodyScroll();
     panel.setAttribute('aria-hidden', 'true');
     document.querySelectorAll('[data-panel-open]')
       .forEach((b) => b.setAttribute('aria-expanded', 'false'));

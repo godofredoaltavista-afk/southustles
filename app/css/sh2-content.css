@@ -52,7 +52,11 @@
 .mt-beat p { margin: 0; font-size: 0.92rem; color: var(--ink-1); }
 
 /* ── case study (product page) ── */
-.case { position: relative; overflow: clip; }
+/* overflow-x stays clipped (the .case__glb 200vmax box-shadow full-bleed
+   trick would otherwise force a horizontal scrollbar); overflow-y must stay
+   visible or the sticky traveler's own scaled-up box gets cropped by .case's
+   own height right when it's meant to break free as a full-screen moment. */
+.case { position: relative; overflow-x: clip; overflow-y: visible; }
 
 /* the traveler — sticky visual that rides the chapter */
 .case__traveler {

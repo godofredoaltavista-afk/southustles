@@ -18,6 +18,9 @@ import { initReader } from './sh2-reader.js';
 import { initHoloFlip } from './sh2-flip.js';
 import { initCaseTraveler } from './sh2-case.js';
 import { initContactForm } from './sh2-form.js';
+import { initGlassCards } from './glass-cards.js';
+import { initPersonalization } from './personalization.js';
+import { initPreview3d } from './preview-3d.js';
 import { fxEnabled } from './env.js';
 
 function boot2() {
@@ -32,16 +35,19 @@ function boot2() {
   initWordRotator();
   initNavBooks();
   initQuickPanel();
+  initPersonalization();
   initReader();
   initHoloFlip();
   initContactForm();
   initReel();
   initCaseTraveler();
+  initGlassCards();
 
   // pointer-FX layer
   if (fxEnabled()) {
     initDirectionalButtons();
     initMagneticButtons();
+    initPreview3d(); // hover previews render procedural 3D per project
   }
 
   // heavy visual layers — each self-guards + pauses offscreen
@@ -49,6 +55,19 @@ function boot2() {
   initGravityFrames();
   initStickers();
   initFooterBalls();
+
+  // the ES/EN toggle rewrites innerHTML on several elements it shares with
+  // other modules — anything that DECORATES inside one of i18n.js's DICT
+  // targets gets wiped on every language switch and needs a re-run:
+  //  - #statement-2's [data-swap] span (font-swap driver loses its node)
+  //  - the University nav link's .nav-books mini-bookshelf (initNavBooks
+  //    appends INSIDE the same <a> that '.site-nav .nav a[href="#university"]'
+  //    overwrites — first load is fine since initI18n runs before
+  //    initNavBooks, but every toggle click after that deleted the shelf)
+  document.addEventListener('sh-lang-changed', () => {
+    initFontSwap2();
+    initNavBooks();
+  });
 }
 
 if (document.readyState === 'loading') {

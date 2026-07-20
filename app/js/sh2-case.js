@@ -9,6 +9,15 @@
 import { prefersReducedMotion, isCoarsePointer } from './env.js';
 import { getSectionProgress } from './scroll-parallax.js';
 
+// highest scale reached by the WAY table below (the full-screen takeover
+// moment) — sh3-glb.js imports these to size its canvas buffer once, up
+// front, instead of resizing mid-scroll (which stutters). Coarse/touch
+// devices used to cap at 0.8x (near-invisible zoom — "se queda chico
+// atrás"); 3.0 keeps a real full-screen moment on mobile without pushing
+// the buffer as large as desktop's 5.4x peak.
+export const CASE_MAX_SCALE = 5.4;
+export const CASE_MAX_SCALE_COARSE = 3.0;
+
 export function initCaseTraveler() {
   const sec = document.getElementById('case-study');
   const traveler = sec?.querySelector('[data-case-traveler]');
@@ -22,6 +31,9 @@ export function initCaseTraveler() {
   // — at ~0.55 the asset takes over the FULL SCREEN and the takeover
   //   text appears on top (Franco: "que ocupe todo el fondo y justo
   //   en ese momento aparece un texto").
+  // CASE_MAX_SCALE (exported below) must track the highest scale value here —
+  // sh3-glb.js sizes its GLB canvas buffer off it so the full-screen moment
+  // renders sharp instead of a blown-up small buffer.
   const WAY = [
     [0.00,  30,  6, 0.9,  -4],
     [0.16, -32, 10, 0.75,  5],
@@ -56,10 +68,15 @@ export function initCaseTraveler() {
   };
 
   const tick = () => {
-    current += (target - current) * 0.07; // heavy smoothing — it floats, never snaps
+    current += (target - current) * 0.09; // smoothed, slightly snappier than v1
     const [x, y, s, r] = sample(current);
+    // GLB mode: the wrapper stays near its laid-out size (≤1.55x) and the
+    // "takeover" drama is expressed by sh3-glb's CAMERA journey instead —
+    // a 5.4x CSS scale of a live canvas meant compositing a huge stretched
+    // buffer every frame ("no anda fluido"). SVG fallback keeps full scale.
+    const sEff = traveler.classList.contains('has-glb') ? Math.min(s, 1.55) : s;
     traveler.style.transform =
-      `translate(calc(-50% + ${x}vw), ${y}vh) scale(${s.toFixed(3)}) rotate(${r.toFixed(1)}deg)`;
+      `translate(calc(-50% + ${x}vw), ${y}vh) scale(${sEff.toFixed(3)}) rotate(${r.toFixed(1)}deg)`;
     // full-screen takeover window
     const full = current >= FULL_IN && current <= FULL_OUT;
     traveler.classList.toggle('is-full', full);
@@ -80,5 +97,5 @@ export function initCaseTraveler() {
   io.observe(sec);
 
   // touch devices: smaller, gentler ride (CSS handles size; damp motion)
-  if (coarse) WAY.forEach((w) => { w[1] *= 0.4; w[3] = Math.min(w[3], 0.8); });
+  if (coarse) WAY.forEach((w) => { w[1] *= 0.4; w[3] = Math.min(w[3], CASE_MAX_SCALE_COARSE); });
 }

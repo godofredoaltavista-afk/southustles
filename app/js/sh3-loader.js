@@ -72,7 +72,10 @@ export function initShaderLoader() {
 
   const uniforms = { uTime: { value: 0 } };
   const blob = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.15, 48),
+    // detail 24, not 48: 48 ≈ 46k faces — needless for a 2.3s cameo and a
+    // real chunk of the first-paint stutter. 24 (~11.5k) is visually
+    // identical once the vertex noise is moving.
+    new THREE.IcosahedronGeometry(1.15, 24),
     new THREE.ShaderMaterial({ uniforms, vertexShader: VERT, fragmentShader: FRAG })
   );
   scene.add(blob);

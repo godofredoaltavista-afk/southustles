@@ -8,6 +8,8 @@
    Opened via [data-page-open]; deep-linked #/works.
    ═══════════════════════════════════════════ */
 
+import { lockBodyScroll, unlockBodyScroll } from './scroll-lock.js';
+
 const PROJECTS = [
   { slug: 'data-symphony', name: 'Data Symphony', em: 'Symphony', year: 2022, who: 'MARCEL · JULY', disc: 'DEVELOPMENT · GENERATIVE', art: 'assets/projects/data-symphony.svg', blurb: 'Forty years of concert programmes turned into a living identity — a TouchDesigner network that composes visuals the way the orchestra composes sound.' },
   { slug: 'codecraft', name: 'CodeCraft', em: 'Craft', year: 2023, who: 'MICHAEL · JANUARY', disc: 'DESIGN · EDUCATION', art: 'assets/projects/codecraft.svg', blurb: 'A design system that behaves like a curriculum: modular lessons, composable blocks, a type scale that levels up.' },
@@ -108,6 +110,7 @@ export function initPages() {
     host.classList.add('is-open');
     host.setAttribute('aria-hidden', 'false');
     document.body.classList.add('menu-open');
+    lockBodyScroll();
     host.querySelector('.sh-page__scroll').scrollTop = 0;
     host.querySelector('.sh-page__close')?.focus();
     try { history.replaceState(null, '', `#/${kind}${arg ? ':' + arg : ''}`); } catch {}
@@ -118,6 +121,7 @@ export function initPages() {
     host.classList.remove('is-open');
     host.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('menu-open');
+    unlockBodyScroll();
     try { history.replaceState(null, '', location.pathname); } catch {}
     if (lastFocus?.focus) lastFocus.focus();
   };
