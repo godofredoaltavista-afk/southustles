@@ -165,22 +165,29 @@ html[data-theme='dark'] .section--gradient-bn {
 .section--gradient-bn .lede { color: rgba(244, 244, 245, 0.72); }
 
 /* ghost background words — large outline-only type sitting
-   behind a section title. Purely decorative. */
+   behind a section title. Purely decorative.
+   Franco: pin them to the screen edges (not floating loose in the
+   middle), push the parallax travel much harder, drop the opacity a
+   touch more, and give them a more creative voice — the italic serif
+   used for "creative studio" (same idea as the footer's mixed-weight
+   "Create memorable experiences" headline). */
 .bg-word {
   position: absolute;
   z-index: 0;
-  left: 50%;
   top: 50%;
-  translate: -50% -50%;
-  font-family: var(--font-display);
+  translate: 0 -50%; /* vertical center only — horizontal is edge-anchored below */
+  font-family: var(--font-serif);
+  font-style: italic;
   font-size: clamp(90px, 22vw, 280px);
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink-0) 12%, transparent);
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink-0) 8%, transparent);
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
 }
+.bg-word--edge-l { left: -3%; }
+.bg-word--edge-r { left: auto; right: -3%; }
 .section-head, .repo-header, .glosario-header { position: relative; z-index: 1; }
 
 /* hand-written margin annotations — mono notes pinned at an angle
@@ -195,17 +202,33 @@ html[data-theme='dark'] .section--gradient-bn {
   letter-spacing: 0.04em;
   color: var(--ink-2);
   padding: 10px 14px;
-  border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  /* resting state: a hairline instead of the dashed rule, a touch more
+     see-through, a barely-there parallel shadow for a glass-pane feel —
+     the dashed "annotation" line only earns its keep on hover */
+  border: 0.3px solid color-mix(in srgb, var(--ink-0) 28%, transparent);
   border-radius: 4px;
-  background: color-mix(in srgb, var(--bg-0) 72%, transparent);
+  background: color-mix(in srgb, var(--bg-0) 58%, transparent);
   backdrop-filter: blur(3px);
+  box-shadow: 1px 1px 0 0 color-mix(in srgb, var(--ink-0) 5%, transparent);
   transform: rotate(-2deg);
-  pointer-events: none;
+  pointer-events: auto;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  animation: bg-note-drift 8s ease-in-out infinite;
+}
+.bg-note:hover {
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--bg-0) 78%, transparent);
+  box-shadow: none;
 }
 .bg-note b { color: var(--accent); font-weight: 500; }
 .bg-note--right { transform: rotate(1.8deg); }
-.bg-note--warm { border-color: color-mix(in srgb, var(--accent-2) 45%, transparent); }
+.bg-note--warm:hover { border-color: color-mix(in srgb, var(--accent-2) 45%, transparent); }
 .bg-note--warm b { color: var(--accent-2); }
+@keyframes bg-note-drift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+@media (prefers-reduced-motion: reduce) { .bg-note { animation: none; } }
 @media (max-width: 900px) { .bg-note { display: none; } }
 
 /* ── colored hairlines (the mid-section outline language) ── */

@@ -10,6 +10,7 @@ import { initTheme } from './theme.js';
 import { initI18n } from './i18n.js';
 import { initReveal } from './reveal.js';
 import { initLoader, initHeroTypewriter } from './intro.js';
+import { initShaderLoader } from './sh3-loader.js';
 import { initMarquees } from './marquee.js';
 import { applyHoloTilt } from './holo-tilt.js';
 import { initParallaxLayers, getSectionProgress } from './scroll-parallax.js';
@@ -217,18 +218,55 @@ function initMarqueeMenuFollow() {
   });
 }
 
+/* ── (f-bis) mq-menu speed: base pace ~1.7x the old implicit 30s default,
+   plus scroll velocity compresses the duration further — "que pase mas
+   rapido... y que hasta con el scroll se apure y se desacelere". ── */
+function initMqMenuSpeed() {
+  const menus = [...document.querySelectorAll('.mq-menu')];
+  if (!menus.length || prefersReducedMotion()) return;
+  const BASE = 17; // seconds — was implicitly 30s (var(--marquee-speed, 30s))
+  const MIN = 9;   // fastest it's allowed to spin under scroll (was 5 — a
+                    // normal scroll flick pinned it there almost instantly,
+                    // "muy rapido con scroll")
+  menus.forEach((m) => m.style.setProperty('--marquee-speed', `${BASE}s`));
+
+  let lastY = window.scrollY, vel = 0, raf = null;
+  const tick = () => {
+    const y = window.scrollY;
+    vel += (Math.abs(y - lastY) - vel) * 0.15; // smoothed scroll speed
+    lastY = y;
+    const dur = Math.max(MIN, BASE - vel * 0.07); // gentler coupling
+    menus.forEach((m) => m.style.setProperty('--marquee-speed', `${dur.toFixed(2)}s`));
+    raf = requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { if (!raf) raf = requestAnimationFrame(tick); }
+    else if (raf) { cancelAnimationFrame(raf); raf = null; }
+  }, { threshold: 0 });
+  menus.forEach((m) => io.observe(m));
+}
+
 /* ── (g) perspective (Star-Wars) text: slight scroll tilt via getSectionProgress ── */
 function initPerspective() {
-  if (prefersReducedMotion() || isCoarsePointer()) return;
+  // used to also gate on isCoarsePointer() — that's why mobile barely
+  // tilted (this whole scroll-driven rotateX never ran there). It only
+  // needs the 'scroll' event, which fires on touch-scroll too, so it's
+  // safe to run on mobile as well.
+  if (prefersReducedMotion()) return;
   const stage = document.querySelector('.perspective-sec');
   const text = document.querySelector('.perspective-text');
   if (!stage || !text) return;
   let ticking = false;
   const update = () => {
     const p = getSectionProgress(stage);      // 0..1
-    const tilt = 26 + (1 - p) * 22;            // steeper on entry, flatter as it passes
+    // was 26–48deg — the 48deg entry peak was the actual cause of the
+    // persistent bottom/edge crop (this JS overrides the static CSS
+    // rotateX every scroll frame, so tuning the CSS value alone never
+    // touched what was really rendering). 18–30 keeps the crawl-tilt
+    // feel without the extreme flare.
+    const tilt = 18 + (1 - p) * 12;
     // add a receding translateZ so the crawl actually pulls back (fidelity fix)
-    const z = -60 - (1 - p) * 120;
+    const z = -40 - (1 - p) * 70;
     text.style.transform = `rotateX(${tilt.toFixed(2)}deg) translateZ(${z.toFixed(0)}px)`;
     ticking = false;
   };
@@ -326,6 +364,15 @@ function initHoloTeasers() {
 
 /* ── boot ── */
 function boot() {
+  // the shader blob goes FIRST, before anything else — it used to be
+  // called from sh3-main.js (the 3rd of 3 module scripts), meaning the
+  // loader's 0%→100% counter (below) always started ticking well before
+  // Three.js even began fetching/compiling. Franco: "que no cargue con
+  // el violeta sino directamente con esa burbuja". Moving the call here
+  // starts the blob's own work at the earliest possible instant, in
+  // parallel with everything boot()/boot2() do afterward.
+  initShaderLoader();
+
   // theme + reveal + loader first
   initTheme();
   initThemeMirror();
@@ -350,6 +397,7 @@ function boot() {
     initEcoCards();
     initProjects();
     initMarqueeMenuFollow();
+    initMqMenuSpeed();
     initHoloTeasers();
   }
 }

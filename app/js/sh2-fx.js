@@ -28,7 +28,11 @@ function edgeOf(e, el) {
 
 export function initDirectionalButtons() {
   if (!fxEnabled()) return;
-  const els = document.querySelectorAll('.pill-btn, .discover-btn, [data-dirfill]');
+  // Franco: menu hovers felt laggy ("cambia el color con delay") — give
+  // the full-screen menu links the same fast directional ink-sweep +
+  // inverted-text-on-fill treatment the pill buttons already have,
+  // instead of a plain color fade.
+  const els = document.querySelectorAll('.pill-btn, .discover-btn, .menu-overlay__link, [data-dirfill]');
   if (!els.length) return;
 
   els.forEach((el) => {

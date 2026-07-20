@@ -33,7 +33,8 @@
   background: var(--fill);
   border-radius: inherit;
   transform: translateY(101%); /* resting default: parked at bottom edge */
-  transition: transform var(--dirfill-t, 0.38s) var(--ease-out);
+  /* snappier — Franco: "que cargue animado rapido... al toque" */
+  transition: transform var(--dirfill-t, 0.22s) var(--ease-out);
   pointer-events: none;
 }
 .dirfill[data-dir='top']::before { transform: translateY(-101%); }

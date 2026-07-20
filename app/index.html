@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#e6e6e6" />
   <title>South Hustles — Creative Studio</title>
   <meta name="description" content="South Hustles Creative Studio — Creative Systems for a Conscious Era. Direction, technology and emotion for experiences that live in digital space." />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
 
   <!-- no-flash theme: set data-theme BEFORE first paint -->
   <script>
@@ -74,9 +75,11 @@
   <!-- ═══════════ 1. LOADER ═══════════ -->
   <div id="loader" class="loader-screen" aria-hidden="true">
     <div class="loader-inner">
-      <div class="loader-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="loader-wordmark">South Hustles<small>creative studio</small></div>
       <div class="loader-count" data-loader-count>0%</div>
+      <div class="loader-track" aria-hidden="true">
+        <div class="loader-track__fill" data-loader-fill></div>
+      </div>
     </div>
   </div>
 
@@ -215,10 +218,32 @@
   <!-- follow-icon for marquee menu -->
   <div class="mq-follow" aria-hidden="true"><span>◆</span></div>
 
+  <!-- ═══════════ FOOTER HUD — persistent, fixed corners mirroring the
+       real footer content (Franco: "que queden todo el tiempo en la
+       pantalla, sin modificar" the footer itself). Reuses the exact
+       .footer__social buttons/classes so the existing magnetic pull +
+       directional paint-fill just apply — nothing new to wire there. ═══ -->
+  <div class="footer-hud-stage" aria-hidden="true"></div>
+  <div class="footer-hud footer-hud--left" aria-hidden="true">
+    <svg class="footer-hud__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
+      <circle cx="12" cy="12" r="8.5" />
+      <ellipse cx="12" cy="12" rx="3.6" ry="8.5" />
+      <line x1="3.5" y1="12" x2="20.5" y2="12" />
+      <path d="M5 7.2 h14 M5 16.8 h14" />
+    </svg>
+    <span class="footer-hud__flags">🇦🇷🇲🇽</span>
+    <span class="footer-hud__text">AR · MEX — WORKING WORLDWIDE</span>
+  </div>
+  <div class="footer-hud footer-hud--right">
+    <a class="footer__social" href="#" data-dirfill aria-label="LinkedIn">in</a>
+    <a class="footer__social" href="#" data-dirfill aria-label="Instagram">◎</a>
+    <a class="footer__social" href="#" data-dirfill aria-label="Mail">@</a>
+  </div>
+
   <!-- ═══════════ 5. HERO ═══════════ -->
   <section class="section sh-hero" id="hero" data-section>
     <canvas id="hero-glb" aria-hidden="true"></canvas>
-    <div class="bg-word" data-plx data-plx-speed="-70" aria-hidden="true">STUDIO</div>
+    <div class="bg-word bg-word--edge-l" data-plx data-plx-speed="-320" aria-hidden="true">STUDIO</div>
     <span class="sh-hero__side" aria-hidden="true">Creative systems that expand culture.</span>
 
     <p class="eyebrow sh-hero__eyebrow" data-fade>South Hustles — Creative Studio · [01]</p>
@@ -305,6 +330,22 @@
     </div>
   </section>
 
+  <!-- ═══════════ 6b. PERSPECTIVE (STAR WARS) — moved here, right before
+       Ecosystem, per Franco. ═══════════ -->
+  <section class="section section--gradient-bn perspective-sec" id="perspective" data-section>
+    <h2 class="sr-only">Our philosophy</h2>
+    <div class="perspective-img" aria-hidden="true"><img src="assets/perspective/hands-eyes.gif" alt="" loading="lazy" /></div>
+    <div class="perspective-stage">
+      <p class="perspective-text">
+        WE COMBINE ARTISTIC <em>INTUITION</em> WITH TECHNOLOGICAL PRECISION TO CREATE VISUAL
+        SYSTEMS THAT DON'T JUST LOOK ADVANCED, THEY <em>BELONG TO THE FUTURE.</em>
+      </p>
+    </div>
+    <div class="bg-note bg-note--right" style="right: 5vw; bottom: -34px;">
+      <b>note//</b> intuition is just precision that hasn't been measured yet.
+    </div>
+  </section>
+
   <!-- ═══════════ 7. ECOSYSTEM CARDS ═══════════ -->
   <section class="section" id="ecosystem" data-section>
     <h2 class="sr-only">Our creative ecosystem</h2>
@@ -382,18 +423,10 @@
 </section>
 
 
-  <!-- ═══════════ 8. MARQUEE (dark) ═══════════ -->
-  <div class="marquee marquee--dark" aria-hidden="true" style="--marquee-speed: 28s;">
-    <div class="marquee__track">
-      <span class="marquee__chunk">SERVICES <span class="marquee__sep">✦</span> BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span></span>
-      <span class="marquee__chunk">SERVICES <span class="marquee__sep">✦</span> BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span></span>
-    </div>
-  </div>
-
   <!-- ═══════════ 9. ABOUT / STORY ═══════════ -->
   <section class="section" id="about" data-section data-grad="up">
     <h2 class="sr-only">About the studio</h2>
-    <div class="bg-word" data-plx data-plx-speed="60" aria-hidden="true">STUDIO</div>
+    <div class="bg-word bg-word--edge-r" data-plx data-plx-speed="280" aria-hidden="true">STUDIO</div>
     <div class="wrap">
       <p class="eyebrow" data-fade>The Studio · [03]</p>
       <p class="sh-story-lead" data-fade data-delay="80">
@@ -432,7 +465,7 @@
 <!-- ═══════════ STUDIO MANIFESTO — dense about chapter ═══════════ -->
 <section class="section sec-dark" id="studio-manifesto" data-section data-lines>
   <h2 class="sr-only">Studio manifesto</h2>
-  <div class="bg-word" data-plx data-plx-speed="-50" aria-hidden="true">STUDIO</div>
+  <div class="bg-word bg-word--edge-l" data-plx data-plx-speed="-260" aria-hidden="true">STUDIO</div>
   <div class="wrap wrap--wide manif">
     <div class="sh-label" data-fade>The Studio <b>[03.b]</b></div>
 
@@ -488,7 +521,7 @@
   <!-- ═══════════ 10. PROJECTS / WORK ═══════════ -->
   <section class="section section--inverted" id="work" data-section>
     <h2 class="sr-only">Work and projects</h2>
-    <div class="bg-word" data-plx data-plx-speed="-80" aria-hidden="true">WORK</div>
+    <div class="bg-word bg-word--edge-r" data-plx data-plx-speed="-340" aria-hidden="true">WORK</div>
     <div class="wrap wrap--wide">
       <div class="sh-label" data-fade>Selected Projects <b>[04]</b></div>
 
@@ -876,41 +909,10 @@
     </div>
   </div>
 
-  <!-- ═══════════ 11c. TRANSMISSION — second white→black gradient band
-       (Franco: "backgrounds de degradado a blanco... texto gris en el
-       medio, cards finas de color"). Reuses .section--gradient-bn like
-       Live System / Star Wars; the strips pick up the uni palette that
-       University introduces right below. ═══════════ -->
-  <section class="section section--gradient-bn transmission" id="transmission" data-section>
-    <div class="transmission__dotgrid" aria-hidden="true" data-plx data-plx-speed="-12"></div>
-    <div class="wrap">
-      <div class="eyebrow" data-fade>Transmission <b>[05.pre]</b></div>
-      <p class="transmission__gray" data-fade data-delay="100">
-        Everything the studio learns building systems flows downhill — into courses,
-        open rigs and field notes. The agency feeds the school; the school sharpens
-        the agency. Nothing we know stays locked in a client deck.
-      </p>
-      <div class="transmission__strips">
-        <a class="transmission__strip" href="#university" data-fade style="--strip: var(--uni-red)">
-          <b>01</b><span>Direction becomes curriculum</span><i>→</i>
-        </a>
-        <a class="transmission__strip" href="#university" data-fade data-delay="80" style="--strip: var(--uni-amber)">
-          <b>02</b><span>Rigs become open tools</span><i>→</i>
-        </a>
-        <a class="transmission__strip" href="#university" data-fade data-delay="160" style="--strip: var(--uni-green)">
-          <b>03</b><span>Process becomes field notes</span><i>→</i>
-        </a>
-        <a class="transmission__strip" href="#university" data-fade data-delay="240" style="--strip: var(--uni-blue)">
-          <b>04</b><span>Students become the studio</span><i>→</i>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════ 12. UNIVERSITY ═══════════ -->
   <section class="section" id="university" data-section data-lines>
     <h2 class="sr-only">University</h2>
-    <div class="bg-word" data-plx data-plx-speed="70" aria-hidden="true">UNIVERSITY</div>
+    <div class="bg-word bg-word--edge-l" data-plx data-plx-speed="300" aria-hidden="true">UNIVERSITY</div>
     <div class="wrap wrap--wide">
       <div class="sh-label" data-fade>Visualizing Wisdom · University <b>[05]</b></div>
       <p class="uni-lead" data-fade data-delay="80">
@@ -948,6 +950,9 @@
           </div>
         </article>
       </div>
+    </div>
+    <div class="bg-note bg-note--right bg-note--warm" style="right: 5vw; bottom: -34px;">
+      <b>note//</b> zero gravity is just enough distance to see the pattern.
     </div>
   </section>
 
@@ -1092,25 +1097,6 @@
 </section>
 
 
-  <!-- ═══════════ 13. MARQUEE (violet, reverse) ═══════════ -->
-  <div class="marquee marquee--violet marquee--rev" aria-hidden="true" style="--marquee-speed: 32s;">
-    <div class="marquee__track">
-      <span class="marquee__chunk">BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> SERVICES <span class="marquee__sep">✦</span></span>
-      <span class="marquee__chunk">BLOG <span class="marquee__sep">✦</span> CONTACT <span class="marquee__sep">✦</span> ABOUT <span class="marquee__sep">✦</span> PROJECTS <span class="marquee__sep">✦</span> SERVICES <span class="marquee__sep">✦</span></span>
-    </div>
-  </div>
-
-  <!-- ═══════════ 14. PERSPECTIVE (STAR WARS) ═══════════ -->
-  <section class="section section--gradient-bn perspective-sec" id="perspective" data-section>
-    <h2 class="sr-only">Our philosophy</h2>
-    <div class="perspective-img" aria-hidden="true"><span>HANDS · EYES.PNG</span></div>
-    <div class="perspective-stage">
-      <p class="perspective-text">
-        WE COMBINE ARTISTIC <em>INTUITION</em> WITH TECHNOLOGICAL PRECISION TO CREATE VISUAL
-        SYSTEMS THAT DON'T JUST LOOK ADVANCED, THEY <em>BELONG TO THE FUTURE.</em>
-      </p>
-    </div>
-  </section>
 
   <!-- ═══════════ 15. SYSTEMS / STACK glass-grid ═══════════ -->
   <section class="section" id="systems" data-section data-grad="from-dark" data-lines>
@@ -1185,7 +1171,7 @@
 <!-- ═══════════ CONTACT — budget + service vectors ═══════════ -->
 <section class="section sec-dark" id="contact" data-section>
   <h2 class="sr-only">Start a project</h2>
-  <div class="bg-word" data-plx data-plx-speed="40" aria-hidden="true">CONTACT</div>
+  <div class="bg-word bg-word--edge-r" data-plx data-plx-speed="220" aria-hidden="true">CONTACT</div>
   <div class="wrap contact-wrap">
     <div class="sh-label" data-fade>Start A Project <b>[08]</b></div>
     <p class="contact-lede" data-fade data-delay="80">
@@ -1333,13 +1319,11 @@
       </div>
     </div>
 
+    <!-- socials moved to the persistent .footer-hud--right pill (always
+         on screen, including here) — having them twice at the real
+         footer duplicated/overlapped it when scrolled all the way down. -->
     <div class="footer__bottom">
       <span class="footer__copy">© South Hustles 2026 — Based in Argentina and Mexico, working worldwide.</span>
-      <div class="footer__socials">
-        <a class="footer__social" href="#" aria-label="LinkedIn">in</a>
-        <a class="footer__social" href="#" aria-label="Instagram">◎</a>
-        <a class="footer__social" href="#" aria-label="Mail">@</a>
-      </div>
     </div>
   </footer>
 

@@ -55,6 +55,11 @@ function boot2() {
   initGravityFrames();
   initStickers();
   initFooterBalls();
+  // persistent HUD strip: fewer + staggered respawn (~2.2s dormant on avg
+  // @60fps) instead of the dense constant footer version. Circular, not
+  // the polygon "blob" — Franco: "que vuelvan a ser circulares" (the
+  // faceted wobble read as dotted lines at this tiny size, not organic).
+  initFooterBalls('.footer-hud-stage', 'footer-hud-balls', 2, { bubble: false, respawnDelayFrames: 130 });
 
   // the ES/EN toggle rewrites innerHTML on several elements it shares with
   // other modules — anything that DECORATES inside one of i18n.js's DICT
