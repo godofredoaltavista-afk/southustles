@@ -108,10 +108,41 @@
   .word-rotator > span { transition: none; }
 }
 
-/* ════════ 5. STAR-WARS OVERFLOW FIX ════════
-   The tilted plane must never escape the section box. */
+/* ════════ 4c. FONT-SWAP EXTRA VOICES ════════
+   initFontSwap2 cycles [data-swap] through 5 typographic
+   voices. is-mono is pass-1 (south-hustles.css); these are
+   the new ones. Each keeps its own accent so every swap
+   also shifts colour temperature. */
 
-.perspective-sec { overflow: clip; }
+.font-swap.is-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accent-soft);
+}
+.font-swap.is-unbounded {
+  font-family: 'Unbounded', var(--font-grotesk);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+.font-swap.is-bodoni {
+  font-family: 'Bodoni Moda', var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--uni-amber);
+}
+
+/* ════════ 5. STAR-WARS OVERFLOW FIX ════════
+   The tilted plane must never escape the section box.
+   overflow:clip here was still hard-cutting the rotated text on wide
+   screens — the vertical fade is already handled by .perspective-stage's
+   mask-image below, so clipping isn't load-bearing. Falls back on the
+   same global html{overflow-x:hidden} backstop the rest of the site
+   already relies on (see south-hustles.css) instead of a local clip. */
+.perspective-sec { overflow: visible; }
 .perspective-stage {
   overflow: visible;
   max-width: min(92vw, 1100px);
@@ -377,6 +408,40 @@ body.quick-panel-open { overflow: hidden; }
   text-transform: uppercase;
   color: var(--ink-2);
 }
+
+/* display settings (text-size stepper) */
+.qp-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+.qp-display__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-1);
+}
+.qp-stepper { display: flex; gap: 4px; }
+.qp-stepper button {
+  min-width: 30px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-1);
+  font-family: var(--font-grotesk);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.qp-stepper button sup { font-size: 0.6em; }
+.qp-stepper button:hover { border-color: var(--accent); color: var(--accent); }
+.qp-stepper button.is-active { background: var(--ink-0); border-color: var(--ink-0); color: var(--bg-0); }
 
 /* email CTA */
 .quick-panel__cta {

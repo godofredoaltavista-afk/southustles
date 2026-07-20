@@ -25,7 +25,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;700&family=Bodoni+Moda:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
 
   <!-- import map (three not loaded this pass; reserved for #hero-glb) -->
   <script type="importmap">
@@ -34,6 +34,20 @@
     "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
   }}
   </script>
+  <!-- the loader's shader blob (js/sh3-loader.js) needs three.js the moment
+       #loader appears, but as a bare module import it only starts fetching
+       once the browser reaches the bottom-of-body <script> tags — this
+       preload starts that fetch immediately, in parallel with fonts/CSS,
+       so the blob shows up much closer to when the loader itself does. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
+  <link rel="modulepreload" href="js/sh3-loader.js" />
+  <!-- the hands.on.mountain GLB (Cloudflare R2) feeds BOTH the hero and the
+       case traveler via js/glb-cache.js (one fetch, one parse). Kicking the
+       download off here — before any module runs — instead of waiting for
+       boot means the model is usually already in cache when three.js asks. -->
+  <link rel="preconnect" href="https://pub-6aa6b6baa3b043bf9598c7429620b422.r2.dev" crossorigin />
+  <link rel="preload" as="fetch" href="https://pub-6aa6b6baa3b043bf9598c7429620b422.r2.dev/hands.on.mountain.glb" crossorigin />
 
   <!-- design system CSS — tokens FIRST, south-hustles LAST (overrides) -->
   <link rel="stylesheet" href="css/tokens.css" />
@@ -90,6 +104,7 @@
         <span class="theme-toggle__grid"></span>
         <span class="theme-toggle__knob"></span>
       </button>
+      <button type="button" class="pill-btn lang-toggle" data-lang-toggle aria-label="Cambiar a español">EN</button>
     </div>
   </header>
 
@@ -108,7 +123,7 @@
     </nav>
     <div class="menu-overlay__foot">
       <span>hello@southhustles.com</span>
-      <span>Based in Geneva — working worldwide</span>
+      <span>Based in Argentina — Mexico, working worldwide</span>
       <span>© South Hustles 2026</span>
     </div>
   </div>
@@ -170,9 +185,19 @@
       <span>hands-mountain.glb — asset slot</span>
     </div>
 
+    <div class="quick-panel__section-title">Display</div>
+    <div class="qp-display">
+      <span class="qp-display__label">Text size</span>
+      <div class="qp-stepper" data-text-scale role="group" aria-label="Text size">
+        <button type="button" data-scale="0.92" aria-label="Smaller text">A<sup>-</sup></button>
+        <button type="button" data-scale="1" aria-label="Default text size">A</button>
+        <button type="button" data-scale="1.18" aria-label="Larger text">A<sup>+</sup></button>
+      </div>
+    </div>
+
     <a class="quick-panel__cta" href="mailto:hello@southhustles.com">hello@southhustles.com →</a>
 
-    <div class="quick-panel__foot">Based in Geneva — working worldwide</div>
+    <div class="quick-panel__foot">Based in Argentina — Mexico, working worldwide</div>
   </div>
 </aside>
 
@@ -209,18 +234,69 @@
     </div>
   </section>
 
+  <!-- ═══════════ 5b. LIVE SYSTEM — gradient white→gray→black idiom
+       (reuses .section--gradient-bn, same class the Star Wars section
+       uses) + floating HUD-style cards + a small connected-dot
+       constellation, in the spirit of ant-on-mars's mission cards. ═══════════ -->
+  <section class="section section--gradient-bn live-sys" id="live-system" data-section data-grad="up">
+    <div class="live-sys__dotgrid" aria-hidden="true" data-plx data-plx-speed="-14"></div>
+    <svg class="live-sys__constellation" aria-hidden="true" viewBox="0 0 400 220" data-plx data-plx-speed="-38">
+      <line x1="24" y1="46" x2="126" y2="96" />
+      <line x1="126" y1="96" x2="96" y2="168" />
+      <line x1="126" y1="96" x2="236" y2="64" />
+      <line x1="236" y1="64" x2="336" y2="126" />
+      <line x1="236" y1="64" x2="304" y2="24" />
+      <g class="live-sys__node"><circle cx="24" cy="46" r="3"></circle><text x="32" y="43">DIRECTION</text></g>
+      <g class="live-sys__node"><circle cx="126" cy="96" r="3.4"></circle><text x="134" y="93">TECHNOLOGY</text></g>
+      <g class="live-sys__node"><circle cx="96" cy="168" r="3"></circle><text x="104" y="165">EMOTION</text></g>
+      <g class="live-sys__node"><circle cx="236" cy="64" r="3.4"></circle><text x="244" y="61">SYSTEMS</text></g>
+      <g class="live-sys__node"><circle cx="336" cy="126" r="3"></circle><text x="344" y="123">CRAFT</text></g>
+      <g class="live-sys__node"><circle cx="304" cy="24" r="3"></circle><text x="312" y="21">STUDIO</text></g>
+    </svg>
+    <div class="wrap">
+      <div class="eyebrow" data-fade>Live System <b>[02.a]</b></div>
+      <div class="live-sys__cards">
+        <article class="live-sys__card live-sys__card--dark" data-fade data-plx data-plx-speed="-10">
+          <canvas class="live-sys__orbital" width="150" height="150" aria-hidden="true"></canvas>
+          <div class="live-sys__hud">
+            <span>SYS</span><b>LIVE</b>
+            <span>MODE</span><b>ADDITIVE</b>
+            <span>VER</span><b>south hustles v.3</b>
+          </div>
+          <h3>How The Studio Runs</h3>
+          <p class="lede">Every project starts as a system: rules, motions and visuals that grow with the culture it speaks to — not a one-off campaign.</p>
+          <div class="live-sys__tags">
+            <span>Direction</span><span>Technology</span><span>Emotion</span>
+          </div>
+        </article>
+        <article class="live-sys__card live-sys__card--light" data-fade data-delay="120" data-plx data-plx-speed="14">
+          <div class="live-sys__kicker">Workflow <b>→</b></div>
+          <h3>From Brief To Living System</h3>
+          <p>Prototype fast, ship living systems, teach the methods behind them — direction, technology and emotion move as one continuous gesture.</p>
+          <div class="live-sys__stats">
+            <div><b>03</b><span>chapters / project</span></div>
+            <div><b>∞</b><span>iterations</span></div>
+            <div><b>V3</b><span>this system</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <hr class="hairline" />
 
-  <!-- ═══════════ 6. BIG STATEMENT 1 + ECOSYSTEM LABEL ═══════════ -->
+  <!-- ═══════════ 6. BIG STATEMENT (lead thesis, moved here from further
+       down the page per Franco: "esa seccion tiene que ir despues del
+       hero") + ECOSYSTEM LABEL ═══════════ -->
   <section class="section" id="statement-1" data-section data-grad="up" data-lines>
-    <h2 class="sr-only">Our mission</h2>
+    <h2 class="sr-only">What we design</h2>
     <div class="wrap">
       <p class="sh-statement" data-fade>
-        <span data-fade data-delay="0">WE MERGE DIRECTION,</span><br />
-        <span data-fade data-delay="120">TECHNOLOGY AND EMOTION</span><br />
-        <span data-fade data-delay="240">TO BUILD EXPERIENCES THAT</span>
-        <em data-fade data-delay="360">LIVE</em>
-        <span data-fade data-delay="360">IN DIGITAL SPACE.</span>
+        <span data-fade data-delay="0">WE DESIGN <span class="outline">BRAND LANGUAGES</span>,</span><br />
+        <span data-fade data-delay="120"><em>DIGITAL EXPERIENCES</em> AND</span><br />
+        <span data-fade data-delay="240"><span class="font-swap type-erase" data-swap>GENERATIVE VISUALS</span> THAT</span><br />
+        <span data-fade data-delay="360">CONNECT <span class="outline">ART</span> WITH DATA,</span>
+        <span data-fade data-delay="480">HUMAN TOUCH WITH <em>ALGORITHMIC FLOW.</em></span>
       </p>
       <hr class="hairline--warm" style="margin: 48px 0;" />
       <div class="sh-label" data-fade>
@@ -235,7 +311,7 @@
     <div class="wrap wrap--wide">
       <div class="eco-grid">
 
-        <article class="eco-card" data-fade>
+        <article class="eco-card" data-fade data-plx data-plx-speed="-8">
           <span class="eco-card__invert"></span>
           <span class="eco-card__art"><span>SOUTH HUSTLES.PNG</span></span>
           <div class="eco-card__content">
@@ -247,7 +323,7 @@
           </div>
         </article>
 
-        <article class="eco-card eco-card--dark" data-fade data-delay="120">
+        <article class="eco-card eco-card--dark" data-fade data-delay="120" data-plx data-plx-speed="-20">
           <span class="eco-card__invert"></span>
           <span class="eco-card__art"><span>CUSA SYSTEM.PNG</span></span>
           <div class="eco-card__content">
@@ -259,7 +335,7 @@
           </div>
         </article>
 
-        <article class="eco-card" data-fade data-delay="240">
+        <article class="eco-card" data-fade data-delay="240" data-plx data-plx-speed="-32">
           <span class="eco-card__invert"></span>
           <span class="eco-card__art"><span>VISUALIZING WISDOM.PNG</span></span>
           <div class="eco-card__content">
@@ -343,7 +419,7 @@
             gesture. We prototype fast, ship living systems, and teach the methods behind them.
           </p>
           <p>
-            Based in Geneva, working worldwide, building creative systems for a conscious era.
+            Based in Argentina and Mexico, working worldwide, building creative systems for a conscious era.
           </p>
         </div>
       </div>
@@ -363,7 +439,7 @@
     <p class="manif__lede" data-fade data-delay="80">
       South Hustles is a <em>creative studio</em> for a conscious era. We merge direction,
       technology and emotion into systems that keep producing culture after we ship them —
-      born in Geneva, built for everywhere.
+      born between the sierra and the sea, built for everywhere.
     </p>
 
     <div class="manif__cols">
@@ -395,7 +471,7 @@
       <div class="mt-beat"><span class="mt-year">2013</span><span class="mt-line"></span><p>The studio forms: direction + code under one roof for the first time.</p></div>
       <div class="mt-beat"><span class="mt-year">2015</span><span class="mt-line"></span><p>Global reach — first worldwide clients, first system that outlived its campaign.</p></div>
       <div class="mt-beat"><span class="mt-year">2020</span><span class="mt-line"></span><p>CUSA System is born: our TouchDesigner practice becomes shippable instruments.</p></div>
-      <div class="mt-beat"><span class="mt-year">NOW</span><span class="mt-line"></span><p>Geneva → worldwide. Agency, system and university running as one ecosystem.</p></div>
+      <div class="mt-beat"><span class="mt-year">NOW</span><span class="mt-line"></span><p>Tandil, Córdoba, La Saladita, Tulum → worldwide. Agency, system and university running as one ecosystem.</p></div>
     </div>
 
     <div class="bg-note" style="left: 4vw; bottom: 8vh;" data-read data-card-id="note-precision"
@@ -513,6 +589,69 @@
     </div>
   </section>
 
+  <!-- ═══════════ 10a-bis. FROM THE FEED — IG drops presented as product
+       banners (two sizes: one wide + two compact). Media slots read from
+       assets/ig/ig-0X.(mp4|jpg); missing files leave the styled placeholder
+       visible, so the section works before the assets land. ═══════════ -->
+  <section class="section section--violet-bloom ig-feed" id="ig-feed" data-section>
+    <h2 class="sr-only">From the feed</h2>
+    <div class="wrap">
+      <div class="sh-label" data-fade>From The Feed <b>[04.d]</b></div>
+      <p class="ig-lede" data-fade data-delay="100">
+        Every drop is a <em>system in miniature</em> — reactive rigs, brand loops and
+        generative posters, shipped to the feed before they scale to clients.
+      </p>
+
+      <div class="ig-bento">
+        <!-- wide banner -->
+        <a class="ig-card ig-card--wide" data-fade href="https://www.instagram.com/p/DRzo6ecjD9w/" target="_blank" rel="noopener">
+          <div class="ig-card__media">
+            <video src="assets/ig/ig-01.mp4" autoplay muted loop playsinline onerror="this.remove()" onloadeddata="this.style.opacity=1"></video>
+            <img src="assets/ig/ig-01.jpg" alt="" loading="lazy" onerror="this.remove()" onload="this.style.opacity=1" />
+            <span class="ig-card__slot-note">drop ig-01.mp4 / .jpg → assets/ig/</span>
+          </div>
+          <div class="ig-card__body">
+            <span class="ig-card__kicker">DROP · 01 — REEL</span>
+            <h3>Reactive Systems, Live</h3>
+            <div class="ig-card__tags"><span>#touchdesigner</span><span>#generativeart</span><span>#realtime</span></div>
+            <span class="ig-card__cta">Ver en Instagram →</span>
+          </div>
+        </a>
+        <!-- compact pair -->
+        <a class="ig-card" data-fade data-delay="120" href="https://www.instagram.com/p/DRzo4AsDOlE/" target="_blank" rel="noopener">
+          <div class="ig-card__media">
+            <video src="assets/ig/ig-02.mp4" autoplay muted loop playsinline onerror="this.remove()" onloadeddata="this.style.opacity=1"></video>
+            <img src="assets/ig/ig-02.jpg" alt="" loading="lazy" onerror="this.remove()" onload="this.style.opacity=1" />
+            <span class="ig-card__slot-note">drop ig-02 → assets/ig/</span>
+          </div>
+          <div class="ig-card__body">
+            <span class="ig-card__kicker">DROP · 02</span>
+            <h3>Brand Loop 001</h3>
+            <div class="ig-card__tags"><span>#branding</span><span>#motiondesign</span></div>
+            <span class="ig-card__cta">Ver en Instagram →</span>
+          </div>
+        </a>
+        <a class="ig-card" data-fade data-delay="200" href="https://www.instagram.com/p/DRz0JIcDL_q/" target="_blank" rel="noopener">
+          <div class="ig-card__media">
+            <video src="assets/ig/ig-03.mp4" autoplay muted loop playsinline onerror="this.remove()" onloadeddata="this.style.opacity=1"></video>
+            <img src="assets/ig/ig-03.jpg" alt="" loading="lazy" onerror="this.remove()" onload="this.style.opacity=1" />
+            <span class="ig-card__slot-note">drop ig-03 → assets/ig/</span>
+          </div>
+          <div class="ig-card__body">
+            <span class="ig-card__kicker">DROP · 03</span>
+            <h3>Generative Poster Series</h3>
+            <div class="ig-card__tags"><span>#creativecoding</span><span>#posterdesign</span></div>
+            <span class="ig-card__cta">Ver en Instagram →</span>
+          </div>
+        </a>
+      </div>
+
+      <a class="ig-follow dirfill" href="https://www.instagram.com/south.hustles/" target="_blank" rel="noopener">
+        Follow the system — @south.hustles
+      </a>
+    </div>
+  </section>
+
 <!-- ═══════════ REEL — short horizontal strip ═══════════ -->
 <section class="section reel-sec" id="reel" data-section>
   <h2 class="sr-only">Horizontal reel</h2>
@@ -577,7 +716,7 @@
 
   <!-- 1. case hero -->
   <header class="case__hero">
-    <p class="case__kicker" data-fade>CASE STUDY <b>[04.b]</b> · <em>example template — real copy landing soon</em></p>
+    <p class="case__kicker" data-fade>CASE STUDY <b>[04.b]</b> · <em>an identity that listens</em></p>
     <h3 class="case__title" data-fade data-delay="80">DATA<br /><em>SYMPHONY</em></h3>
     <div class="case__meta" data-fade data-delay="160">
       <span>CLIENT — CONCERT HALL, GENEVA</span>
@@ -643,27 +782,26 @@
 
   <!-- 7. other projects — real copy pending -->
   <footer class="case__others">
-    <span class="sh-label">More Dossiers <b>[04.c]</b> — <em>awaiting real copy</em></span>
+    <span class="sh-label">More Dossiers <b>[04.c]</b></span>
     <div class="case__others-rows">
-      <div class="case__other"><span>CODECRAFT</span><span>DESIGN · 2023</span><span class="mono-note">// copy pending</span></div>
-      <div class="case__other"><span>PIXEL PERFECT</span><span>BRANDING · 2022</span><span class="mono-note">// copy pending</span></div>
-      <div class="case__other"><span>NEURAL CANVAS</span><span>AI · 2023</span><span class="mono-note">// copy pending</span></div>
-      <div class="case__other"><span>MOTION ATLAS</span><span>WEB · 2024</span><span class="mono-note">// copy pending</span></div>
+      <div class="case__other"><span>CODECRAFT</span><span>DESIGN · 2023</span><span class="mono-note">// dev diaries as a brand</span></div>
+      <div class="case__other"><span>PIXEL PERFECT</span><span>BRANDING · 2022</span><span class="mono-note">// a grid you can feel</span></div>
+      <div class="case__other"><span>NEURAL CANVAS</span><span>AI · 2023</span><span class="mono-note">// portraits the model dreamt</span></div>
+      <div class="case__other"><span>MOTION ATLAS</span><span>WEB · 2024</span><span class="mono-note">// choreography for cursors</span></div>
     </div>
   </footer>
 </section>
 
 
 
-  <!-- ═══════════ 11. BIG STATEMENT 2 + PIXELATED ═══════════ -->
+  <!-- ═══════════ 11. BIG STATEMENT 2 (deeper reinforcement, now that the
+       lead thesis moved up to statement-1) + PIXELATED ═══════════ -->
   <section class="section" id="statement-2" data-section data-grad="up">
-    <h2 class="sr-only">What we design</h2>
+    <h2 class="sr-only">Our mission</h2>
     <div class="wrap sh-statement-wrap">
       <p class="sh-statement" data-fade>
-        WE DESIGN <span class="outline">BRAND LANGUAGES</span>, <em>DIGITAL EXPERIENCES</em>,
-        AND <span class="font-swap type-erase" data-swap>GENERATIVE VISUALS</span> THAT
-        CONNECT <span class="outline">ART</span> WITH DATA, HUMAN TOUCH WITH
-        <em>ALGORITHMIC FLOW.</em>
+        WE MERGE <span class="outline">DIRECTION</span>, TECHNOLOGY AND <em>EMOTION</em>
+        TO BUILD EXPERIENCES THAT <em>LIVE</em> IN DIGITAL SPACE.
       </p>
 
       <hr class="hairline" style="margin: 60px 0;" />
@@ -671,10 +809,9 @@
       <div class="pixelated-block">
         <div data-fade data-fade-dir="left">
           <h3>Pixelated <em>everything</em></h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
-            elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
-            commodo diam libero vitae erat.
+          <p class="pixelated-block__body">
+            Every asset — a poster, a UI, a loading screen — gets pushed through the same grid
+            until it reads as one language. Zoom in and the pixels tell you which studio made it.
           </p>
           <p class="mono">Explore the innovative 'Pixelated Everything' concept with our TouchDesigner plugin.</p>
           <div class="btn-row">
@@ -738,6 +875,37 @@
       <span class="mq-menu__word" data-icon="CNT">CONTACT</span><span class="mq-menu__sep">✦</span>
     </div>
   </div>
+
+  <!-- ═══════════ 11c. TRANSMISSION — second white→black gradient band
+       (Franco: "backgrounds de degradado a blanco... texto gris en el
+       medio, cards finas de color"). Reuses .section--gradient-bn like
+       Live System / Star Wars; the strips pick up the uni palette that
+       University introduces right below. ═══════════ -->
+  <section class="section section--gradient-bn transmission" id="transmission" data-section>
+    <div class="transmission__dotgrid" aria-hidden="true" data-plx data-plx-speed="-12"></div>
+    <div class="wrap">
+      <div class="eyebrow" data-fade>Transmission <b>[05.pre]</b></div>
+      <p class="transmission__gray" data-fade data-delay="100">
+        Everything the studio learns building systems flows downhill — into courses,
+        open rigs and field notes. The agency feeds the school; the school sharpens
+        the agency. Nothing we know stays locked in a client deck.
+      </p>
+      <div class="transmission__strips">
+        <a class="transmission__strip" href="#university" data-fade style="--strip: var(--uni-red)">
+          <b>01</b><span>Direction becomes curriculum</span><i>→</i>
+        </a>
+        <a class="transmission__strip" href="#university" data-fade data-delay="80" style="--strip: var(--uni-amber)">
+          <b>02</b><span>Rigs become open tools</span><i>→</i>
+        </a>
+        <a class="transmission__strip" href="#university" data-fade data-delay="160" style="--strip: var(--uni-green)">
+          <b>03</b><span>Process becomes field notes</span><i>→</i>
+        </a>
+        <a class="transmission__strip" href="#university" data-fade data-delay="240" style="--strip: var(--uni-blue)">
+          <b>04</b><span>Students become the studio</span><i>→</i>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══════════ 12. UNIVERSITY ═══════════ -->
   <section class="section" id="university" data-section data-lines>
@@ -896,17 +1064,19 @@
 
       <article class="journal-card jc--dark2" data-card-id="geneva-worldwide" tabindex="0" role="button" aria-haspopup="dialog">
         <span class="jc-tag">PRACTICE · 06</span>
-        <h3 class="jc-title">Based In Geneva, Working Worldwide</h3>
-        <p class="jc-teaser">Running a border-free studio from a very bordered city.</p>
+        <h3 class="jc-title">Based In The Sierra And The Sea</h3>
+        <p class="jc-teaser">Running a worldwide studio from Tandil, Córdoba, La Saladita and Tulum.</p>
         <span class="jc-open">OPEN →</span>
         <template class="jc-body">
-          <p>Geneva gives us precision — the watchmaker's patience, the diplomat's timing. The
-          worldwide part gives us everything else: collaborators in three time zones, launches
-          that follow the sun, references that never come from the same shelf twice.</p>
+          <p>Tandil and Córdoba give us the sierra — the slow patience of a landscape that
+          doesn't rush. La Saladita and Tulum give us the sea — timing you learn from a swell,
+          not a calendar. The worldwide part gives us everything else: collaborators in three
+          time zones, launches that follow the sun, references that never come from the same
+          shelf twice.</p>
           <p>The studio runs async by default: briefs are documents, reviews are annotated
           screens, decisions are written down. Presence is for the work that deserves it —
           workshops, shoots, the first hour of every new system.</p>
-          <p>8099 Switzerland on the invoice. Everywhere on the work.</p>
+          <p>Four home bases on the invoice. Everywhere on the work.</p>
         </template>
       </article>
     </div>
@@ -949,34 +1119,64 @@
       <div class="sh-label" data-fade>Methods &amp; Tools <b>[06]</b></div>
       <div class="glass-grid">
         <article class="glass-card" data-fade>
+          <div class="glass-card__top"><span class="glass-card__id">01</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">✦</span>
           <div class="glass-card__title">Creative Direction</div>
           <div class="glass-card__sub">DIRECTION · STORY</div>
+          <div class="glass-card__data">
+            <p>We set the narrative before a single pixel moves — tone, pacing, the arc a brand follows across every touchpoint.</p>
+            <div class="glass-card__tags"><span>Strategy</span><span>Narrative</span><span>Art Direction</span></div>
+          </div>
         </article>
         <article class="glass-card" data-fade data-delay="70">
+          <div class="glass-card__top"><span class="glass-card__id">02</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">◆</span>
           <div class="glass-card__title">TouchDesigner</div>
           <div class="glass-card__sub">VISUAL PROGRAMMING</div>
+          <div class="glass-card__data">
+            <p>Real-time visual programming for installations, live sets and generative brand assets — nodes instead of timelines.</p>
+            <div class="glass-card__tags"><span>Real-time</span><span>Nodes</span><span>Installations</span></div>
+          </div>
         </article>
         <article class="glass-card" data-fade data-delay="140">
+          <div class="glass-card__top"><span class="glass-card__id">03</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">▲</span>
           <div class="glass-card__title">Web Development</div>
           <div class="glass-card__sub">SYSTEMS · CODE</div>
+          <div class="glass-card__data">
+            <p>Hand-built front-ends, no bloated framework where it isn't earning its keep — fast, accessible, built to last.</p>
+            <div class="glass-card__tags"><span>Vanilla JS</span><span>Performance</span><span>Accessibility</span></div>
+          </div>
         </article>
         <article class="glass-card" data-fade data-delay="210">
+          <div class="glass-card__top"><span class="glass-card__id">04</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">✶</span>
           <div class="glass-card__title">Creative Coding</div>
           <div class="glass-card__sub">GENERATIVE · SHADERS</div>
+          <div class="glass-card__data">
+            <p>Shaders, particle systems and procedural motion — code as a design material, not just plumbing.</p>
+            <div class="glass-card__tags"><span>Shaders</span><span>Procedural</span><span>WebGL</span></div>
+          </div>
         </article>
         <article class="glass-card" data-fade data-delay="280">
+          <div class="glass-card__top"><span class="glass-card__id">05</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">◈</span>
           <div class="glass-card__title">Branding</div>
           <div class="glass-card__sub">IDENTITY · LANGUAGE</div>
+          <div class="glass-card__data">
+            <p>Identity systems that flex — a mark, a voice and a set of rules a team can actually run with.</p>
+            <div class="glass-card__tags"><span>Identity</span><span>Voice</span><span>Guidelines</span></div>
+          </div>
         </article>
         <article class="glass-card" data-fade data-delay="350">
+          <div class="glass-card__top"><span class="glass-card__id">06</span><button type="button" class="glass-card__x" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
           <span class="glass-card__icon">❖</span>
           <div class="glass-card__title">Advertising</div>
           <div class="glass-card__sub">CAMPAIGN · MOTION</div>
+          <div class="glass-card__data">
+            <p>Campaigns built to move — media planning and motion design that earns attention instead of interrupting it.</p>
+            <div class="glass-card__tags"><span>Campaigns</span><span>Motion</span><span>Media</span></div>
+          </div>
         </article>
       </div>
     </div>
@@ -1049,6 +1249,18 @@
 
   <!-- ═══════════ 16. FOOTER ═══════════ -->
   <footer class="site-footer" id="footer">
+    <!-- refined mark: an S-curve of 3 connected nodes — same "connected
+         dots" language as Live System's constellation, not the old
+         nav icon (Franco: "sacale ese iconito... es un signo de
+         porcentaje"). Giant + faint + gray, parallax-scrolled behind
+         the whole footer. -->
+    <svg class="footer__mark-bg" viewBox="0 0 200 200" aria-hidden="true" data-plx data-plx-speed="-26">
+      <path d="M150,30 C60,30 60,100 100,100 C140,100 140,170 50,170" />
+      <circle cx="150" cy="30" r="5" />
+      <circle cx="100" cy="100" r="5" />
+      <circle cx="50" cy="170" r="5" />
+    </svg>
+
     <div class="footer-menu">
       <a href="#ecosystem">SERVICES</a>
       <a href="#about">BLOG</a>
@@ -1070,21 +1282,36 @@
         </form>
       </div>
 
-      <div class="footer__tagline">BASED IN GENEVA — WORKING WORLDWIDE</div>
+      <div class="footer__tagline">BASED IN ARGENTINA — MEXICO — WORKING WORLDWIDE</div>
 
       <div class="footer-trust">
-        <div><b>GVA</b><span>Based in Geneva</span></div>
+        <div><b>AR·MX</b><span>Argentina — México</span></div>
         <div><b>∞</b><span>Working worldwide</span></div>
-        <div><b>8099</b><span>Switzerland</span></div>
+        <div><b>4</b><span>Tandil · Córdoba · La Saladita · Tulum</span></div>
       </div>
     </div>
 
     <div class="footer__grid">
       <div>
+        <svg class="footer__mark" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="footer-mark-g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6d5efc" />
+              <stop offset="1" stop-color="#ff5a7a" />
+            </linearGradient>
+          </defs>
+          <path d="M150,30 C60,30 60,100 100,100 C140,100 140,170 50,170" stroke="url(#footer-mark-g)" />
+          <circle cx="150" cy="30" r="7" fill="url(#footer-mark-g)" />
+          <circle cx="100" cy="100" r="7" fill="url(#footer-mark-g)" />
+          <circle cx="50" cy="170" r="7" fill="url(#footer-mark-g)" />
+        </svg>
         <div class="footer__brand-name">South Hustles</div>
         <div class="footer__brand-sub">creative studio — creative systems for a conscious era</div>
-        <div class="footer__brand-sub" style="margin-top:14px;">+1 22 123 4567</div>
-        <div class="footer__brand-sub">8099 Switzerland</div>
+        <div class="footer__brand-sub" style="margin-top:14px;">+54 3541 616743</div>
+        <div class="footer__brand-sub">CP 5152, Argentina · CP 77760, México</div>
+        <div class="footer__flags" aria-label="Argentina y México">
+          <span>🇦🇷</span><span>🇲🇽</span>
+        </div>
       </div>
       <div>
         <div class="footer__col-title">Studio</div>
@@ -1107,7 +1334,7 @@
     </div>
 
     <div class="footer__bottom">
-      <span class="footer__copy">© South Hustles 2026 — Based in Geneva, working worldwide.</span>
+      <span class="footer__copy">© South Hustles 2026 — Based in Argentina and Mexico, working worldwide.</span>
       <div class="footer__socials">
         <a class="footer__social" href="#" aria-label="LinkedIn">in</a>
         <a class="footer__social" href="#" aria-label="Instagram">◎</a>

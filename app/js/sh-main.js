@@ -7,12 +7,14 @@
    ═══════════════════════════════════════════ */
 
 import { initTheme } from './theme.js';
+import { initI18n } from './i18n.js';
 import { initReveal } from './reveal.js';
 import { initLoader, initHeroTypewriter } from './intro.js';
 import { initMarquees } from './marquee.js';
 import { applyHoloTilt } from './holo-tilt.js';
 import { initParallaxLayers, getSectionProgress } from './scroll-parallax.js';
 import { fxEnabled, prefersReducedMotion, isCoarsePointer } from './env.js';
+import { lockBodyScroll, unlockBodyScroll } from './scroll-lock.js';
 
 /* ── (a) navDetach — .is-detached on .site-nav after scrollY > 40 ── */
 function initNavDetach() {
@@ -46,6 +48,7 @@ function initMenuOverlay() {
     lastFocused = document.activeElement;
     overlay.classList.add('is-open');
     document.body.classList.add('menu-open');
+    lockBodyScroll();
     overlay.setAttribute('aria-hidden', 'false');
     openers.forEach((b) => b.setAttribute('aria-expanded', 'true'));
     (closeBtn || focusables()[0])?.focus();
@@ -53,6 +56,7 @@ function initMenuOverlay() {
   const close = () => {
     overlay.classList.remove('is-open');
     document.body.classList.remove('menu-open');
+    unlockBodyScroll();
     overlay.setAttribute('aria-hidden', 'true');
     openers.forEach((b) => b.setAttribute('aria-expanded', 'false'));
     if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
@@ -325,6 +329,7 @@ function boot() {
   // theme + reveal + loader first
   initTheme();
   initThemeMirror();
+  initI18n();
   initReveal();
   initLoader();
   // initHeroTypewriter(); — replaced by sh2-fx initTypewriter2 (SH phrases, faster)

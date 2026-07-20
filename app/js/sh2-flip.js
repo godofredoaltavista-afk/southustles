@@ -5,6 +5,8 @@
    Esc / second click returns it. Keyboard accessible.
    ═══════════════════════════════════════════ */
 
+import { lockBodyScroll, unlockBodyScroll } from './scroll-lock.js';
+
 export function initHoloFlip() {
   const cards = document.querySelectorAll('.holo-card');
   if (!cards.length) return;
@@ -24,6 +26,7 @@ export function initHoloFlip() {
     o.classList.remove('is-flipped');
     setTimeout(() => o.remove(), 450);
     document.body.classList.remove('menu-open');
+    unlockBodyScroll();
     cards.forEach((c) => c.setAttribute('aria-expanded', 'false'));
   };
 
@@ -85,6 +88,7 @@ $ open case-study --full
       </div>`;
     document.body.appendChild(overlay);
     document.body.classList.add('menu-open');
+    lockBodyScroll();
     card.setAttribute('aria-expanded', 'true');
 
     overlay.querySelector('.hf-backdrop').addEventListener('click', close);

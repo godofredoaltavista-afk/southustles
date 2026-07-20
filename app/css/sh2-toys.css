@@ -349,8 +349,8 @@ html[data-theme='dark'] .sticker.is-grabbed {
   position: relative;
   overflow: hidden;
 }
-/* footer text sits ABOVE the canvas */
-.site-footer > :not(.footer-balls) {
+/* footer text sits ABOVE the canvas (and the background mark) */
+.site-footer > :not(.footer-balls):not(.footer__mark-bg) {
   position: relative;
   z-index: 1;
 }

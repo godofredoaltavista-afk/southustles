@@ -12,6 +12,10 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* text-size personalization (quick panel "Display" stepper) — every
+     rem-based size on the site cascades from this, so nothing else needs
+     to know the scale exists. Defaults to 1 = no change. */
+  font-size: calc(100% * var(--user-scale, 1));
 }
 
 body {
@@ -458,6 +462,26 @@ html[data-theme='light'] .icon-moon { display: none; }
   .footer__grid { grid-template-columns: 1fr; }
 }
 .footer__brand-name { font-family: var(--font-display); font-size: 1.2rem; color: #f4f4f5; }
+/* refined connected-dot mark (index.html footer brand column + the giant
+   faint parallax version behind the whole footer) */
+.footer__mark {
+  width: 26px; height: 26px;
+  margin-bottom: 10px;
+  display: block;
+}
+.footer__mark path { fill: none; stroke-width: 9; stroke-linecap: round; }
+.footer__mark-bg {
+  position: absolute;
+  top: 50%; left: 50%;
+  translate: -50% -50%;
+  width: min(90vw, 900px);
+  height: min(90vw, 900px);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+.footer__mark-bg path { fill: none; stroke: #9a9aa4; stroke-width: 4; stroke-linecap: round; }
+.footer__mark-bg circle { fill: #9a9aa4; }
 .footer__brand-sub { margin-top: 4px; color: rgba(244, 244, 245, 0.5); font-size: 0.85rem; }
 .footer__col-title {
   font-family: var(--font-mono);

@@ -7,11 +7,18 @@
 .loader-shader {
   position: absolute; inset: 0; z-index: 0;
   width: 100%; height: 100%;
+  /* fade in so the blob's arrival reads as intentional instead of popping
+     over the (now much fainter) violet wash */
+  opacity: 0;
+  animation: loader-shader-in 0.35s ease 0.05s forwards;
 }
+@keyframes loader-shader-in { to { opacity: 1; } }
 #loader .loader-inner { position: relative; z-index: 1; }
 #loader {
+  /* violet wash toned way down (0.16 → 0.05): it used to paint a plain
+     purple screen for the frames before the shader blob compiled */
   background:
-    radial-gradient(60% 50% at 50% 42%, rgba(109, 94, 252, 0.16), transparent 70%),
+    radial-gradient(60% 50% at 50% 42%, rgba(109, 94, 252, 0.05), transparent 70%),
     #060608;
 }
 #loader .loader-wordmark { color: #f4f4f5; text-shadow: 0 2px 30px rgba(109, 94, 252, 0.5); }
@@ -27,7 +34,16 @@
   display: block; width: 100%;
   border-radius: var(--radius-m);
 }
-.case__traveler.has-glb { width: min(44vw, 460px); }
+.case__traveler.has-glb {
+  width: min(44vw, 460px);
+  /* the -40vh/z-index:0 trick on .case__traveler (sh2-content.css) was built
+     for the flat SVG placeholder, so following copy could overlap it on
+     purpose. The live GLB canvas needs its own footprint respected instead —
+     otherwise .case__hero/.case__block/.case__stats (z-index:1) paint over
+     the model's lower half for most of the scroll chapter. */
+  z-index: 1;
+  margin-bottom: 0;
+}
 .case__traveler.is-full .case__traveler-cap { opacity: 0; }
 .case.is-taken .case__stats,
 .case.is-taken .case__block { opacity: 0.12; transition: opacity 0.5s ease; }
@@ -89,6 +105,7 @@
 .hf-os__desk {
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 16px;
   display: grid; gap: 12px;
   scrollbar-width: thin;
@@ -163,7 +180,7 @@
   color: var(--ink-0); padding: 8px 16px; cursor: pointer;
 }
 .sh-page__close:hover { border-color: var(--accent-2); color: var(--accent-2); }
-.sh-page__scroll { flex: 1; overflow-y: auto; padding: clamp(24px, 5vh, 60px) clamp(16px, 4vw, 56px); }
+.sh-page__scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: clamp(24px, 5vh, 60px) clamp(16px, 4vw, 56px); }
 
 .sh-page__hero { max-width: var(--maxw-wide); margin: 0 auto clamp(30px, 5vh, 60px); }
 .sh-page__kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--ink-2); }
