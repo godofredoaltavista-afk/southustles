@@ -17,6 +17,7 @@ const DICT = {
   '.site-nav .nav a[href="#about"]': { en: 'About', es: 'Nosotros' },
   '.site-nav .nav a[href="#university"]': { en: 'University', es: 'Universidad' },
   '.sh-nav__center span': { en: 'creative studio', es: 'estudio creativo' },
+  '.footer-hud__text': { en: 'AR · MEX — WORKING WORLDWIDE', es: 'AR · MEX — TRABAJO GLOBAL' },
   '.pill-btn--works': { en: 'Works', es: 'Trabajos' },
   '.pill-btn--solid': { en: 'Menu', es: 'Menú' },
 
@@ -121,12 +122,6 @@ const DICT = {
   '.project-row[data-preview="MOTION-ATLAS.GIF"] .project-row__col:nth-child(3)': { en: 'Development', es: 'Desarrollo' },
   '.discover-btn': { en: 'Discover Now →', es: 'Descubrí Ahora →' },
 
-  '#transmission .eyebrow': { en: 'Transmission <b>[05.pre]</b>', es: 'Transmisión <b>[05.pre]</b>' },
-  '.transmission__gray': { en: 'Everything the studio learns building systems flows downhill — into courses, open rigs and field notes. The agency feeds the school; the school sharpens the agency. Nothing we know stays locked in a client deck.', es: 'Todo lo que el estudio aprende construyendo sistemas fluye cuesta abajo — a cursos, rigs abiertos y notas de campo. La agencia alimenta a la escuela; la escuela afila a la agencia. Nada de lo que sabemos queda encerrado en un deck de cliente.' },
-  '.transmission__strip:nth-child(1) span': { en: 'Direction becomes curriculum', es: 'La dirección se vuelve currícula' },
-  '.transmission__strip:nth-child(2) span': { en: 'Rigs become open tools', es: 'Los rigs se vuelven herramientas abiertas' },
-  '.transmission__strip:nth-child(3) span': { en: 'Process becomes field notes', es: 'El proceso se vuelve notas de campo' },
-  '.transmission__strip:nth-child(4) span': { en: 'Students become the studio', es: 'Los estudiantes se vuelven el estudio' },
 
   '#ig-feed .sh-label': { en: 'From The Feed <b>[04.d]</b>', es: 'Desde El Feed <b>[04.d]</b>' },
   '.ig-lede': { en: 'Every drop is a <em>system in miniature</em> — reactive rigs, brand loops and generative posters, shipped to the feed before they scale to clients.', es: 'Cada drop es un <em>sistema en miniatura</em> — rigs reactivos, loops de marca y posters generativos, lanzados al feed antes de escalar a clientes.' },
@@ -210,6 +205,8 @@ const DICT = {
   '[data-card-id="geneva-worldwide"] .jc-teaser': { en: 'Running a worldwide studio from Tandil, Córdoba, La Saladita and Tulum.', es: 'Cómo llevar un estudio mundial desde Tandil, Córdoba, La Saladita y Tulum.' },
   '.jc-open': { en: 'OPEN →', es: 'ABRIR →' },
 
+  '#perspective .bg-note': { en: `<b>note//</b> intuition is just precision that hasn't been measured yet.`, es: '<b>nota//</b> la intuición es solo precisión que todavía no se midió.' },
+  '#university .bg-note': { en: '<b>note//</b> zero gravity is just enough distance to see the pattern.', es: '<b>nota//</b> gravedad cero es solo la distancia justa para ver el patrón.' },
   '.perspective-text': { en: `WE COMBINE ARTISTIC <em>INTUITION</em> WITH TECHNOLOGICAL PRECISION TO CREATE VISUAL SYSTEMS THAT DON'T JUST LOOK ADVANCED, THEY <em>BELONG TO THE FUTURE.</em>`, es: 'COMBINAMOS LA <em>INTUICIÓN</em> ARTÍSTICA CON LA PRECISIÓN TECNOLÓGICA PARA CREAR SISTEMAS VISUALES QUE NO SOLO SE VEN AVANZADOS, SINO QUE <em>PERTENECEN AL FUTURO.</em>' },
 
   '#university .sh-label': { en: 'Visualizing Wisdom · University <b>[05]</b>', es: 'Visualizing Wisdom · Universidad <b>[05]</b>' },

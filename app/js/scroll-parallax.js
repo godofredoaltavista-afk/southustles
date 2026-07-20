@@ -56,8 +56,10 @@ export function initParallaxLayers() {
       const p = getSectionProgress(it.section);
       if (p <= 0 || p >= 1) continue;
       const y = (p - 0.5) * it.speed;
-      // bg-words carry a CSS centering translate — compose with it
-      it.el.style.translate = it.isBgWord ? `-50% calc(-50% + ${y}px)` : `0 ${y}px`;
+      // bg-words are edge-anchored via static CSS left/right now (no more
+      // horizontal centering translate) — only the vertical -50% base
+      // needs composing with the scroll-driven offset.
+      it.el.style.translate = it.isBgWord ? `0 calc(-50% + ${y}px)` : `0 ${y}px`;
     }
   };
   window.addEventListener('scroll', () => {

@@ -354,7 +354,8 @@ html[data-theme='dark'] .sticker.is-grabbed {
   position: relative;
   z-index: 1;
 }
-.footer-balls {
+.footer-balls,
+.footer-hud-balls {
   position: absolute;
   inset: 0;
   width: 100%;

@@ -18,14 +18,18 @@ export function initLoader() {
   }, 2300);
 }
 
-/* mono percentage readout — 0% → 100% in ~1.9s, eased via rAF.
+/* mono percentage readout — 0% → 100% in ~1.9s, eased via rAF — plus the
+   gradient fill track underneath, driven by the exact same progress
+   value (no separate/fake bar, so they never drift out of sync).
    Reduced motion: jumps straight to 100%. */
 function initLoaderCount() {
   const el = document.querySelector('[data-loader-count]');
+  const fill = document.querySelector('[data-loader-fill]');
   if (!el) return;
 
   if (prefersReducedMotion()) {
     el.textContent = '100%';
+    if (fill) fill.style.width = '100%';
     return;
   }
 
@@ -36,7 +40,9 @@ function initLoaderCount() {
   const step = (now) => {
     if (start === null) start = now;
     const t = Math.min((now - start) / DURATION, 1);
-    el.textContent = `${Math.round(easeOutCubic(t) * 100)}%`;
+    const pct = Math.round(easeOutCubic(t) * 100);
+    el.textContent = `${pct}%`;
+    if (fill) fill.style.width = `${pct}%`;
     if (t < 1 && document.getElementById('loader')) {
       window.requestAnimationFrame(step);
     }
