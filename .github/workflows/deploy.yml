@@ -129,3 +129,14 @@ jobs:
           aws s3 sync app/ "s3://${S3_BUCKET}/" \
             --delete \
             --exclude "Dockerfile"
+
+      # CloudFront caches the old files at every edge location — without
+      # this, S3 has the new build but visitors (and Franco) keep seeing
+      # stale HTML/CSS/JS until the cache's TTL happens to expire on its
+      # own. Distribution id isn't a secret (see infra/main.tf's
+      # aws_cloudfront_distribution.site_cdn), so it's fine inlined here.
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E1QUG8ZGBFSPCQ \
+            --paths "/*"
