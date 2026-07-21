@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" width="1200" height="180">
+  <defs>
+    <linearGradient id="fHolo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff8ad4"/>
+      <stop offset="30%" stop-color="#c08bff"/>
+      <stop offset="60%" stop-color="#6d9bff"/>
+      <stop offset="100%" stop-color="#57e6ff"/>
+    </linearGradient>
+    <filter id="fInk" x="-20%" y="-60%" width="140%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="3" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" in2="SourceGraphic" scale="0"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="180" fill="#09090b"/>
+
+  <!-- system-node garland: the four "perder el miedo a los colores" university tones -->
+  <g>
+    <!-- 8 nodes evenly spaced, cycling red/amber/green/blue -->
+    <circle cx="90"  cy="40" r="6" fill="#e8402c"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0s" repeatCount="indefinite"/></circle>
+    <circle cx="230" cy="40" r="6" fill="#f4c542"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <circle cx="370" cy="40" r="6" fill="#2fb872"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0.6s" repeatCount="indefinite"/></circle>
+    <circle cx="510" cy="40" r="6" fill="#4a6cf0"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="0.9s" repeatCount="indefinite"/></circle>
+    <circle cx="690" cy="40" r="6" fill="#e8402c"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="1.2s" repeatCount="indefinite"/></circle>
+    <circle cx="830" cy="40" r="6" fill="#f4c542"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="970" cy="40" r="6" fill="#2fb872"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="1110" cy="40" r="6" fill="#4a6cf0"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="2.1s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <text x="600" y="110" text-anchor="middle" font-family="Arial, 'Segoe UI', sans-serif" font-weight="900"
+        font-size="34" letter-spacing="3" fill="url(#fHolo)" filter="url(#fInk)">SOUTH HUSTLES</text>
+  <text x="600" y="140" text-anchor="middle" font-family="'Courier New', monospace"
+        font-size="13" letter-spacing="4" fill="#82828c">CREATIVE SYSTEMS FOR A CONSCIOUS ERA</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <circle cx="40" cy="40" r="30" fill="#111113"/>
+  <!-- university: four course-color tiles orbiting slowly -->
+  <g>
+    <rect x="24" y="18" width="12" height="12" rx="3" fill="#e8402c">
+      <animateTransform attributeName="transform" type="rotate" from="0 40 40" to="360 40 40" dur="16s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="44" y="18" width="12" height="12" rx="3" fill="#f4c542">
+      <animateTransform attributeName="transform" type="rotate" from="90 40 40" to="450 40 40" dur="16s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="44" y="50" width="12" height="12" rx="3" fill="#2fb872">
+      <animateTransform attributeName="transform" type="rotate" from="180 40 40" to="540 40 40" dur="16s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="24" y="50" width="12" height="12" rx="3" fill="#4a6cf0">
+      <animateTransform attributeName="transform" type="rotate" from="270 40 40" to="630 40 40" dur="16s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

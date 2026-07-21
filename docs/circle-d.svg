@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="cd-holo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff8ad4"/>
+      <stop offset="50%" stop-color="#c08bff"/>
+      <stop offset="100%" stop-color="#57e6ff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="30" fill="#111113"/>
+  <!-- journal card: page with a sweeping holographic highlight line -->
+  <rect x="26" y="20" width="28" height="38" rx="2" fill="#1a1a1f" stroke="#26262c"/>
+  <line x1="31" y1="30" x2="49" y2="30" stroke="#4a4a52" stroke-width="2"/>
+  <line x1="31" y1="37" x2="49" y2="37" stroke="#4a4a52" stroke-width="2"/>
+  <line x1="31" y1="44" x2="43" y2="44" stroke="#4a4a52" stroke-width="2"/>
+  <rect x="26" y="20" width="4" height="38" fill="url(#cd-holo)">
+    <animate attributeName="x" values="26;50;26" dur="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>

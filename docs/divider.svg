@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 48" width="1200" height="48">
+  <defs>
+    <linearGradient id="dHolo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff8ad4"/>
+      <stop offset="30%" stop-color="#c08bff"/>
+      <stop offset="60%" stop-color="#6d9bff"/>
+      <stop offset="100%" stop-color="#57e6ff"/>
+    </linearGradient>
+    <filter id="dInk" x="-10%" y="-200%" width="120%" height="500%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="6"/>
+    </filter>
+  </defs>
+  <path id="route" d="M 0 24 C 200 4, 400 44, 600 24 S 1000 4, 1200 24" fill="none"
+        stroke="url(#dHolo)" stroke-width="2" opacity="0.55" filter="url(#dInk)"/>
+  <circle r="5" fill="#ffffff">
+    <animateMotion dur="7s" repeatCount="indefinite">
+      <mpath href="#route"/>
+    </animateMotion>
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

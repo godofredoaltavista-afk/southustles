@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="cb-g" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1a6b45"/>
+      <stop offset="100%" stop-color="#2fb872"/>
+    </linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="30" fill="#111113"/>
+  <!-- canopy: three overlapping leaf-fronds, breathing scale -->
+  <g fill="url(#cb-g)" opacity="0.9">
+    <ellipse cx="40" cy="34" rx="9" ry="16">
+      <animateTransform attributeName="transform" type="rotate" values="-14 40 34;-6 40 34;-14 40 34" dur="5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="30" cy="42" rx="8" ry="14">
+      <animateTransform attributeName="transform" type="rotate" values="10 30 42;18 30 42;10 30 42" dur="6s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="50" cy="42" rx="8" ry="14">
+      <animateTransform attributeName="transform" type="rotate" values="-10 50 42;-18 50 42;-10 50 42" dur="6.5s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+</svg>
