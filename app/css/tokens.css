@@ -70,20 +70,24 @@ html[data-theme='light'] {
 
 html[data-theme='dark'] {
   color-scheme: dark;
-  --bg-0: #09090b;
-  --bg-1: #111113;
-  --bg-2: #1a1a1f;
-  --bg-glass: rgba(14, 14, 17, 0.72);
+  /* Neutral grayscale only — R=G=B on every dark stop. The previous
+     values leaned the blue channel 2-5pts above red/green on every dark
+     tone site-wide, reading as a cyan/blue cast in every black (Franco:
+     "sin cyan en la version darkmode"). */
+  --bg-0: #0a0a0a;
+  --bg-1: #121212;
+  --bg-2: #1c1c1c;
+  --bg-glass: rgba(15, 15, 15, 0.72);
   --ink-0: #f4f4f5;
   --ink-1: #b7b7bf;
   --ink-2: #82828c;
   --ink-3: #4a4a52;
-  --line: #26262c;
-  --line-soft: #1e1e24;
-  --pole-hi: #17171c;
-  --pole-lo: #050507;
-  --surface: #16161a;
-  --surface-ink: #1c1c22;
+  --line: #292929;
+  --line-soft: #202020;
+  --pole-hi: #1a1a1a;
+  --pole-lo: #050505;
+  --surface: #181818;
+  --surface-ink: #1e1e1e;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
   --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 24px 60px -28px rgba(0, 0, 0, 0.85);
 }
@@ -103,22 +107,22 @@ html[data-theme='dark'] {
    Locally re-declare the scales so every child restyles itself.
    These are the literal black poles of the white↔black language. */
 .section--inverted {
-  --bg-0: #0b0b0e;
-  --bg-1: #121216;
-  --bg-2: #1b1b21;
-  --bg-glass: rgba(16, 16, 20, 0.72);
+  --bg-0: #0c0c0c;
+  --bg-1: #131313;
+  --bg-2: #1c1c1c;
+  --bg-glass: rgba(18, 18, 18, 0.72);
   --ink-0: #f4f4f5;
   --ink-1: #b9b9c1;
   --ink-2: #84848e;
   --ink-3: #4c4c55;
-  --line: #26262d;
-  --line-soft: #1f1f26;
+  --line: #282828;
+  --line-soft: #202020;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
   color-scheme: dark;
-  background: linear-gradient(180deg, #111116, #060608 55%, #111116);
+  background: linear-gradient(180deg, #121212, #060606 55%, #121212);
 }
 html[data-theme='dark'] .section--inverted {
-  background: linear-gradient(180deg, #0d0d11, #030304 55%, #0d0d11);
+  background: linear-gradient(180deg, #0d0d0d, #030303 55%, #0d0d0d);
 }
 
 /* ── tinted section blocks (rhythm breaks between the
@@ -135,13 +139,13 @@ html[data-theme='dark'] .section--inverted {
    stop. Stops live inside the section padding; these utilities
    NEVER touch text color (that was the Colophon contrast bug). */
 .section[data-grad='from-dark'] {
-  background: linear-gradient(180deg, #0b0b0e 0%, var(--pole-hi) 13%, var(--pole-lo) 100%);
+  background: linear-gradient(180deg, #0c0c0c 0%, var(--pole-hi) 13%, var(--pole-lo) 100%);
 }
 .section[data-grad='to-dark'] {
-  background: linear-gradient(180deg, var(--pole-hi) 0%, var(--pole-lo) 82%, #0b0b0e 100%);
+  background: linear-gradient(180deg, var(--pole-hi) 0%, var(--pole-lo) 82%, #0c0c0c 100%);
 }
 .section[data-grad='dark-both'] {
-  background: linear-gradient(180deg, #0b0b0e 0%, var(--pole-hi) 14%, var(--pole-lo) 84%, #0b0b0e 100%);
+  background: linear-gradient(180deg, #0c0c0c 0%, var(--pole-hi) 14%, var(--pole-lo) 84%, #0c0c0c 100%);
 }
 /* violet bloom — radial accents pushing out of the corners of a
    dark chapter ("perder el miedo a los colores") */
@@ -149,7 +153,7 @@ html[data-theme='dark'] .section--inverted {
   background:
     radial-gradient(52% 44% at 8% 0%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 70%),
     radial-gradient(46% 40% at 100% 100%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 72%),
-    linear-gradient(180deg, #0b0b0e, #121216 55%, #0b0b0e);
+    linear-gradient(180deg, #0c0c0c, #131313 55%, #0c0c0c);
   color-scheme: dark;
 }
 
@@ -158,10 +162,10 @@ html[data-theme='dark'] .section--inverted {
 .section--gradient-bn {
   /* the light stretch stays inside the top padding, so the forced
      light text below is always sitting on near-black (contrast fix) */
-  background: linear-gradient(180deg, var(--bg-0) 0%, #17171c 12%, #0b0b0e 55%, #0b0b0e 100%);
+  background: linear-gradient(180deg, var(--bg-0) 0%, #1a1a1a 12%, #0c0c0c 55%, #0c0c0c 100%);
 }
 html[data-theme='dark'] .section--gradient-bn {
-  background: linear-gradient(180deg, var(--bg-0) 0%, #101014 12%, #000000 60%, #000000 100%);
+  background: linear-gradient(180deg, var(--bg-0) 0%, #121212 12%, #000000 60%, #000000 100%);
 }
 .section--gradient-bn .eyebrow,
 .section--gradient-bn h2,
