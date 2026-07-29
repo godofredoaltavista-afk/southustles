@@ -172,6 +172,71 @@
 .pill-btn--plus .plus-glyph { display: inline-block; transition: transform 0.35s var(--ease-spring); }
 body.menu-open .pill-btn--plus .plus-glyph { transform: rotate(135deg); }
 
+/* ── language toggle: fixed to the viewport, positioned by JS ──
+   `left` is computed at runtime (initLangTogglePosition, sh-main.js)
+   from .site-nav's own measured right edge, clamped so it never runs
+   past the window on narrower screens — plain CSS alone can't react
+   to the nav's content-driven width the way that needs. Flag stays a
+   constant fixture; only the code text cycles ARG → PT → EN. The
+   "Languages" caption is permanent (not a fading tooltip) — small, to
+   the button's right. */
+.lang-toggle-wrap {
+  position: fixed;
+  top: 14px;
+  left: 0; /* overwritten on load/resize by JS */
+  z-index: 61;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lang-toggle__flag {
+  width: 20px;
+  height: 13px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink-0) 18%, transparent);
+}
+
+.lang-toggle__hint {
+  white-space: nowrap;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+
+/* opening spotlight — same idea as before (invert to full opacity, ring
+   pulses a few times on load), but now only touches the button; the
+   hint caption beside it no longer fades with it, it just stays. */
+.lang-toggle.is-spotlit {
+  background: var(--ink-0);
+  color: var(--bg-0);
+  border-color: var(--ink-0);
+  animation: lang-spotlight-ring 1.7s ease-out 3;
+}
+
+@keyframes lang-spotlight-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink-0) 45%, transparent); }
+  60%  { box-shadow: 0 0 0 10px color-mix(in srgb, var(--ink-0) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink-0) 0%, transparent); }
+}
+
+@media (max-width: 720px) {
+  .lang-toggle-wrap { gap: 6px; }
+  .lang-toggle__hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lang-toggle.is-spotlit { animation: none; background: var(--ink-0); color: var(--bg-0); border-color: var(--ink-0); }
+  .lang-toggle-wrap:has(.lang-toggle.is-spotlit) .lang-toggle__hint { animation: none; opacity: 1; }
+}
+
 @media (max-width: 860px) {
   /* base.css's .nav already has overflow-x:auto + hidden scrollbar built in
      for exactly this — it just never got a chance to run because this block
@@ -924,8 +989,13 @@ html[data-theme='dark'] .theme-toggle__knob::before {
   cursor: grab;
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
   touch-action: none;
+  /* the opening demo slides `top` + background every 5s — this is what
+     makes it read as a dot gliding down the track, not just recoloring
+     in place. A real drag still feels instant (see .is-dragging). */
+  transition: top 1.1s cubic-bezier(0.65, 0, 0.35, 1), background 1.1s ease;
 }
 .color-hud__dot:active { cursor: grabbing; }
+.color-hud__dot.is-dragging { transition: none; }
 .color-hud__dot[data-dot='0'] { background: var(--accent); top: 20%; }
 .color-hud__dot[data-dot='1'] { background: var(--accent-2); top: 50%; }
 .color-hud__dot[data-dot='2'] { background: var(--accent-soft); top: 80%; }

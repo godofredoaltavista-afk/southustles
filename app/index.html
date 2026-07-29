@@ -108,9 +108,29 @@
         <span class="theme-toggle__grid"></span>
         <span class="theme-toggle__knob"></span>
       </button>
-      <button type="button" class="pill-btn lang-toggle" data-lang-toggle aria-label="Cambiar a español">EN</button>
     </div>
   </header>
+
+  <!-- Deliberately OUTSIDE .site-nav: that header sets `translate`, which
+       (like `transform`) makes it a containing block for descendants —
+       so a fixed/absolute child positioned "past its edge" can silently
+       render off-viewport on narrower windows, unclickable even though
+       getBoundingClientRect looked fine. Living as a true sibling keeps
+       this `position: fixed` relative to the real viewport; JS below
+       (initLangTogglePosition) measures the nav's own right edge and
+       clamps so it never runs past the window either. -->
+  <div class="lang-toggle-wrap">
+    <button type="button" class="pill-btn lang-toggle" data-lang-toggle aria-label="Cambiar a inglés">
+      <svg class="lang-toggle__flag" viewBox="0 0 32 20" aria-hidden="true" focusable="false">
+        <rect width="32" height="20" fill="#fff" />
+        <rect width="32" height="6.4" fill="#74ACDF" />
+        <rect y="13.6" width="32" height="6.4" fill="#74ACDF" />
+        <circle cx="16" cy="10" r="2.6" fill="#FCBF49" stroke="#85340A" stroke-width="0.4" />
+      </svg>
+      <span class="lang-toggle__code">ARG</span>
+    </button>
+    <span class="lang-toggle__hint" aria-hidden="true">Languages</span>
+  </div>
 
   <!-- ═══════════ 3. FULL-SCREEN MENU OVERLAY ═══════════ -->
   <div id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
