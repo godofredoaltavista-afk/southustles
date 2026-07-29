@@ -40,25 +40,27 @@
    .section--inverted in tokens.css). */
 .section.sec-dark,
 .sec-dark {
-  --bg-0: #0b0b0e;
-  --bg-1: #121216;
-  --bg-2: #1b1b21;
-  --bg-glass: rgba(16, 16, 20, 0.72);
+  /* Neutral grayscale — no blue/cyan channel bias (Franco: "sin cyan en
+     la version darkmode"). Drives #magnetic/#gravity/#canopy. */
+  --bg-0: #0c0c0c;
+  --bg-1: #131313;
+  --bg-2: #1c1c1c;
+  --bg-glass: rgba(18, 18, 18, 0.72);
   --ink-0: #f4f4f5;
   --ink-1: #b9b9c1;
   --ink-2: #84848e;
   --ink-3: #4c4c55;
-  --line: #26262d;
-  --line-soft: #1f1f26;
-  --pole-hi: #15151a;
-  --pole-lo: #060608;
-  --surface: #16161a;
-  --surface-ink: #1c1c22;
+  --line: #282828;
+  --line-soft: #202020;
+  --pole-hi: #181818;
+  --pole-lo: #060606;
+  --surface: #181818;
+  --surface-ink: #1e1e1e;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px -24px rgba(0, 0, 0, 0.7);
   --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 24px 60px -28px rgba(0, 0, 0, 0.85);
   color-scheme: dark;
   color: var(--ink-0);
-  background: linear-gradient(180deg, #0e0e12 0%, #060608 55%, #0d0d11 100%);
+  background: linear-gradient(180deg, #101010 0%, #060606 55%, #111111 100%);
 }
 
 /* INVERSION — in dark theme .sec-dark flips to the

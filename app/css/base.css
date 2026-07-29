@@ -47,12 +47,14 @@ a:hover {
 }
 
 /* ═══════════════════════════════════════════
-   LOADER — cinematic boot screen. Violet by default.
+   LOADER — cinematic boot screen. Neutral black by
+   default (Franco: "que el sitio sea negro puro en
+   todo" — the loader is the first frame anyone sees).
    ═══════════════════════════════════════════ */
 .loader-screen {
   position: fixed;
   inset: 0;
-  background: radial-gradient(85% 70% at 50% 45%, #8b5cf6, #7c3aed 65%, #4c1d95 100%);
+  background: radial-gradient(85% 70% at 50% 45%, #1a1a1a, #101010 65%, #000000 100%);
   display: flex;
   align-items: center;
   justify-content: center;

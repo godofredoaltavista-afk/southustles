@@ -276,6 +276,45 @@ function initPerspective() {
   update();
 }
 
+/* ── (h0) opening demo: all 3 dots auto-slide down their track every
+   5s — "didáctico", showing off what they control before anyone drags
+   one. Reuses `apply(dot, t)` itself (the exact function a real drag
+   calls) so the dot's position and its color are never out of sync —
+   that mismatch (color changed, dot stayed put) was the bug. Each dot
+   runs the same 5-stop sequence offset by one step, so accent/warm/soft
+   are never all showing the same hue at once. No black in the loop
+   (t*320 hue can't produce it anyway — moot once position drives color).
+   The pad itself never moves (Franco: "que quede quieto"), only the
+   dots slide inside it. First touch of the pad freezes it in place. */
+const HUD_DEMO_STOPS = [0.02, 0.22, 0.5, 0.62, 0.92]; // naranja, lime, cyan-teal, celeste, rosa-violeta
+
+function initColorHudDemo(hud, dots, apply) {
+  if (!hud || !dots.length) return;
+  let tick = 0;
+  let demoTimer = null;
+
+  const paintAll = () => {
+    dots.forEach((dot, i) => {
+      const stop = HUD_DEMO_STOPS[(tick + i) % HUD_DEMO_STOPS.length];
+      apply(dot, stop);
+    });
+  };
+
+  const stopDemo = () => {
+    if (demoTimer) { clearInterval(demoTimer); demoTimer = null; }
+  };
+
+  paintAll();
+  demoTimer = setInterval(() => {
+    tick = (tick + 1) % HUD_DEMO_STOPS.length;
+    paintAll();
+  }, 5000);
+
+  // any real interaction with the pad — dragging a dot, hitting reset —
+  // locks the demo exactly where it is.
+  hud.addEventListener('pointerdown', stopDemo, { once: true });
+}
+
 /* ── (h) colour HUD: 3 draggable dots rewrite --accent/--accent-2/--accent-soft ── */
 function initColorHud() {
   const hud = document.querySelector('.color-hud');
@@ -301,6 +340,8 @@ function initColorHud() {
     dot.setAttribute('aria-valuetext', `accent ${col}`);
   };
 
+  initColorHudDemo(hud, dots, apply);
+
   dots.forEach((dot) => {
     let dragging = false;
     const rectOf = () => track.getBoundingClientRect();
@@ -310,11 +351,12 @@ function initColorHud() {
     };
     dot.addEventListener('pointerdown', (e) => {
       dragging = true;
+      dot.classList.add('is-dragging');
       dot.setPointerCapture(e.pointerId);
       e.preventDefault();
     });
     dot.addEventListener('pointermove', (e) => { if (dragging) move(e.clientY); });
-    dot.addEventListener('pointerup', () => { dragging = false; });
+    dot.addEventListener('pointerup', () => { dragging = false; dot.classList.remove('is-dragging'); });
     dot.addEventListener('keydown', (e) => {
       const cur = parseFloat(dot.style.top) / 100 || 0.5;
       if (e.key === 'ArrowUp') { apply(dot, cur - 0.05); e.preventDefault(); }
