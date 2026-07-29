@@ -24,7 +24,11 @@
   --font-display: 'Archivo', 'Inter Tight', system-ui, sans-serif; /* big headlines are grotesk here, not serif */
   --font-serif: 'Instrument Serif', 'DM Serif Display', Georgia, serif; /* HUSTLES / SYSTEM / everything italics */
   --font-italic: 'Instrument Serif', Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+  /* Former terminal/mono voice, retired site-wide (Franco: "no quiero esa
+     font terminal en ningún lado — cine/editorial mode"). The token name is
+     kept so every existing label inherits the new voice in one place: a
+     tracked grotesk that reads as an editorial caption, never a runbook. */
+  --font-mono: 'Archivo', 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
   --font-ui: 'Archivo', 'Inter Tight', ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
 
   /* geometry */
