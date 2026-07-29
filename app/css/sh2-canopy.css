@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════
+   SH2 — JUNGLE CANOPY BACKGROUND SECTION
+   #canopy — sparse procedural leaves (Three.js), same scaffolding
+   as #magnetic / #gravity in sh2-three.css. Canvas sits absolute
+   behind the copy; leaves stay low-density and framed to the edges
+   so the placeholder copy + CTA read clean in the middle.
+   ═══════════════════════════════════════════ */
+
+#canopy {
+  position: relative;
+  overflow: clip;
+  display: flex;
+  align-items: center;
+  min-height: 92vh;
+  padding: clamp(96px, 14vh, 170px) 0;
+}
+
+.sh2-canopy-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* theme-reactive: #canopy carries .sec-dark, which INVERTS with the
+   site's dark/light toggle (same trick as #magnetic/#gravity in
+   sh2-three.css) — so copy must ride --ink-* instead of fixed hex,
+   or it goes illegible the moment .sec-dark flips to its light pole.
+   No terminal eyebrow here: the section leads straight with the title
+   (cinema mode — no "CANOPY // 08" runbook labels). */
+.sh2-canopy-copy .sh2-three-giant {
+  max-width: 16ch;
+  color: var(--ink-0);
+}
+.sh2-canopy-copy .sh2-three-giant em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--ink-0) 45%, #8fd67a 55%);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.sh2-canopy-copy .sh2-three-lede {
+  max-width: 46ch;
+  color: var(--ink-1);
+}
+
+.sh2-canopy-cta {
+  margin-top: clamp(26px, 4vh, 42px);
+}
+
+@media (max-width: 720px) {
+  #canopy { min-height: 82vh; }
+  .sh2-canopy-copy .sh2-three-giant { max-width: none; }
+}
+
+/* ═══════════════════════════════════════════
+   #canopy-reveal — "Ver proyecto" destination.
+   Same gradient + outline-text + leaves DNA as the case-study
+   banner (.case__banner-inner), but tall/scrollable so there's
+   room for real project copy later.
+   ═══════════════════════════════════════════ */
+/* theme-reactive gradient: blends the accent hues into the current
+   theme's --bg-* scale (same color-mix technique as .case__banner-inner
+   in sh2-content.css) instead of fixed pastel hex, so this automatically
+   goes from a light violet/pink wash to a dark plum chapter with the
+   site's own dark/light toggle — no separate dark-mode override needed. */
+.canopy-reveal {
+  position: relative;
+  overflow: clip;
+  min-height: 170vh;
+  padding: clamp(120px, 16vh, 200px) 0 clamp(80px, 10vh, 140px);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--accent) 20%, var(--bg-1)) 0%,
+    color-mix(in srgb, var(--accent-2) 16%, var(--bg-0)) 48%,
+    var(--bg-2) 100%
+  );
+  /* creative touch: the same gradient, oversized and drifting — a slow
+     60s breathing motion instead of a static wash. Paused under
+     prefers-reduced-motion since it's decorative, not informational. */
+  background-size: 220% 220%;
+  animation: canopy-reveal-drift 60s ease-in-out infinite alternate;
+}
+@keyframes canopy-reveal-drift {
+  0%   { background-position: 15% 20%; }
+  50%  { background-position: 85% 60%; }
+  100% { background-position: 30% 90%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .canopy-reveal { animation: none; }
+}
+
+.canopy-reveal__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Cinema japonés: asymmetric beats spread down the tall section, huge
+   negative space, mountain-scale hierarchy (220px hero vs 12px kicker vs
+   a fine serif-italic lede), hairline strokes (trazos) as the only
+   ornament. No mono/terminal anywhere. */
+.canopy-reveal__stage {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  padding: 0 clamp(22px, 6vw, 96px);
+  min-height: inherit;
+}
+
+.cr-beat { position: relative; }
+
+/* beat 1 — opening, anchored top-left */
+.cr-beat--open { max-width: 90%; }
+
+.cr-kicker {
+  display: block;
+  font-family: var(--font-grotesk);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 clamp(22px, 4.5vh, 46px) 3px;
+}
+
+.cr-hero {
+  margin: 0;
+  font-family: var(--font-grotesk);
+  font-weight: 900;
+  font-size: clamp(58px, 15vw, 260px);
+  line-height: 0.82;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.4px color-mix(in srgb, var(--ink-0) 66%, transparent);
+}
+/* mixed-type accent: one serif-italic letter dropped into the grotesk
+   outline — the "títulos mezclados" cinema touch */
+.cr-hero em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  -webkit-text-stroke: 0;
+  color: color-mix(in srgb, var(--ink-0) 78%, var(--accent) 22%);
+}
+
+/* beat 2 — fine serif-italic lede, pushed to the right */
+.cr-beat--fine {
+  margin: clamp(160px, 30vh, 400px) 0 0 auto;
+  max-width: 38ch;
+  text-align: right;
+}
+.cr-stroke {
+  display: block;
+  width: clamp(64px, 12vw, 190px);
+  height: 1px;
+  margin: 0 0 clamp(26px, 4.5vh, 46px) auto;
+  background: color-mix(in srgb, var(--ink-0) 42%, transparent);
+}
+.cr-lede {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 46px);
+  line-height: 1.28;
+  color: var(--ink-1);
+}
+
+/* beat 3 — secondary outline title + fine caption, anchored left */
+.cr-beat--close { margin: clamp(160px, 30vh, 400px) 0 0; max-width: 90%; }
+.cr-outline {
+  margin: 0;
+  font-family: var(--font-grotesk);
+  font-weight: 900;
+  font-size: clamp(40px, 8vw, 132px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--ink-0) 52%, transparent);
+}
+.cr-caption {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: clamp(22px, 4vh, 40px) 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 22px);
+  color: var(--ink-2);
+}
+.cr-mark {
+  flex: 0 0 auto;
+  width: clamp(40px, 7vw, 96px);
+  height: 1px;
+  background: color-mix(in srgb, var(--ink-0) 38%, transparent);
+}
+
+@media (max-width: 720px) {
+  .canopy-reveal { min-height: 150vh; }
+  .cr-beat--fine { text-align: left; margin-left: 0; }
+  .cr-stroke { margin-left: 0; }
+  .cr-beat--fine, .cr-beat--open, .cr-beat--close { max-width: 100%; }
+}

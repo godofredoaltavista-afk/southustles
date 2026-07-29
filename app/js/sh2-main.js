@@ -11,6 +11,7 @@ import {
   initWordRotator, initFontSwap2, initNavBooks, initQuickPanel,
 } from './sh2-fx.js';
 import { initMagneticField, initGravityFrames } from './sh2-three.js';
+import { initCanopyField, initCaseBannerLeaves, initCanopyRevealLeaves } from './sh2-canopy.js';
 import { initStickers } from './sh2-stickers.js';
 import { initReel } from './sh2-reel.js';
 import { initFooterBalls } from './sh2-balls.js';
@@ -53,6 +54,9 @@ function boot2() {
   // heavy visual layers — each self-guards + pauses offscreen
   initMagneticField();
   initGravityFrames();
+  initCanopyField();
+  initCanopyRevealLeaves();
+  initCaseBannerLeaves();
   initStickers();
   initFooterBalls();
   // persistent HUD strip: fewer + staggered respawn (~2.2s dormant on avg

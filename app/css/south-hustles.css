@@ -554,10 +554,11 @@ html[data-theme='dark'] .theme-toggle__knob::before {
 }
 .project-row__name em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
 .project-row__col {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.2vw, 1.18rem);
+  letter-spacing: 0;
+  text-transform: lowercase;
   color: var(--ink-1);
 }
 .project-row__disc {

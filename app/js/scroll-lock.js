@@ -26,5 +26,14 @@ export function unlockBodyScroll() {
   document.body.style.position = '';
   document.body.style.top = '';
   document.body.style.width = '';
+  // Restore INSTANTLY. While locked, body was position:fixed so the window
+  // scroll sat at 0; `html { scroll-behavior: smooth }` (base.css) would make
+  // a plain scrollTo(savedY) *animate* from the top down to where you were —
+  // that's the "scrolls from the top on every overlay close" glitch. Force
+  // auto for the one restore call, then hand smooth scrolling back.
+  const root = document.documentElement;
+  const prevBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
   window.scrollTo(0, savedY);
+  root.style.scrollBehavior = prevBehavior;
 }
