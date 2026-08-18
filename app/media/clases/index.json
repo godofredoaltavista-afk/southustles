@@ -1,0 +1,26 @@
+{
+  "clases": [
+    {
+      "id": "manage-buissines-goals-not-pull-request3",
+      "name": "Manage buissines goals, not pull request3",
+      "updatedAt": "2026-08-18T05:53:18.568Z",
+      "accent": "#14140f",
+      "excerpt": "",
+      "durationMs": 2900492,
+      "brushCm": 747.46,
+      "preview": "manage-buissines-goals-not-pull-request3/preview.jpg",
+      "path": "manage-buissines-goals-not-pull-request3/clase.json"
+    },
+    {
+      "id": "howto22",
+      "name": "howto22",
+      "updatedAt": "2026-08-18T07:17:35.942Z",
+      "accent": "#14140f",
+      "excerpt": "renault 4l",
+      "durationMs": 4105599,
+      "brushCm": 246.79,
+      "preview": "howto22/preview.jpg",
+      "path": "howto22/clase.json"
+    }
+  ]
+}

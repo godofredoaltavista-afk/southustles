@@ -667,6 +667,80 @@ export function initNotas() {
   const importBtn = host.querySelector('[data-notas-import]');
 
   let notes = loadAll();
+
+  /* ═══════ published classes ═══════
+     These ship with the site under app/media/clases/ — a manifest plus,
+     per class, a lean clase.json and its images as individual files. The
+     export format embeds photos as base64 (which is why real exports run
+     6-28MB); splitting them means the JSON stays ~100KB and CloudFront
+     caches each photo on its own, so the gallery opens immediately and
+     the heavy bytes arrive in parallel and stay cached afterwards. */
+  const CLASES_BASE = 'media/clases';
+  let published = [];
+
+  const loadPublished = async () => {
+    try {
+      const res = await fetch(`${CLASES_BASE}/index.json`, { cache: 'no-cache' });
+      if (!res.ok) return;
+      const data = await res.json();
+      published = (data.clases || []).map((c) => ({
+        ...c,
+        __published: true,
+        claseId: c.id,
+        // the card reads these like any local note
+        preview: c.preview ? `${CLASES_BASE}/${c.preview}` : null,
+      }));
+      renderList();
+    } catch (err) {
+      // a missing manifest is normal before anything is published
+      console.info('[notas] sin clases publicadas', err?.message || err);
+    }
+  };
+
+  /** fetch a published class and hand it to the studio as a normal note */
+  const openPublished = async (entry) => {
+    setStatus?.('trayendo clase publicada…');
+    try {
+      const res = await fetch(`${CLASES_BASE}/${entry.path}`, { cache: 'force-cache' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const clase = await res.json();
+      // images are separate files; the engine wants dataURLs, so fetch
+      // them in parallel and convert. They stay in the browser cache, so
+      // reopening the class costs nothing.
+      const entries = Object.entries(clase.files || {});
+      const files = {};
+      await Promise.all(entries.map(async ([fileId, meta]) => {
+        const r = await fetch(`${CLASES_BASE}/${entry.claseId}/${meta.file}`, { cache: 'force-cache' });
+        if (!r.ok) return;
+        const blob = await r.blob();
+        const dataURL = await new Promise((ok, no) => {
+          const fr = new FileReader();
+          fr.onload = () => ok(fr.result);
+          fr.onerror = no;
+          fr.readAsDataURL(blob);
+        });
+        files[fileId] = { id: fileId, mimeType: meta.mimeType, dataURL, created: Date.now() };
+      }));
+      // a fresh local id, so editing a published class becomes YOUR copy
+      // rather than silently shadowing the published one
+      const nota = {
+        id: uid(), type: SCHEMA, version: SCHEMA_VERSION,
+        name: clase.name, createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        accent: clase.accent, background: clase.background || defaultBg(),
+        durationMs: clase.durationMs || 0, brushCm: clase.brushCm || 0,
+        excerpt: clase.excerpt || '', preview: entry.preview || null,
+        layerNames: clase.layerNames || {},
+        scene: { elements: clase.elements || [], fileIds: Object.keys(files) },
+      };
+      idbPutFiles(files).catch(() => {});
+      notes.push(nota); saveAll(notes); renderList();
+      openStudio(nota, files);
+    } catch (err) {
+      console.error('[notas] clase publicada', err);
+      setStatus?.('no se pudo traer esa clase');
+    }
+  };
   let studio = null;
   let engine = null;
   let current = null;
@@ -726,7 +800,14 @@ export function initNotas() {
   /* ═══════ note rail ═══════ */
   const renderList = () => {
     listEl.innerHTML = '';
-    notes
+    /* Published classes live on the site itself (media/clases/), so every
+       visitor sees them; local ones only exist in this browser. Both share
+       the same card so the gallery reads as one shelf — a published class
+       just carries a badge and is opened by fetching instead of reading
+       localStorage. A local copy of a published class wins, so once you
+       open and edit one you keep working on yours. */
+    const localIds = new Set(notes.map((n) => n.id));
+    [...notes, ...published.filter((p) => !localIds.has(p.claseId))]
       .slice()
       .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
       .forEach((n) => {
@@ -745,6 +826,7 @@ export function initNotas() {
               (excerpt ? `<span class="clase-card__caption"></span>` : '') +
               `<span class="clase-card__glare" aria-hidden="true"></span>` +
               `<span class="clase-card__open">Abrir clase<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>` +
+              (n.__published ? `<span class="clase-card__pub">publicada</span>` : '') +
             `</div>` +
             `<div class="clase-card__body">` +
               `<span class="clase-card__swatch" style="background:${n.accent || '#6d5efc'}"></span>` +
@@ -765,12 +847,13 @@ export function initNotas() {
         // 2:1 in CSS) to genuinely dominate the row on hover, not just
         // nudge past its neighbors — reads as a cinema-preview pop
         try { applyHoloTilt(chip, { maxTilt: 7, scale: 1.9 }); } catch {}
+        const open = () => (n.__published ? openPublished(n) : openStudio(n));
         chip.addEventListener('click', (e) => {
           if (e.target.closest('.clase-card__del')) return;
-          openStudio(n);
+          open();
         });
         chip.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openStudio(n); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
         });
         chip.querySelector('.clase-card__del').addEventListener('click', () => {
           if (!window.confirm(`¿Borrar "${n.name || 'sin título'}"?`)) return;
@@ -3972,4 +4055,5 @@ export function initNotas() {
   });
 
   renderList();
+  loadPublished();   // async: cards appear as soon as the manifest lands
 }
