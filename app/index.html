@@ -70,6 +70,7 @@
   <link rel="stylesheet" href="css/sh2-reader.css" />
   <link rel="stylesheet" href="css/sh2-content.css" />
   <link rel="stylesheet" href="css/sh3.css" />
+  <link rel="stylesheet" href="css/sh4-notas.css" />
 </head>
 <body>
 
@@ -1077,6 +1078,30 @@
       <div class="dna-strip" data-dna-strip aria-live="polite"></div>
       <button type="button" class="dna-clear" data-dna-clear hidden>clear DNA</button>
     </div>
+
+    <!-- ── NOTAS CREATIVAS — the Excalidraw engine wearing our interface.
+         Engine: vendor/notas/notas.js · chrome: js/sh4-notas.js ── -->
+    <div class="notas" data-notas id="notas">
+      <div class="notas__head">
+        <div class="notas__lockup">
+          <b>South Hustles</b><span>estudio creativo</span><em>clase</em>
+        </div>
+        <p class="notas__lede">
+          Entrá a la experiencia: el lienzo se abre sobre la página, con su panel
+          arrastrable. Dibujás, escribís, movés. Al cerrar te decimos cuánto duró y
+          cuántos centímetros de pincel hiciste — y la clase queda guardada en
+          <b>JSON</b> para volver cuando quieras.
+        </p>
+      </div>
+
+      <div class="notas__bar">
+        <button type="button" class="pill-btn pill-btn--solid" data-notas-new>Entrar a la clase</button>
+        <button type="button" class="pill-btn" data-notas-import>Importar clase</button>
+      </div>
+
+      <p class="notas__empty" data-notas-empty>Todavía no diste ninguna clase. Entrá a la primera.</p>
+      <div class="notas__rail" data-notas-list></div>
+    </div>
   </div>
 </section>
 
@@ -1312,5 +1337,6 @@
   <script type="module" src="js/sh-main.js"></script>
   <script type="module" src="js/sh2-main.js"></script>
   <script type="module" src="js/sh3-main.js"></script>
+  <script type="module" src="js/sh4-main.js"></script>
 </body>
 </html>

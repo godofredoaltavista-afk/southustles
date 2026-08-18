@@ -1,0 +1,1972 @@
+/* ═══════════════════════════════════════════
+   SH4 — NOTAS CREATIVAS.
+   Excalidraw's engine wearing the South Hustles
+   interface: pill buttons, magnetic pull, the hue
+   slider language of .color-hud, editorial type.
+   The engine is stock (app/vendor/notas/notas.js);
+   everything visible here is ours.
+
+   The studio declares its OWN dark scale locally —
+   it never inherits html[data-theme]. That is the
+   fix for "cuando cambio el dark mode el video de
+   fondo se pierde": the background weave is owned
+   by this component, not by the page theme.
+   ═══════════════════════════════════════════ */
+
+/* ────────── section entry (inside #journal) ────────── */
+.notas {
+  margin-top: clamp(28px, 5vh, 56px);
+  padding-top: clamp(22px, 3.5vh, 38px);
+  border-top: 1px solid var(--line);
+}
+
+.notas__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.notas__lockup {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.notas__lockup b {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  color: var(--ink-0);
+}
+.notas__lockup span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.74rem;
+  color: var(--ink-2);
+}
+.notas__lockup em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--accent);
+  padding-left: 9px;
+  border-left: 1px solid var(--line);
+}
+
+.notas__lede {
+  flex: 1 1 320px;
+  max-width: 52ch;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-1);
+}
+.notas__lede b { color: var(--accent); font-weight: 600; }
+
+.notas__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(18px, 2.6vh, 26px);
+}
+
+/* saved-note chips rail */
+.notas__rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.notas-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 320px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  color: var(--ink-0);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, transform 0.25s var(--ease-out), color 0.25s ease;
+}
+.notas-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.notas-chip__swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+.notas-chip__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.notas-chip__meta {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.notas-chip__del {
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0 0 0 2px;
+}
+.notas-chip__del:hover { color: var(--accent-2); }
+.notas__empty {
+  margin: 16px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+
+/* ═══════════ STUDIO OVERLAY ═══════════ */
+.notas-studio {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  /* local dark scale — deliberately independent of html[data-theme] */
+  --n-bg: #0a0a0a;
+  --n-surface: rgba(20, 20, 22, 0.82);
+  --n-ink: #f4f4f5;
+  --n-ink-2: #9a9aa4;
+  --n-ink-3: #5e5e68;
+  --n-line: rgba(255, 255, 255, 0.14);
+  color: var(--n-ink);
+  font-family: var(--font-ui);
+}
+.notas-studio.is-open { display: block; }
+
+/* ── THE BOARD IS ALWAYS LIVE ──
+   Franco: "NO ROMPAS CON EL HUD, aunque estes configurando algo en el
+   panel, podes dibujar al lado, tipo la pizarra siempre activa".
+   The studio shell itself is click-through; only the canvas and the
+   actual chrome boxes take pointer events, so nothing invisible can
+   ever swallow a stroke. */
+.notas-studio { pointer-events: none; }
+.notas-studio__canvas,
+.notas-dock,
+.n-panel,
+.n-report,
+.notas-studio__top .notas-title,
+.notas-studio__top .n-pill { pointer-events: auto; }
+/* the top bar's gradient is decoration — never a click target */
+.notas-studio__top { pointer-events: none; }
+
+/* ── background weave: the two clips, crossfading, tintable ── */
+.notas-studio__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--n-bg);
+}
+.notas-studio__bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out);
+}
+.notas-studio__bg video.is-live { opacity: 1; }
+
+/* colour wash — a flat colour laid OVER the footage at its own
+   opacity. Franco: "NADA DE SATURACION Y ESO, base el video de
+   fondo, y que te deje arriba poner COLORES con opacidad" — so no
+   hue-rotate/saturate grading of the clip itself. */
+.notas-studio__wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--n-wash, #6d5efc);
+  opacity: var(--n-wash-amt, 0);
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+/* legibility scrim so strokes always read over bright footage */
+.notas-studio__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(6, 6, 6, calc(var(--n-scrim, 0.45) * 1.1)) 0%,
+    rgba(6, 6, 6, var(--n-scrim, 0.45)) 45%,
+    rgba(6, 6, 6, calc(var(--n-scrim, 0.45) * 1.25)) 100%);
+}
+
+/* ── the three surfaces ──
+   video (default), cream paper with real grain, and the flat
+   near-black a design tool sits on. */
+
+/* cream paper: warm off-white + an SVG turbulence grain, the same
+   trick the site's own texture work uses — no image request. */
+.notas-studio[data-surface='cream'] .notas-studio__bg {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 0%, #fbf7ee 0%, #f3ece0 55%, #ebe3d5 100%);
+  background-size: 180px 180px, cover;
+}
+/* the scrim is a dark wash — meaningless on paper */
+.notas-studio[data-surface='cream'] .notas-studio__scrim { display: none; }
+
+/* flat + gradient + grain surfaces. The noise tile is reused via
+   --n-grain so each recipe only declares its colour layer. */
+.notas-studio {
+  --n-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.notas-studio[data-surface='ink'] .notas-studio__bg { background: #1e1e1e; }
+.notas-studio[data-surface='black'] .notas-studio__bg { background: #050505; }
+.notas-studio[data-surface='noise-dark'] .notas-studio__bg {
+  background: var(--n-grain), linear-gradient(180deg, #2b2b2e, #202023 60%, #171719);
+  background-size: 180px 180px, cover;
+}
+.notas-studio[data-surface='grad-violet'] .notas-studio__bg {
+  background:
+    radial-gradient(70% 60% at 15% 0%, color-mix(in srgb, var(--accent) 60%, transparent), transparent 72%),
+    radial-gradient(60% 55% at 100% 100%, color-mix(in srgb, var(--accent-2) 38%, transparent), transparent 74%),
+    linear-gradient(180deg, #141118, #0b0a0e);
+}
+.notas-studio[data-surface='grad-warm'] .notas-studio__bg {
+  background:
+    radial-gradient(66% 58% at 85% 5%, color-mix(in srgb, var(--accent-2) 55%, transparent), transparent 72%),
+    radial-gradient(58% 52% at 5% 100%, color-mix(in srgb, var(--uni-amber, #f4c542) 34%, transparent), transparent 74%),
+    linear-gradient(180deg, #17110f, #0c0908);
+}
+.notas-studio[data-surface='white'] .notas-studio__bg { background: #ffffff; }
+.notas-studio[data-surface='grey'] .notas-studio__bg {
+  background: var(--n-grain), linear-gradient(180deg, #d9d9dc, #cfcfd3);
+  background-size: 180px 180px, cover;
+}
+.notas-studio[data-surface='cream-color'] .notas-studio__bg {
+  background:
+    var(--n-grain),
+    radial-gradient(64% 56% at 12% 4%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(58% 52% at 96% 98%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 72%),
+    linear-gradient(180deg, #fbf7ee, #f1e9db);
+  background-size: 180px 180px, cover, cover, cover;
+}
+
+/* the dark scrim is only meaningful over footage */
+.notas-studio:not([data-surface='video']) .notas-studio__scrim { display: none; }
+
+/* on paper the chrome flips to dark-on-light so it stays readable */
+.notas-studio[data-surface='cream'],
+.notas-studio[data-surface='cream-color'],
+.notas-studio[data-surface='white'],
+.notas-studio[data-surface='grey'] {
+  --n-surface: rgba(255, 253, 248, 0.9);
+  --n-ink: #14140f;
+  --n-ink-2: #55554c;
+  --n-ink-3: #8a8a7e;
+  --n-line: rgba(0, 0, 0, 0.16);
+}
+.notas-studio[data-surface='cream'] .n-pill,
+.notas-studio[data-surface='cream-color'] .n-pill,
+.notas-studio[data-surface='white'] .n-pill,
+.notas-studio[data-surface='grey'] .n-pill { background: rgba(255, 255, 255, 0.72); }
+.notas-studio[data-surface='cream'] .n-pill--solid,
+.notas-studio[data-surface='cream-color'] .n-pill--solid,
+.notas-studio[data-surface='white'] .n-pill--solid,
+.notas-studio[data-surface='grey'] .n-pill--solid { background: #14140f; color: #fbf7ee; border-color: #14140f; }
+.notas-studio[data-surface='cream'] .n-chip,
+.notas-studio[data-surface='cream-color'] .n-chip,
+.notas-studio[data-surface='white'] .n-chip,
+.notas-studio[data-surface='grey'] .n-chip { background: rgba(255, 255, 255, 0.66); }
+.notas-studio[data-surface='cream'] .n-tool:hover,
+.notas-studio[data-surface='cream-color'] .n-tool:hover,
+.notas-studio[data-surface='white'] .n-tool:hover,
+.notas-studio[data-surface='grey'] .n-tool:hover,
+.notas-studio[data-surface='cream'] .n-grip:hover { background: rgba(0, 0, 0, 0.07); }
+.notas-studio[data-surface='cream'] .notas-title,
+.notas-studio[data-surface='cream-color'] .notas-title,
+.notas-studio[data-surface='white'] .notas-title,
+.notas-studio[data-surface='grey'] .notas-title { background: rgba(255, 255, 255, 0.7); }
+.notas-studio[data-surface='cream'] .notas-studio__top,
+.notas-studio[data-surface='cream-color'] .notas-studio__top,
+.notas-studio[data-surface='white'] .notas-studio__top,
+.notas-studio[data-surface='grey'] .notas-studio__top {
+  background: linear-gradient(180deg, rgba(251, 247, 238, 0.9), transparent);
+}
+.notas-studio[data-surface='cream'] .notas-studio__canvas .excalidraw .Island,
+.notas-studio[data-surface='cream-color'] .notas-studio__canvas .excalidraw .Island,
+.notas-studio[data-surface='white'] .notas-studio__canvas .excalidraw .Island,
+.notas-studio[data-surface='grey'] .notas-studio__canvas .excalidraw .Island {
+  background: rgba(255, 253, 248, 0.92) !important;
+}
+/* the format-guide popover follows the current surface instead of always
+   being dark — light surfaces get a light popover, live-swapped the same
+   way everything else here reacts to [data-surface] */
+.notas-studio[data-surface='cream'] .n-formats__pop,
+.notas-studio[data-surface='cream-color'] .n-formats__pop,
+.notas-studio[data-surface='white'] .n-formats__pop,
+.notas-studio[data-surface='grey'] .n-formats__pop {
+  background: rgba(251, 247, 238, 0.97);
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+}
+.notas-studio[data-surface='cream'] .n-format:hover,
+.notas-studio[data-surface='cream-color'] .n-format:hover,
+.notas-studio[data-surface='white'] .n-format:hover,
+.notas-studio[data-surface='grey'] .n-format:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.notas-studio[data-surface='cream'] .n-format__box,
+.notas-studio[data-surface='cream-color'] .n-format__box,
+.notas-studio[data-surface='white'] .n-format__box,
+.notas-studio[data-surface='grey'] .n-format__box { border-color: #6b6b60; }
+.notas-studio[data-surface='cream'] .n-format em,
+.notas-studio[data-surface='cream-color'] .n-format em,
+.notas-studio[data-surface='white'] .n-format em,
+.notas-studio[data-surface='grey'] .n-format em { color: #6b6b60; }
+
+/* ── the canvas itself ── */
+.notas-studio__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.notas-studio__canvas .excalidraw,
+.notas-studio__canvas .excalidraw .excalidraw__canvas.static,
+.notas-studio__canvas .excalidraw .excalidraw__canvas.interactive {
+  background: transparent !important;
+}
+/* Only the stock TOOLBAR goes — our left dock replaces it. The
+   properties panel, the hamburger, zoom and undo/redo all stay:
+   Franco: "no perder la version de excalidraw que teniamos antes,
+   ese panel SUPER ENTENDIBLE completo". We dress it, we don't
+   delete it. */
+.notas-studio__canvas .excalidraw .App-toolbar,
+.notas-studio__canvas .excalidraw .App-toolbar__extra-tools-trigger,
+.notas-studio__canvas .excalidraw .layer-ui__wrapper__top-right,
+.notas-studio__canvas .excalidraw .help-icon {
+  display: none !important;
+}
+
+/* our top bar owns the first 64px — push Excalidraw's chrome below it
+   so the hamburger stops living underneath (and unclickable) */
+.notas-studio__canvas .excalidraw .layer-ui__wrapper {
+  padding-top: 64px;
+}
+
+/* ── the stock panel, wearing South Hustles ── */
+.notas-studio__canvas .excalidraw .Island {
+  --island-bg-color: rgba(20, 20, 22, 0.86);
+  background: rgba(20, 20, 22, 0.86) !important;
+  border: 1px solid var(--n-line);
+  border-radius: 18px !important;
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.notas-studio__canvas .excalidraw .App-menu__left {
+  width: 300px !important;
+  max-width: calc(100vw - 24px) !important;
+}
+/* section labels → the site's tracked mono-grotesk caption voice */
+.notas-studio__canvas .excalidraw .panelColumn legend,
+.notas-studio__canvas .excalidraw .control-label,
+.notas-studio__canvas .excalidraw .panelColumn .control-label span {
+  font-family: var(--font-mono) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--n-ink-3) !important;
+}
+/* option buttons (the 3 shape sizes, fill styles, edges…) */
+.notas-studio__canvas .excalidraw .buttonList .ToolIcon__icon,
+.notas-studio__canvas .excalidraw .buttonList label {
+  border-radius: 9px !important;
+  color: var(--n-ink-2) !important;
+}
+.notas-studio__canvas .excalidraw .buttonList .ToolIcon__icon:hover,
+.notas-studio__canvas .excalidraw .buttonList label:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--n-ink) !important;
+}
+.notas-studio__canvas .excalidraw .buttonList .ToolIcon--selected .ToolIcon__icon,
+.notas-studio__canvas .excalidraw .buttonList .ToolIcon__icon.active,
+.notas-studio__canvas .excalidraw input:checked + label {
+  background: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 1px var(--accent) !important;
+}
+.notas-studio__canvas .excalidraw .dropdown-menu-button {
+  border-radius: 12px !important;
+  background: rgba(20, 20, 22, 0.86) !important;
+  border: 1px solid var(--n-line) !important;
+  color: var(--n-ink) !important;
+  backdrop-filter: blur(14px);
+}
+.notas-studio__canvas .excalidraw .dropdown-menu-button:hover {
+  background: color-mix(in srgb, var(--accent) 26%, rgba(20, 20, 22, 0.9)) !important;
+}
+.notas-studio__canvas .excalidraw .dropdown-menu .dropdown-menu-container {
+  background: rgba(20, 20, 22, 0.94) !important;
+  border: 1px solid var(--n-line) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(16px);
+}
+.notas-studio__canvas .excalidraw .dropdown-menu-item {
+  border-radius: 9px !important;
+  color: var(--n-ink) !important;
+}
+.notas-studio__canvas .excalidraw .dropdown-menu-item:hover {
+  background: color-mix(in srgb, var(--accent) 26%, transparent) !important;
+}
+/* keep the accent language inside whatever Excalidraw UI survives
+   (text editor caret, selection, context menu) */
+.notas-studio__canvas .excalidraw.theme--dark {
+  --color-primary: var(--accent) !important;
+  --color-primary-darker: var(--accent) !important;
+  --color-primary-darkest: var(--accent) !important;
+  --select-highlight-color: var(--accent-soft) !important;
+  --color-selection: var(--accent) !important;
+}
+
+/* ── top bar ── */
+.notas-studio__top {
+  position: absolute;
+  z-index: 6;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px clamp(14px, 2.2vw, 26px);
+  background: linear-gradient(180deg, rgba(6, 6, 6, 0.72), transparent);
+}
+.notas-studio__lockup {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.notas-studio__lockup b {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+  color: var(--n-ink);
+}
+.notas-studio__lockup span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.7rem;
+  color: var(--n-ink-2);
+}
+.notas-studio__lockup em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--accent-soft);
+  padding-left: 8px;
+  border-left: 1px solid var(--n-line);
+}
+
+.notas-title {
+  flex: 0 1 300px;
+  min-width: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--n-line);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.32);
+  color: var(--n-ink);
+  font-family: var(--font-grotesk);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: center;
+  transition: border-color 0.25s ease;
+}
+.notas-title:focus { outline: none; border-color: var(--accent); }
+.notas-title::placeholder { color: var(--n-ink-3); font-weight: 400; }
+
+.notas-studio__acts { display: flex; align-items: center; gap: 7px; }
+
+/* studio-local pill button: same grammar as .pill-btn, dark-locked */
+.n-pill {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--n-line);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--n-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    transform 0.25s var(--ease-out);
+}
+.n-pill:hover { border-color: var(--accent); color: var(--accent-soft); transform: translateY(-1px); }
+.n-pill--solid { background: var(--n-ink); color: #0a0a0a; border-color: var(--n-ink); }
+.n-pill--solid:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* a quieter, slightly cautionary variant — for actions like discarding a
+   class without saving, which shouldn't read as the "solid"/primary action */
+.n-pill--ghost { background: transparent; }
+.n-pill--ghost:hover { border-color: #ff5c5c; color: #ff5c5c; }
+/* the site's directional ink sweep (sh2-fx.css .dirfill) needs an explicit
+   pole pair here — the studio is dark-locked, so the theme-token default
+   (--ink-0 on --bg-0) would paint dark-on-dark and read as nothing. */
+.n-pill.dirfill { --fill: var(--accent); --fill-ink: #ffffff; }
+.n-pill--solid.dirfill { --fill: var(--accent); --fill-ink: #ffffff; }
+.n-pill.is-active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 24%, transparent); color: #fff; }
+
+/* ── draggable dock (the "window" you can move anywhere) ── */
+.notas-dock {
+  position: fixed;
+  z-index: 8;
+  left: clamp(10px, 1.6vw, 20px);
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* the tool list outgrew short viewports once MASK was added — the last
+     buttons were rendering off-screen and became unclickable. Cap it and
+     let it scroll instead of silently losing tools. */
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  padding: 7px 9px 9px;
+  border: 1px solid var(--n-line);
+  border-radius: 18px;
+  background: var(--n-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.9);
+  transition: box-shadow 0.25s ease, scale 0.18s var(--ease-spring);
+}
+.notas-dock.is-dragging {
+  scale: 1.03;
+  box-shadow: 0 34px 80px -30px rgba(0, 0, 0, 1);
+  cursor: grabbing;
+}
+/* ── always-on HUD under the dock: armed brush + its colour ── */
+.n-hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  padding-top: 7px;
+  border-top: 1px solid var(--n-line);
+}
+.n-hud__brush { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.n-hud__icon { display: grid; place-items: center; width: 20px; height: 20px; color: var(--n-ink-2); }
+.n-hud__icon svg {
+  width: 18px; height: 18px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+/* the brush NAME reads big — it is the thing you check at a glance */
+.n-hud__name {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: 0.52rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: center;
+  color: var(--n-ink);
+  max-width: 44px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.n-hud__preview {
+  display: block;
+  width: 40px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--n-line);
+  background:
+    repeating-conic-gradient(rgba(255, 255, 255, 0.06) 0% 25%, transparent 0% 50%) 50% / 8px 8px,
+    rgba(0, 0, 0, 0.22);
+}
+.n-hud__swatch {
+  width: 26px;
+  height: 16px;
+  flex: none;
+  border-radius: 5px;
+  border: 1px solid var(--n-line);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s var(--ease-spring);
+}
+.n-hud__swatch:hover { transform: scale(1.1); }
+.notas-studio[data-surface='cream'] .n-hud__preview,
+.notas-studio[data-surface='cream-color'] .n-hud__preview,
+.notas-studio[data-surface='white'] .n-hud__preview,
+.notas-studio[data-surface='grey'] .n-hud__preview {
+  background:
+    repeating-conic-gradient(rgba(0, 0, 0, 0.05) 0% 25%, transparent 0% 50%) 50% / 8px 8px,
+    rgba(255, 255, 255, 0.55);
+}
+
+/* drag handle */
+.n-grip {
+  width: 38px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--n-ink-3);
+  cursor: grab;
+  touch-action: none;
+}
+.n-grip:hover { color: var(--n-ink); background: rgba(255, 255, 255, 0.07); }
+.n-grip:active { cursor: grabbing; }
+.n-grip svg { width: 20px; height: 14px; fill: currentColor; stroke: none; }
+.n-tool {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--n-ink-2);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.n-tool svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.n-tool:hover { color: var(--n-ink); background: rgba(255, 255, 255, 0.07); }
+.n-tool.is-active {
+  color: #fff;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.n-tool__sep { height: 1px; margin: 3px 4px; background: var(--n-line); }
+
+/* option buttons sit slightly apart from the tools */
+.n-tool--opt { color: var(--accent-soft); }
+.n-tool--opt.is-active {
+  color: #fff;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ── flyouts: open next to the dock, wherever the dock is ──
+   JS sets left/top at open time and stamps data-side so the
+   panel grows out of the edge that faces the dock. */
+.n-flyout {
+  position: fixed;
+  z-index: 9;
+  width: 272px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 92px);
+  overflow-y: auto;
+  padding: 14px 15px 16px;
+  border: 1px solid var(--n-line);
+  border-radius: 18px;
+  background: var(--n-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.95);
+  opacity: 0;
+  scale: 0.94;
+  pointer-events: none;
+  transform-origin: left center;
+  transition: opacity 0.2s ease, scale 0.26s var(--ease-spring), translate 0.26s var(--ease-spring);
+  translate: -8px 0;
+}
+.n-flyout[data-side='left'] { transform-origin: right center; translate: 8px 0; }
+.n-flyout.is-open {
+  opacity: 1;
+  scale: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+.n-flyout::-webkit-scrollbar { width: 8px; }
+.n-flyout::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 99px; }
+.n-flyout__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+  margin-bottom: 12px;
+}
+.n-flyout__title span {
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-soft);
+  text-transform: none;
+}
+/* sub-label inside a flyout */
+.n-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 13px 0 7px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+
+.n-group { padding: 13px clamp(12px, 1.4vw, 16px); border-bottom: 1px solid var(--n-line); }
+.n-group:last-child { border-bottom: 0; }
+.n-group__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+  margin-bottom: 11px;
+}
+.n-group__val {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-soft);
+  text-transform: none;
+}
+
+.n-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.n-row--tight { gap: 4px; }
+
+/* small square/chip buttons inside the panel */
+.n-chip {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 8px 4px;
+  border: 1px solid var(--n-line);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--n-ink-2);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.n-chip:hover { color: var(--n-ink); border-color: rgba(255, 255, 255, 0.3); }
+.n-chip.is-active {
+  color: #fff;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+/* ══════ texture brush overlay ══════
+   A sibling of the React mount, sized to match it exactly. Always
+   click-through (pointer-events:none) — it is a paint SURFACE only. Input
+   is handled by document-level capture listeners in sh4-notas.js instead
+   of the overlay's own pointer-events, because this element and the
+   grafted properties panel share the same z:3 ancestor stacking context
+   (.notas-studio__canvas): no z-index the overlay could carry would ever
+   sit strictly "above the canvas, below the panel" at the same time. */
+.notas-texture-overlay {
+  position: absolute;
+  inset: 0;
+  /* canvas is a replaced element — inset:0 alone positions it but does
+     NOT stretch it to fill (that's a real CSS quirk on img/canvas/video),
+     so without explicit 100%/100% it sat at the browser's default 300×150
+     intrinsic box. Everywhere outside that corner, clicks fell straight
+     through to the native Excalidraw canvas underneath (still armed with
+     freedraw), which is why the vector pencil kept drawing everywhere a
+     texture brush was supposed to take over. */
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.n-brushes { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.n-brush {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--n-line);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--n-ink-2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.n-brush svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.n-brush:hover { color: var(--n-ink); border-color: rgba(255, 255, 255, 0.3); }
+.n-brush.is-active {
+  color: #fff;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.n-brush-extra { margin: 4px 0 13px; }
+.n-stamp-row { display: flex; align-items: center; gap: 9px; margin-top: 9px; }
+.n-stamp-name {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--n-ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.n-ascii-row { display: flex; flex-direction: column; gap: 6px; margin-top: 9px; }
+.n-ascii-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--n-line);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--n-ink);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+.n-ascii-input:focus { outline: none; border-color: var(--accent); }
+.n-ascii-count {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.05em;
+  color: var(--n-ink-3);
+}
+
+/* ── the hue slider (the .color-hud language, horizontal) ── */
+.n-hue {
+  position: relative;
+  height: 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(90deg,
+    hsl(0 85% 60%), hsl(45 85% 60%), hsl(90 85% 60%), hsl(135 85% 60%),
+    hsl(180 85% 60%), hsl(225 85% 60%), hsl(270 85% 60%), hsl(315 85% 60%), hsl(360 85% 60%));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  touch-action: none;
+}
+.n-bar {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  touch-action: none;
+}
+.n-bar--sat { background: linear-gradient(90deg, hsl(var(--n-h, 260) 0% 60%), hsl(var(--n-h, 260) 100% 60%)); }
+.n-bar--lit { background: linear-gradient(90deg, #000, hsl(var(--n-h, 260) var(--n-s, 80%) 50%), #fff); }
+
+.n-knob {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.55);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  transition: scale 0.18s var(--ease-spring);
+}
+.n-hue.is-dragging .n-knob, .n-bar.is-dragging .n-knob { scale: 1.25; }
+
+/* live preview swatch */
+.n-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 11px;
+}
+.n-preview__chip {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--n-current, #f4f4f5);
+  box-shadow: 0 4px 16px -4px var(--n-current, #f4f4f5);
+  flex: none;
+}
+.n-eyedrop {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--n-line);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.26);
+  color: var(--n-ink-2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.n-eyedrop svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.n-eyedrop:hover { color: var(--n-ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+.n-eyedrop:disabled { opacity: 0.35; cursor: not-allowed; }
+.notas-studio[data-surface='cream'] .n-eyedrop,
+.notas-studio[data-surface='cream-color'] .n-eyedrop,
+.notas-studio[data-surface='white'] .n-eyedrop,
+.notas-studio[data-surface='grey'] .n-eyedrop { background: rgba(255, 255, 255, 0.5); }
+
+.n-preview__hex {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--n-ink);
+  text-transform: uppercase;
+}
+.n-preview__sub {
+  display: block;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--n-ink-3);
+  margin-top: 2px;
+}
+
+/* colour presets */
+.n-swatches { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 11px; }
+.n-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s var(--ease-spring), border-color 0.2s ease;
+}
+.n-swatch:hover { transform: translateY(-2px) scale(1.08); }
+.n-swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
+
+/* generic range input, restyled to the site's grammar */
+.n-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
+  cursor: pointer;
+  outline: none;
+}
+.n-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+.n-range::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: #fff; border: 2px solid rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.n-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--n-line);
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--n-ink);
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+.n-select:focus { outline: none; border-color: var(--accent); }
+.n-select option { background: #131316; color: #f4f4f5; }
+
+.n-hint {
+  margin: 9px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  line-height: 1.55;
+  letter-spacing: 0.05em;
+  color: var(--n-ink-3);
+}
+
+/* ══════ layers panel ══════ */
+.n-layers { display: flex; flex-direction: column; gap: 6px; margin-top: 11px; }
+.n-layer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px;
+  border: 1px solid var(--n-line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.n-layer:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.n-layer__thumb {
+  width: 40px;
+  height: 32px;
+  flex: none;
+  border-radius: 7px;
+  border: 1px solid var(--n-line);
+  background-color: rgba(255, 255, 255, 0.06);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  place-items: center;
+}
+.n-layer__ph { width: 16px; height: 16px; stroke: var(--n-ink-3); fill: none; stroke-width: 1.5; }
+.n-layer__thumb.has-img .n-layer__ph { display: none; }
+.n-layer__col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.n-layer__name {
+  width: 100%;
+  padding: 3px 0;
+  border: 0;
+  background: none;
+  color: var(--n-ink);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  cursor: text;
+}
+.n-layer__name:focus { outline: none; }
+.n-layer__name::placeholder { color: var(--n-ink-3); }
+.n-layer__meta {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+.n-layer__del {
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: var(--n-ink-3);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 7px;
+}
+.n-layer__del svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.n-layer__del:hover { color: var(--accent-2); background: rgba(255, 255, 255, 0.08); }
+
+/* ── status line ── */
+.notas-studio__status {
+  position: absolute;
+  z-index: 6;
+  left: clamp(10px, 1.6vw, 20px);
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--n-ink-3);
+  pointer-events: none;
+}
+.notas-studio__status b { color: var(--accent-soft); font-weight: 500; }
+
+/* ══════ OUR CONTROLS INSIDE EXCALIDRAW'S PANEL ══════
+   .n-panel is no longer a window of its own — it is grafted in as the
+   last child of the stock Island, so there is one panel, and that panel
+   is the one Excalidraw already draws. */
+.n-panel {
+  display: none;
+  width: 100%;
+  /* BUG that made every panel control unclickable: a position:fixed
+     element with no z-index sits at stacking level 0, so Excalidraw's
+     own full-viewport interactive canvas (z-index:3, transparent
+     background) painted OVER it and ate every click — the panel was
+     visible but dead. z-index is a no-op once grafted (position:static
+     ignores it), so setting it unconditionally here is safe either way. */
+  z-index: 9;
+}
+.n-panel.is-open { display: block; }
+
+/* Fallback: if the graft has not happened yet (Excalidraw only renders the
+   Island once a tool is active), the panel must NOT splatter across the top
+   of the studio as a full-width block — float it as its own small window
+   until it finds its home. */
+.n-panel:not([data-grafted='1']) {
+  position: fixed;
+  left: 96px;
+  top: 92px;
+  width: 300px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--n-line);
+  border-radius: 16px;
+  background: var(--n-surface);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.95);
+}
+/* grafted: it is just the tail of the Island, no chrome of its own */
+.n-panel[data-grafted='1'] {
+  position: static;
+  margin-top: 4px;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* the Island becomes a draggable window. NOTE: .App-menu__left and
+   .Island are the SAME node (Excalidraw renders <Island className=
+   "App-menu__left">), so these must be compound, never descendant. */
+.notas-studio__canvas .excalidraw .App-menu__left.sh-draggable {
+  z-index: 12;
+  max-height: calc(100vh - 96px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+.notas-studio__canvas .excalidraw .App-menu__left.sh-draggable::-webkit-scrollbar { width: 8px; }
+.notas-studio__canvas .excalidraw .App-menu__left.sh-draggable::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 99px;
+}
+.notas-studio__canvas .excalidraw .App-menu__left.is-dragging {
+  box-shadow: 0 40px 90px -34px rgba(0, 0, 0, 1);
+}
+
+/* injected drag handle, first child of the Island */
+.sh-island-grip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -4px -4px 8px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  cursor: grab;
+  color: var(--n-ink-3);
+  background: rgba(255, 255, 255, 0.05);
+  touch-action: none;
+  user-select: none;
+}
+.sh-island-grip:hover { background: rgba(255, 255, 255, 0.1); color: var(--n-ink); }
+.sh-island-grip:active { cursor: grabbing; }
+.sh-island-grip svg { width: 18px; height: 13px; fill: currentColor; flex: none; }
+.sh-island-grip span {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.n-panel__scroll { display: block; }
+
+/* our sections */
+.n-sect {
+  padding: 13px 0 4px;
+  border-top: 1px solid var(--n-line);
+  margin-top: 12px;
+}
+.n-sect[hidden] { display: none !important; }
+.n-panel__scroll > .n-sect:first-child { border-top: 0; }
+.n-sect.is-flash { animation: n-flash 1.1s var(--ease-out); }
+@keyframes n-flash {
+  0% { background: color-mix(in srgb, var(--accent) 26%, transparent); }
+  100% { background: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .n-sect.is-flash { animation: none; }
+  .n-panel { animation: none; }
+}
+
+/* the three colour bars stack with breathing room */
+.n-sect .n-hue + .n-bar,
+.n-sect .n-bar + .n-bar { margin-top: 7px; }
+
+/* min↔max captions under a slider label ("fino → grueso") */
+.n-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+
+/* surface cycler pill */
+.n-pill--surface { display: inline-flex; align-items: center; gap: 7px; }
+.n-pill__swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--n-swatch, #6d5efc);
+  flex: none;
+}
+
+/* ── per-frame floating toolbar ("mesa de trabajo" actions) ──
+   Sits above the canvas but below the dock/panel so it never fights real
+   chrome for clicks. The host is click-through; only the bars capture. */
+.n-framebars {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: hidden;
+}
+.n-framebar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  padding: 3px 4px 3px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--n-line);
+  background: var(--n-surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+.n-framebar__name {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+  margin-right: 2px;
+}
+.n-framebar__btn {
+  border: 0;
+  border-radius: 6px;
+  padding: 4px 9px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: #fff;
+  transition: filter 0.2s ease, transform 0.2s var(--ease-spring);
+}
+.n-framebar__btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.n-framebar__btn--alt { background: var(--accent-2, #26e0ff); color: #04212a; }
+/* three ruler states: dim = off, solid cyan = crear, magenta = mover */
+.n-framebar__btn--rule { background: rgba(38, 224, 255, 0.16); color: #26e0ff; opacity: 0.55; }
+.n-framebar__btn--rule.is-active { background: #26e0ff; color: #04212a; opacity: 1; }
+.n-framebar__btn--rule.is-hidden { background: rgba(140, 140, 140, 0.25); color: #8c8c8c; opacity: 0.75; text-decoration: line-through; }
+
+/* clicking the grey name turns it into this input */
+.n-framebar__name[data-frame-name] { cursor: text; }
+.n-framebar__name[data-frame-name]:hover { color: var(--n-ink); text-decoration: underline dotted; }
+.n-framebar__rename {
+  width: 11ch;
+  padding: 1px 4px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--n-ink);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.n-framebar__rename:focus { outline: none; }
+.notas-studio[data-surface='cream'] .n-framebar__rename,
+.notas-studio[data-surface='cream-color'] .n-framebar__rename,
+.notas-studio[data-surface='white'] .n-framebar__rename,
+.notas-studio[data-surface='grey'] .n-framebar__rename {
+  background: rgba(255, 255, 255, 0.9);
+  color: #14140f;
+}
+
+/* the 4-way move handle — bigger than the text buttons, it is the thing
+   you grab to drag the whole worktable with its contents */
+.n-framebar__move {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--n-ink);
+  cursor: grab;
+  touch-action: none;
+  transition: background 0.2s ease;
+}
+.n-framebar__close {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--n-ink-3);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.n-framebar__close:hover { background: rgba(255, 92, 92, 0.16); color: #ff5c5c; }
+.n-framebar__close svg {
+  width: 12px; height: 12px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round;
+}
+.n-framebar__move:hover { background: rgba(255, 255, 255, 0.18); }
+.n-framebar__move:active { cursor: grabbing; }
+.n-framebar__move svg {
+  width: 17px; height: 17px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.notas-studio[data-surface='cream'] .n-framebar__move,
+.notas-studio[data-surface='cream-color'] .n-framebar__move,
+.notas-studio[data-surface='white'] .n-framebar__move,
+.notas-studio[data-surface='grey'] .n-framebar__move { background: rgba(0, 0, 0, 0.07); }
+
+/* live preview while pulling a ruler — half-opacity until it lands on a
+   magnetic stop (eighths/quarters/halves), then it goes solid */
+.n-rule-preview {
+  position: absolute;
+  z-index: 7;
+  pointer-events: none;
+  outline: 1px solid #26e0ff;
+  opacity: 0.5;
+  transition: opacity 0.12s ease;
+}
+.n-rule-preview.is-snapped {
+  opacity: 1;
+  outline-width: 2px;
+  box-shadow: 0 0 8px rgba(38, 224, 255, 0.8);
+}
+
+/* ── ghost that follows the pointer while placing a "mesa de trabajo" ── */
+.n-format-ghost {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed var(--accent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--n-ink);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 4px;
+}
+
+/* ── format-guide popover (top bar, next to the surface cycler) ── */
+.n-formats { position: relative; pointer-events: auto; }
+.n-formats__pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 5;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  width: 320px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--n-line);
+  background: rgba(18, 18, 20, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+/* [hidden]'s display:none comes from the browser's own low-specificity UA
+   stylesheet — an unconditional `display: grid` on the class above would
+   outrank it, so toggling the `hidden` attribute in JS would set the DOM
+   property correctly while having ZERO visual effect (confirmed: the
+   popover never actually closed no matter what closeFormats() did). Grid
+   only applies once [hidden] is gone. */
+.n-formats__pop:not([hidden]) { display: grid; }
+.n-format {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 62px;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.n-format:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--n-line); }
+.n-format__box { border: 1.5px solid #9a9a9a; border-radius: 2px; flex: none; }
+.n-format em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.46rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: var(--n-ink-3);
+  line-height: 1.15;
+}
+
+/* ── font list, each row set in its own typeface ── */
+.n-fonts { display: flex; flex-direction: column; gap: 3px; }
+.n-font {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.26);
+  color: var(--n-ink-2);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.n-font:hover { color: var(--n-ink); background: rgba(255, 255, 255, 0.07); }
+.n-font.is-active {
+  color: #fff;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+}
+/* the preview: rendered in the family Excalidraw will actually draw with */
+.n-font__name { font-size: 1.02rem; line-height: 1.15; }
+.n-font__hint {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+.n-chip__icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+
+/* ── live class readout in the status line ── */
+.n-live { display: inline-flex; align-items: center; gap: 6px; }
+.n-live b { color: var(--accent-soft); font-weight: 500; font-variant-numeric: tabular-nums; }
+.n-live__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  animation: n-pulse 2s ease-in-out infinite;
+}
+@keyframes n-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@media (prefers-reduced-motion: reduce) { .n-live__dot { animation: none; } }
+
+/* ── the closing report ── */
+.n-report {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 4, 4, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: n-report-in 0.32s var(--ease-out);
+}
+.n-report[hidden] { display: none; }
+@keyframes n-report-in { from { opacity: 0; } to { opacity: 1; } }
+
+.n-report__card {
+  width: min(430px, 100%);
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--n-line);
+  border-radius: 22px;
+  background: rgba(18, 18, 20, 0.96);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 1);
+  animation: n-card-in 0.42s var(--ease-spring);
+}
+@keyframes n-card-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.n-report__lockup { display: flex; align-items: baseline; gap: 8px; }
+.n-report__lockup b {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: -0.02em;
+  color: var(--n-ink);
+}
+.n-report__lockup span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.7rem;
+  color: var(--n-ink-2);
+}
+.n-report__title {
+  margin: 14px 0 22px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  line-height: 1;
+  color: var(--accent-soft);
+}
+.n-report__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 18px 0;
+  border-top: 1px solid var(--n-line);
+  border-bottom: 1px solid var(--n-line);
+}
+.n-stat { display: flex; flex-direction: column; gap: 5px; }
+.n-stat__val {
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  letter-spacing: -0.03em;
+  color: var(--n-ink);
+  font-variant-numeric: tabular-nums;
+}
+.n-stat__key {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+.n-report__name { width: 100%; margin: 20px 0 0; text-align: left; flex: none; }
+.n-report__acts { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+/* The report card is always dark, so it must NOT inherit the light
+   surface tokens — on the cream/white surfaces the stat numbers were
+   painting dark-on-dark and vanishing. Pin the palette locally. */
+.n-report__card {
+  --n-ink: #f4f4f5;
+  --n-ink-2: #b7b7bf;
+  --n-ink-3: #82828c;
+  --n-line: rgba(255, 255, 255, 0.14);
+  color: var(--n-ink);
+}
+.n-report__card .n-pill { background: rgba(0, 0, 0, 0.3); color: #f4f4f5; }
+.n-report__card .n-pill--solid { background: #f4f4f5; color: #0a0a0a; border-color: #f4f4f5; }
+.n-report__card .notas-title {
+  background: rgba(0, 0, 0, 0.34);
+  color: #f4f4f5;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+/* three buttons in one row were overflowing and clipping their own
+   labels ("CERRAR SIN GUAR…", "GUARDAR Y CERR…") — let the row wrap and
+   let each pill shrink to its text instead of forcing one line */
+.n-report__acts { flex-wrap: wrap; }
+.n-report__acts .n-pill { padding: 8px 12px; font-size: 0.58rem; }
+
+/* light surfaces get a light report card — it used to stay dark no
+   matter what, so on cream/white the whole closing screen fought the
+   rest of the studio */
+.notas-studio[data-surface='cream'] .n-report__card,
+.notas-studio[data-surface='cream-color'] .n-report__card,
+.notas-studio[data-surface='white'] .n-report__card,
+.notas-studio[data-surface='grey'] .n-report__card {
+  --n-ink: #14140f;
+  --n-ink-2: #4a4a44;
+  --n-ink-3: #6b6b60;
+  --n-line: rgba(0, 0, 0, 0.16);
+  background: #fbf7ee;
+  color: var(--n-ink);
+}
+.notas-studio[data-surface='cream'] .n-report__title,
+.notas-studio[data-surface='cream-color'] .n-report__title,
+.notas-studio[data-surface='white'] .n-report__title,
+.notas-studio[data-surface='grey'] .n-report__title { color: #14140f; }
+.notas-studio[data-surface='cream'] .n-report__card .n-pill,
+.notas-studio[data-surface='cream-color'] .n-report__card .n-pill,
+.notas-studio[data-surface='white'] .n-report__card .n-pill,
+.notas-studio[data-surface='grey'] .n-report__card .n-pill {
+  background: rgba(255, 255, 255, 0.8);
+  color: #14140f;
+  border-color: rgba(0, 0, 0, 0.18);
+}
+.notas-studio[data-surface='cream'] .n-report__card .n-pill--solid,
+.notas-studio[data-surface='cream-color'] .n-report__card .n-pill--solid,
+.notas-studio[data-surface='white'] .n-report__card .n-pill--solid,
+.notas-studio[data-surface='grey'] .n-report__card .n-pill--solid {
+  background: #14140f; color: #fbf7ee; border-color: #14140f;
+}
+.notas-studio[data-surface='cream'] .n-report__card .notas-title,
+.notas-studio[data-surface='cream-color'] .n-report__card .notas-title,
+.notas-studio[data-surface='white'] .n-report__card .notas-title,
+.notas-studio[data-surface='grey'] .n-report__card .notas-title {
+  background: rgba(255, 255, 255, 0.85);
+  color: #14140f;
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+/* custom pixel size box, at the head of the format grid */
+.n-format-px {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 2px 8px;
+  border-bottom: 1px solid var(--n-line);
+  margin-bottom: 2px;
+}
+.n-format-px__now {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--n-ink-3);
+}
+.n-format-px__row { display: flex; align-items: center; gap: 5px; }
+.n-format-px__row input {
+  width: 68px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--n-line);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--n-ink);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+.n-format-px__row span { font-family: var(--font-mono); font-size: 0.62rem; color: var(--n-ink-3); }
+.n-format-px__row button {
+  margin-left: auto;
+  padding: 5px 11px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.n-format-px__row button:hover { filter: brightness(1.15); }
+.notas-studio[data-surface='cream'] .n-format-px__row input,
+.notas-studio[data-surface='cream-color'] .n-format-px__row input,
+.notas-studio[data-surface='white'] .n-format-px__row input,
+.notas-studio[data-surface='grey'] .n-format-px__row input {
+  background: rgba(255, 255, 255, 0.8);
+  color: #14140f;
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+/* ── live brush preview: colour · grosor · opacidad · suavidad ── */
+.n-brush-preview {
+  display: block;
+  width: 100%;
+  height: 78px;
+  margin-bottom: 10px;
+  border: 1px solid var(--n-line);
+  border-radius: 10px;
+  background:
+    repeating-conic-gradient(rgba(255, 255, 255, 0.05) 0% 25%, transparent 0% 50%) 50% / 14px 14px,
+    rgba(0, 0, 0, 0.24);
+}
+.notas-studio[data-surface='cream'] .n-brush-preview,
+.notas-studio[data-surface='cream-color'] .n-brush-preview,
+.notas-studio[data-surface='white'] .n-brush-preview,
+.notas-studio[data-surface='grey'] .n-brush-preview {
+  background:
+    repeating-conic-gradient(rgba(0, 0, 0, 0.05) 0% 25%, transparent 0% 50%) 50% / 14px 14px,
+    rgba(255, 255, 255, 0.5);
+}
+
+/* ══════ CLASS CARDS — PNG banner + spring 3D tilt ══════ */
+.notas__rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: 20px;
+  /* grid items stretch to the row's height by default — so when the body
+     collapsed on hover the card kept its full height and just showed a
+     big empty block under the banner instead of shrinking to the artwork.
+     Sizing to content is what makes "all thumbnail" actually read. */
+  align-items: start;
+}
+.clase-card {
+  position: relative;
+  perspective: 900px;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+  transition: transform 0.45s var(--ease-out), filter 0.45s var(--ease-out), opacity 0.4s ease;
+}
+.clase-card:hover, .clase-card:focus-within { z-index: 2; }
+/* neumorphic focus: hovering one class card pulls the rest of the grid
+   back — smaller, softer, blurred — so the one under the pointer reads
+   as the only thing in the room */
+.notas__rail:has(.clase-card:hover, .clase-card:focus-within)
+  .clase-card:not(:hover):not(:focus-within) {
+  transform: scale(0.955);
+  filter: blur(2.5px) saturate(0.75);
+  opacity: 0.6;
+}
+.clase-card .hc-tilt {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+.clase-card:hover .hc-tilt,
+.clase-card:focus-visible .hc-tilt {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lift);
+}
+.clase-card:focus-visible { outline: none; }
+
+.clase-card__banner {
+  position: relative;
+  aspect-ratio: 6 / 5;
+  background: linear-gradient(160deg, #16161a, #0d0d10);
+  overflow: hidden;
+  /* grows into the room .clase-card__meta gives up on hover (it collapses
+     to max-height:0 below) so the art actually takes over the card
+     instead of the card just getting shorter */
+  transition: aspect-ratio 0.45s var(--ease-out);
+}
+.clase-card:hover .clase-card__banner,
+.clase-card:focus-visible .clase-card__banner {
+  /* wide horizontal on hover, not taller — a real orientation flip so
+     much more of the source PNG becomes visible, like a banner preview
+     rather than a slightly-bigger thumbnail. 5:2 is wider still, and the
+     body below collapses away so the banner is nearly the whole card. */
+  aspect-ratio: 5 / 2;
+}
+/* on hover the card is a PREVIEW, not a data sheet: the whole lower block
+   (name, stats, swatch) folds away so the artwork owns the card */
+.clase-card:hover .clase-card__body,
+.clase-card:focus-within .clase-card__body {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+.clase-card__body {
+  max-height: 200px;
+  transition: max-height 0.45s var(--ease-out), opacity 0.3s ease,
+    padding 0.45s var(--ease-out);
+}
+.clase-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* the parallax: the art sits deeper than the frame and drifts with
+     the pointer vars holo-tilt springs (--mx/--my, -1..1) — hover pushes
+     both the zoom and the drift range further, so the artwork visibly
+     breathes instead of just sitting there */
+  transform: translate3d(calc(var(--mx, 0) * 13px), calc(var(--my, 0) * 13px), 0) scale(1.18);
+  transition: transform 0.5s var(--ease-out);
+}
+.clase-card:hover .clase-card__img,
+.clase-card:focus-visible .clase-card__img {
+  /* deep zoom into the thumbnail + a wide drift range: you are moving
+     AROUND INSIDE the PNG with the pointer, not just watching it grow */
+  transform: translate3d(calc(var(--mx, 0) * 90px), calc(var(--my, 0) * 90px), 0) scale(2.9);
+}
+.clase-card__blank {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.32);
+}
+.clase-card__blank svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* the text snippet, baked onto the thumbnail itself — a caption, not a
+   hover reveal, so the card reads at a glance without touching it */
+.clase-card__caption {
+  position: absolute;
+  z-index: 1;
+  left: 11px; right: 11px; bottom: 10px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, transparent, rgba(6, 6, 8, 0.6) 45%, rgba(6, 6, 8, 0.82));
+  color: #f4f4f5;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.72rem;
+  line-height: 1.32;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: opacity 0.35s ease;
+}
+.clase-card:hover .clase-card__caption,
+.clase-card:focus-visible .clase-card__caption { opacity: 0.35; }
+
+.clase-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    46% 40% at calc(50% + var(--mx, 0) * 40%) calc(50% + var(--my, 0) * 40%),
+    rgba(255, 255, 255, 0.24), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.clase-card:hover .clase-card__glare { opacity: 1; }
+
+/* "Abrir clase →" — a quiet call to action that only surfaces on hover,
+   center-stage while the caption dims out of its way */
+.clase-card__open {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  pointer-events: none;
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  transition: opacity 0.3s ease, transform 0.35s var(--ease-spring);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+.clase-card__open svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.clase-card:hover .clase-card__open,
+.clase-card:focus-visible .clase-card__open { opacity: 1; transform: translateY(0) scale(1); }
+
+.clase-card__body { padding: 15px 16px 16px; }
+.clase-card__swatch {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-bottom: 9px;
+}
+.clase-card__name {
+  margin: 0;
+  font-family: var(--font-grotesk);
+  font-weight: 800;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink-0);
+}
+
+/* the stat row — this is the "información" that steps aside on hover so
+   the thumbnail can take over the card, per the brief */
+.clase-card__meta {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+  padding-top: 11px;
+  max-height: 44px;
+  border-top: 1px solid var(--line-soft);
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.4s var(--ease-out),
+    margin-top 0.4s var(--ease-out), padding-top 0.4s var(--ease-out),
+    border-color 0.3s ease;
+}
+.clase-card:hover .clase-card__meta,
+.clase-card:focus-within .clase-card__meta {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top-color: transparent;
+}
+.clase-card__meta span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.clase-card__meta b {
+  font-family: var(--font-grotesk);
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
+  color: var(--ink-0);
+  font-variant-numeric: tabular-nums;
+}
+.clase-card__del {
+  position: absolute;
+  z-index: 3;
+  top: 9px; right: 9px;
+  width: 27px; height: 27px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-spring);
+}
+.clase-card__del svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.clase-card:hover .clase-card__del,
+.clase-card:focus-within .clase-card__del { opacity: 1; }
+.clase-card__del:hover { background: var(--accent-2); transform: scale(1.08); }
+
+@media (prefers-reduced-motion: reduce) {
+  .clase-card__img, .clase-card__open, .clase-card__meta, .clase-card { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .notas-dock {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: calc(100vw - 20px);
+    top: auto !important;
+    bottom: 12px;
+    left: 10px !important;
+    translate: none;
+  }
+  .n-grip { width: 100%; height: 16px; }
+  .n-flyout { width: calc(100vw - 20px); }
+  .notas-studio__status { display: none; }
+}
