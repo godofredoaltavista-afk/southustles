@@ -1798,6 +1798,22 @@
      AROUND INSIDE the PNG with the pointer, not just watching it grow */
   transform: translate3d(calc(var(--mx, 0) * 90px), calc(var(--my, 0) * 90px), 0) scale(2.9);
 }
+/* badge on classes that ship with the site (everyone sees these) */
+.clase-card__pub {
+  position: absolute;
+  z-index: 2;
+  top: 9px; left: 9px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(38, 224, 255, 0.9);
+  color: #04212a;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
 .clase-card__blank {
   position: absolute;
   inset: 0;
