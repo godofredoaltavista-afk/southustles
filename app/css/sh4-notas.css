@@ -1972,17 +1972,84 @@
 }
 
 @media (max-width: 900px) {
+  /* On a phone the studio's chrome was eating the screen: the wrapped
+     dock ran 270px tall and the top bar 181px, leaving barely 200px of
+     a 664px viewport to actually draw on. Everything below trades
+     ornament for canvas. */
   .notas-dock {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: calc(100vw - 20px);
+    gap: 3px;
+    padding: 4px 5px 5px;
+    max-width: calc(100vw - 16px);
+    max-height: 34vh;
+    overflow-y: auto;
     top: auto !important;
-    bottom: 12px;
-    left: 10px !important;
+    bottom: 8px;
+    left: 8px !important;
     translate: none;
   }
-  .n-grip { width: 100%; height: 16px; }
+  .n-grip { width: 100%; height: 14px; }
+  .n-tool { width: 32px; height: 32px; }
+  .n-tool svg { width: 16px; height: 16px; }
+  .n-tool__sep { display: none; }
   .n-flyout { width: calc(100vw - 20px); }
   .notas-studio__status { display: none; }
+
+  /* the HUD goes horizontal so it costs one short row, not a column */
+  .n-hud {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 2px;
+    padding-top: 5px;
+  }
+  .n-hud__brush { flex-direction: row; gap: 5px; }
+  .n-hud__name { max-width: none; font-size: 0.5rem; }
+  .n-hud__preview { width: 54px; height: 20px; }
+  .n-hud__swatch { width: 22px; height: 14px; }
+
+  /* top bar: drop the lockup, let the title own its row, shrink the
+     pills so the actions fit on one line instead of wrapping to three */
+  .notas-studio__lockup { display: none; }
+  .notas-studio__top { padding: 8px 10px; gap: 6px; flex-wrap: wrap; }
+  .notas-title { width: 100%; order: -1; font-size: 0.8rem; padding: 6px 10px; }
+  .notas-studio__acts { gap: 4px; width: 100%; justify-content: flex-end; }
+  .notas-studio__acts .n-pill { padding: 6px 9px; font-size: 0.52rem; }
+  .n-pill--surface span { display: none; }
+
+  /* the format grid was a fixed 320px — wider than the viewport padding
+     allows once it is anchored to a button near the right edge */
+  .n-formats__pop {
+    width: calc(100vw - 24px);
+    max-height: 52vh;
+    overflow-y: auto;
+    grid-template-columns: repeat(4, 1fr);
+    left: auto; right: 0;
+  }
+
+  /* worktable bars: keep them tappable but stop them spanning the screen */
+  .n-framebar { gap: 4px; padding: 2px 3px 2px 6px; }
+  .n-framebar__btn { padding: 3px 6px; font-size: 0.5rem; }
+  .n-framebar__name { display: none; }
+  .n-framebar__move { width: 22px; height: 22px; }
+
+  /* cards: one per row reads better than two cramped ones, and the
+     hover-driven zoom is meaningless without a pointer */
+  .notas__rail { grid-template-columns: 1fr; }
+  .clase-card__img { transform: none !important; }
+  .clase-card .hc-tilt { transform: none !important; }
+}
+
+/* a coarse pointer has no hover: the neighbour-blur/scale choreography
+   just made cards flicker on tap, so it is pointer-only */
+@media (hover: none) {
+  .notas__rail:has(.clase-card:hover, .clase-card:focus-within)
+    .clase-card:not(:hover):not(:focus-within) {
+    transform: none; filter: none; opacity: 1;
+  }
+  .clase-card:hover .clase-card__banner { aspect-ratio: 6 / 5; }
+  .clase-card:hover .clase-card__body { max-height: 200px; opacity: 1; }
 }
