@@ -1,6 +1,17 @@
 {
   "clases": [
     {
+      "id": "apacheta-mindful-lab",
+      "name": "Apacheta Mindful Lab",
+      "updatedAt": "2026-08-27T04:29:40.894Z",
+      "accent": "#14140f",
+      "excerpt": "APACHETA MINDFUL LAB · app de mindfulness × carta semanal · sistema visual a pincel · V1 · VERDE ROSA GRIS NEGRO BLANCO …",
+      "durationMs": 1247417,
+      "brushCm": 128.15,
+      "preview": "apacheta-mindful-lab/preview.webp",
+      "path": "apacheta-mindful-lab/clase.json"
+    },
+    {
       "id": "manage-buissines-goals-not-pull-request3",
       "name": "Manage buissines goals, not pull request3",
       "updatedAt": "2026-08-18T05:53:18.568Z",
@@ -8,7 +19,7 @@
       "excerpt": "",
       "durationMs": 2900492,
       "brushCm": 747.46,
-      "preview": "manage-buissines-goals-not-pull-request3/preview.jpg",
+      "preview": "manage-buissines-goals-not-pull-request3/preview.webp",
       "path": "manage-buissines-goals-not-pull-request3/clase.json"
     },
     {
@@ -19,7 +30,7 @@
       "excerpt": "renault 4l",
       "durationMs": 4105599,
       "brushCm": 246.79,
-      "preview": "howto22/preview.jpg",
+      "preview": "howto22/preview.webp",
       "path": "howto22/clase.json"
     }
   ]

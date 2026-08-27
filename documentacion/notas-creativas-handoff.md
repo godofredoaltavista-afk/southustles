@@ -488,3 +488,27 @@ await browser.close();
 - Toggle de visibilidad por capa, si Franco lo pide explícitamente sabiendo
   que no es nativo (implicaría manejar un flag propio de "oculto" que
   filtre en el render, no un campo del motor).
+
+## Publicar clases (estado 2026-08-27)
+
+Las clases publicadas viven en `app/media/clases/` y viajan con cada deploy:
+
+- `index.json` — manifiesto de la galería (lo lee `loadPublished()` en sh4-notas.js).
+- `<id>/clase.json` — metadata + elementos, sin dataURLs (~100KB).
+- `<id>/<fileId>.webp|svg` — cada imagen como archivo propio, cacheable por CloudFront.
+
+Para publicar una clase nueva: exportarla con el botón **JSON** del estudio y correr
+
+```bash
+cd pad/viewer   # ahí está playwright, que hace la conversión a WebP
+node ../../southustles/tools/publicar-clase.mjs "ruta/al/export.json" ../../southustles/app/media/clases
+```
+
+y commitear `app/media/clases`. El script reencodea los rasters a WebP (máx 1800px,
+q=0.82 — los reales bajan 60-76%), deja los SVG intactos, y actualiza el manifiesto
+(re-publicar un id existente lo reemplaza). Al abrirse una clase publicada, el sitio
+le crea al visitante una copia local con id nuevo — editar nunca pisa la original.
+
+Pendiente conocido: el botón PUBLISH desde el navegador (Cognito + IAM acotado a
+`clases/`) — diseño completo en el plan de sesión; hasta entonces publicar es
+export → script → commit.
