@@ -11,9 +11,27 @@
    difference between a gallery that opens and one that stalls. Chromium
    (via Playwright) re-encodes each raster to WebP with a sane max
    dimension; SVGs pass through untouched since they are already vector. */
-import { chromium } from 'playwright';
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
+import { pathToFileURL } from 'url';
+
+/* Playwright lives in pad/viewer's node_modules, not next to this file.
+   An ESM `import 'playwright'` resolves relative to THIS module's path and
+   fails, so resolve it from the working directory instead — that is what
+   lets the script live in the repo while borrowing the viewer's install. */
+const req = createRequire(path.join(process.cwd(), 'noop.js'));
+let chromium;
+try {
+  // playwright is CommonJS, so the namespace may hang off `default`
+  const pw = await import(pathToFileURL(req.resolve('playwright')).href);
+  chromium = pw.chromium || pw.default?.chromium;
+  if (!chromium) throw new Error('sin chromium');
+} catch {
+  console.error('No encuentro playwright. Corré este script desde pad/viewer:');
+  console.error('  cd pad/viewer && node ../../southustles/tools/publicar-clase.mjs <export.json> ../../southustles/app/media/clases');
+  process.exit(1);
+}
 
 const [SRC, OUT] = process.argv.slice(2);
 const MAX_DIM = 1800;      // plenty for a canvas asset, brutal on weight

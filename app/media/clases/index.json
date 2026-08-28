@@ -32,6 +32,17 @@
       "brushCm": 246.79,
       "preview": "howto22/preview.webp",
       "path": "howto22/clase.json"
+    },
+    {
+      "id": "lla-villa-carlos-paz-2027-kit-de-comunicacion",
+      "name": "LLA Villa Carlos Paz 2027 — Kit de Comunicación",
+      "updatedAt": "2026-08-28T19:57:51.000Z",
+      "accent": "#3FA9E8",
+      "excerpt": "LLA Villa Carlos Paz 2027 — kit de comunicacion de campana en 12 mesas: marca (la paloma), portada, los 4 ejes fijos con sus 13 propuestas, esquema de territorio, publico y alcance, app de campana, 6 formatos de banner, grilla de 9 posteos, cronograma de 9 etapas hasta el 27/06/2027, set de 15 iconos vectoriales, tratamientos de fotografia y hoja de sistema. Textos y datos tomados del workspace real (propuestas-campana-v1.md, contexto-politico-vcp.md, metas-objetivos-ejes-borrador.md); las fotos son las del PDF PLAN DE TRABAJO LLA V2.0 re-tramadas con la misma matriz Bayer que el resto del sistema. AI-authored: hecho con IA, no es una sesion grabada de dibujo.",
+      "durationMs": 0,
+      "brushCm": 0,
+      "preview": null,
+      "path": "lla-villa-carlos-paz-2027-kit-de-comunicacion/clase.json"
     }
   ]
 }
