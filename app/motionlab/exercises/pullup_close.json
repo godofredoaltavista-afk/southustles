@@ -1,0 +1,12 @@
+{
+  "id": "pullup_close",
+  "name": "Dominada cerrada (bíceps)",
+  "family": "reps",
+  "hint": "Agarre a la altura de los hombros o más cerrado. Subí hasta pasar la barra con el mentón.",
+  "counter": { "signal": "elbowAvg", "restThr": 155, "workThr": 85, "outIsConcentric": true, "minRepMs": 800, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "grip_wide", "label": "Agarre abierto para dominada cerrada", "signal": "wristGap", "op": "gt", "value": 1.5, "holdMs": 500 },
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 600 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "boxing_shadow",
+  "name": "Sombra de boxeo",
+  "family": "boxing",
+  "hint": "Guardia ortodoxa: pierna y mano izquierda adelante, la derecha es la de fuerza. Los golpes hacia la cámara se detectan mejor con MediaPipe (usa 3D).",
+  "smoothing": { "minCutoff": 3, "beta": 35, "dCutoff": 1 },
+  "chart": { "signals": ["extL", "extR"] },
+  "checks": [
+    { "id": "guard_down", "label": "Guardia baja", "signal": "guardBoth", "op": "falsy", "holdMs": 1500, "severity": "info" },
+    { "id": "shoulder_tilt", "label": "Hombros muy desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 18, "holdMs": 900, "severity": "info" }
+  ]
+}

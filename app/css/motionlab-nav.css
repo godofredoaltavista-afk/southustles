@@ -1,0 +1,14 @@
+/* Motion Lab nav button — sits after "University" in .site-nav .nav.
+   Same pill shape as the other nav links; the wordmark itself is
+   painted by js/motionlab-nav.js (canvas, follows data-theme). */
+.nav a.nav-ml {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+}
+.nav-ml canvas {
+  display: block;
+  width: 96px;
+  height: 12px;
+  pointer-events: none;
+}

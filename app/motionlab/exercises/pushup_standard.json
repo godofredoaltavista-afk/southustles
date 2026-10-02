@@ -1,0 +1,11 @@
+{
+  "id": "pushup_standard",
+  "name": "Flexión clásica / abierta",
+  "family": "reps",
+  "hint": "Manos a la altura de los hombros o más abiertas.",
+  "counter": { "signal": "elbowAvg", "restThr": 150, "workThr": 95, "outIsConcentric": false, "minRepMs": 700, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 600 }
+  ]
+}

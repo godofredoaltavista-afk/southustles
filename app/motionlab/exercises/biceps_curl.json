@@ -1,0 +1,14 @@
+{
+  "id": "biceps_curl",
+  "name": "Bíceps (curl)",
+  "family": "reps",
+  "hint": "De pie y de frente. Codos pegados al torso; subí en ~1 s y bajá en ~3 s.",
+  "counter": { "signal": "elbowAvg", "restThr": 150, "workThr": 75, "outIsConcentric": true, "minRepMs": 600, "label": "ángulo de codo (°)" },
+  "targetTempo": { "concentricMs": 1000, "eccentricMs": 3000 },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "elbows_out", "label": "Codos despegados del torso", "signal": "elbowGapMax", "op": "gt", "value": 0.85, "holdMs": 400, "when": "active" },
+    { "id": "torso_swing", "label": "Balanceás el torso", "signal": "torsoAngle", "op": "gt", "value": 14, "holdMs": 300 },
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 700 }
+  ]
+}

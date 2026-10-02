@@ -1,0 +1,12 @@
+{
+  "id": "pushup_diamond",
+  "name": "Flexión diamante",
+  "family": "reps",
+  "hint": "Manos juntas formando un diamante bajo el pecho.",
+  "counter": { "signal": "elbowAvg", "restThr": 150, "workThr": 100, "outIsConcentric": false, "minRepMs": 700, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "hands_apart", "label": "Manos muy separadas para diamante", "signal": "wristGap", "op": "gt", "value": 0.9, "holdMs": 400 },
+    { "id": "elbows_flare", "label": "Codos abiertos", "signal": "elbowGapMax", "op": "gt", "value": 0.9, "holdMs": 350, "when": "active" }
+  ]
+}
