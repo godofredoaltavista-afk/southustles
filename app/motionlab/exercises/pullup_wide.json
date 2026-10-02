@@ -1,0 +1,12 @@
+{
+  "id": "pullup_wide",
+  "name": "Dominada abierta",
+  "family": "reps",
+  "hint": "Agarre más ancho que los hombros.",
+  "counter": { "signal": "elbowAvg", "restThr": 155, "workThr": 90, "outIsConcentric": true, "minRepMs": 800, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "grip_close", "label": "Agarre cerrado para dominada abierta", "signal": "wristGap", "op": "lt", "value": 1.6, "holdMs": 500 },
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 600 }
+  ]
+}

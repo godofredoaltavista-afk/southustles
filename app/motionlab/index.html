@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moyon Lab</title>
+  <link rel="icon" type="image/png" href="brand/favicon-64.png" />
+  <link rel="apple-touch-icon" href="brand/favicon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Faculty+Glyphic&family=Bodoni+Moda:ital,wght@1,500&family=Unbounded:wght@500&family=Syne:wght@700&family=Six+Caps&family=Big+Shoulders+Display:wght@800&family=Fraunces:ital,wght@1,400&display=swap" />
+  <script type="module" crossorigin src="./assets/index-CnOgczU1.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-mpDvEGXN.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">MOTION<span>LAB</span></div>
+    <nav class="tabs">
+      <button data-view="home" class="tab">Inicio</button>
+      <button data-view="studio" class="tab">Estudio</button>
+      <button data-view="sessions" class="tab">Sesiones</button>
+      <button data-view="compare" class="tab">Comparar</button>
+    </nav>
+    <div class="status">
+      <span class="chip" id="st-engine">sin motor</span>
+      <span class="chip" id="st-source">sin fuente</span>
+      <span class="chip mono" id="st-fps">— fps</span>
+      <span class="chip" id="st-disk" title="Espejo en disco (servidor local)">disco —</span>
+      <button class="ghost" id="btn-setup">Configurar</button>
+    </div>
+  </header>
+
+  <!-- ─────────── ONBOARDING ─────────── -->
+  <section class="view" id="view-onboarding">
+    <div class="ob">
+      <ol class="ob-steps">
+        <li data-step="1">Motor</li><li data-step="2">Cámara</li><li data-step="3">Chequeo</li><li data-step="4">Perfil</li>
+      </ol>
+
+      <div class="ob-panel" data-step="1">
+        <h1>Elegí el motor de tracking</h1>
+        <p class="lead">Todo corre en tu máquina. Podés cambiarlo cuando quieras.</p>
+        <div class="cards3">
+          <label class="card pick"><input type="radio" name="engine" value="mediapipe" checked />
+            <b>MediaPipe</b><span>En el navegador. 33 puntos + <b>3D en metros</b>. Recomendado.</span>
+            <select id="ob-mp-model"><option value="lite">lite · rápido</option><option value="full" selected>full · equilibrado</option></select>
+          </label>
+          <label class="card pick"><input type="radio" name="engine" value="rtmlib" />
+            <b>RTMPose</b><span>Servidor local (rtmlib). Pies con talón y punta. GPU vía DirectML/CoreML.</span>
+            <select id="ob-rtm-mode"><option value="lightweight" selected>lightweight</option><option value="balanced">balanced</option><option value="performance">performance</option></select>
+          </label>
+          <label class="card pick"><input type="radio" name="engine" value="sim" />
+            <b>Simulador</b><span>Persona virtual. Para probar la app sin cámara.</span>
+          </label>
+        </div>
+        <div class="progress"><i id="ob-prog"></i></div>
+        <p class="note" id="ob-prog-text"></p>
+        <div class="row end"><button class="primary" id="ob-load">Cargar motor</button></div>
+      </div>
+
+      <div class="ob-panel" data-step="2" hidden>
+        <h1>Cámara</h1>
+        <p class="lead">Poné la cámara a la altura del pecho, a 2–3 m, con el cuerpo entero en cuadro y luz de frente. El iPhone con Iriun / EpocCam aparece como una cámara más.</p>
+        <div class="row">
+          <select id="ob-cam"></select>
+          <button class="primary" id="ob-cam-on">Activar cámara</button>
+          <span class="or">o</span>
+          <label class="button ghost">Analizar un video<input type="file" id="ob-file" accept="video/*" hidden /></label>
+        </div>
+        <video id="ob-preview" class="preview" playsinline muted></video>
+        <p class="note" id="ob-cam-msg"></p>
+        <div class="row end"><button class="ghost" data-go="1">Atrás</button><button class="primary" id="ob-cam-next" disabled>Siguiente</button></div>
+      </div>
+
+      <div class="ob-panel ob-check" data-step="3" hidden>
+        <div class="ob-stage"><canvas id="ob-canvas"></canvas></div>
+        <div class="ob-side">
+          <h1>Chequeo del cuerpo</h1>
+          <ul class="checklist" id="ob-checks">
+            <li data-k="full">Cuerpo completo en cuadro</li>
+            <li data-k="front">De frente a la cámara</li>
+            <li data-k="still">Quieto 2 s → calibración</li>
+            <li data-k="left">Levantá la mano <b>IZQUIERDA</b></li>
+          </ul>
+          <div class="calib" id="ob-calib"></div>
+          <div class="row"><button class="ghost" id="ob-recal">Recalibrar</button></div>
+          <div class="row end"><button class="ghost" data-go="2">Atrás</button><button class="ghost" id="ob-skip3">Saltear</button><button class="primary" id="ob-check-next" disabled>Siguiente</button></div>
+        </div>
+      </div>
+
+      <div class="ob-panel" data-step="4" hidden>
+        <h1>Perfil</h1>
+        <p class="lead">Opcional. Sirve para las métricas (peso, altura, guardia).</p>
+        <div class="form">
+          <label>Nombre<input id="pf-name" placeholder="Franco" /></label>
+          <label>Altura (cm)<input id="pf-height" type="number" min="100" max="230" /></label>
+          <label>Peso (kg)<input id="pf-weight" type="number" min="30" max="200" /></label>
+          <label>Guardia<select id="pf-lead"><option value="L">Ortodoxa (izquierda adelante)</option><option value="R">Zurda (derecha adelante)</option></select></label>
+        </div>
+        <div class="row end"><button class="ghost" data-go="3">Atrás</button><button class="primary" id="ob-finish">Entrar al estudio</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── INICIO (dashboard) ─────────── -->
+  <section class="view home" id="view-home" hidden></section>
+
+  <!-- ─────────── ESTUDIO ─────────── -->
+  <section class="view studio" id="view-studio" hidden>
+    <aside class="exlist">
+      <h3>Ejercicios</h3>
+      <div id="ex-list"></div>
+      <button class="ghost block" id="btn-map">＋ Mapear movimiento</button>
+      <p class="note">Mapear = grabás un movimiento, le ponés nombre y queda como referencia para medir precisión.</p>
+    </aside>
+
+    <div class="stage-wrap">
+      <div class="banner" id="compare-banner" hidden></div>
+      <div class="stage"><canvas id="stage"></canvas>
+        <div class="stage-msg" id="stage-msg"></div>
+        <div class="rec-badge" id="rec-badge" hidden>● REC <span id="rec-time">00:00</span></div>
+      </div>
+      <div class="toolbar">
+        <button class="rec" id="btn-rec">● Grabar sesión</button>
+        <label class="tog"><input type="checkbox" id="tg-video" checked />video</label>
+        <label class="tog"><input type="checkbox" id="tg-ghosts" checked />fantasmas</label>
+        <label class="tog"><input type="checkbox" id="tg-trails" checked />estelas</label>
+        <label class="tog"><input type="checkbox" id="tg-angles" checked />ángulos</label>
+        <label class="tog"><input type="checkbox" id="tg-mirror" checked />espejo</label>
+        <span class="grow"></span>
+        <label class="tog">carga kg <input type="number" id="in-load" min="0" max="200" step="0.5" style="width:4.5em" /></label>
+      </div>
+      <div class="world"><canvas id="world"></canvas></div>
+    </div>
+
+    <aside class="hud">
+      <div class="hud-top">
+        <div class="ex-name" id="hud-ex">—</div>
+        <div class="activity" id="hud-activity">detectando…</div>
+      </div>
+      <div class="big"><span id="hud-big">0</span><small id="hud-big-label">reps</small></div>
+      <div class="sub" id="hud-sub">&nbsp;</div>
+      <div class="meter"><i id="hud-meter"></i></div>
+      <div class="alerts" id="hud-alerts"></div>
+      <div class="grid2" id="hud-stats"></div>
+      <h4>Señal en vivo</h4>
+      <div class="chart" id="chart-live"></div>
+      <h4>Duración por rep</h4>
+      <div class="chart" id="chart-reps"></div>
+      <h4>Bitácora</h4>
+      <ol class="log" id="hud-log"></ol>
+    </aside>
+  </section>
+
+  <!-- ─────────── SESIONES ─────────── -->
+  <section class="view" id="view-sessions" hidden>
+    <div class="page">
+      <div class="page-head">
+        <h1>Sesiones</h1>
+        <div class="row">
+          <button class="primary" id="new-cam">● Nueva con cámara</button>
+          <label class="button ghost">Analizar video<input type="file" id="new-file" accept="video/*" hidden /></label>
+          <button class="ghost" id="new-sim">Simulador</button>
+          <label class="button ghost">Importar JSON<input type="file" id="new-import" accept=".json,application/json" hidden /></label>
+        </div>
+      </div>
+      <div class="sessions" id="sessions-grid"></div>
+    </div>
+  </section>
+
+  <!-- ─────────── REPRODUCTOR ─────────── -->
+  <section class="view player" id="view-player" hidden>
+    <div class="stage-wrap">
+      <div class="stage"><canvas id="pl-canvas"></canvas></div>
+      <div class="toolbar">
+        <button id="pl-play">▶</button>
+        <input type="range" id="pl-seek" min="0" max="1000" value="0" class="grow" />
+        <span class="mono" id="pl-time">00:00.0</span>
+        <select id="pl-speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+        <label class="tog"><input type="checkbox" id="pl-video" checked />video</label>
+      </div>
+      <div class="marks" id="pl-marks"></div>
+    </div>
+    <aside class="hud wide">
+      <div class="hud-top"><div class="ex-name" id="pl-title">—</div><div class="activity" id="pl-activity"></div></div>
+      <div class="big"><span id="pl-big">0</span><small id="pl-big-label">reps</small></div>
+      <div class="row wrap">
+        <button class="primary" id="pl-rerecord">↺ Regrabar para comparar</button>
+        <button class="ghost" id="pl-ref">☆ Marcar como referencia</button>
+        <button class="ghost" id="pl-compare">Comparar…</button>
+        <button class="ghost danger" id="pl-delete">Borrar</button>
+      </div>
+      <div class="row wrap exports">
+        <span>Exportar:</span>
+        <button class="ghost" data-exp="json">JSON</button><button class="ghost" data-exp="ndjson">NDJSON</button>
+        <button class="ghost" data-exp="csv">CSV puntos</button><button class="ghost" data-exp="txt">TXT puntos</button>
+        <button class="ghost" data-exp="md">Reporte MD</button><button class="ghost" data-exp="video">Video</button>
+      </div>
+      <nav class="subtabs"><button data-pt="report" class="on">Reporte</button><button data-pt="charts">Gráficos</button><button data-pt="log">Bitácora</button></nav>
+      <div class="pt" data-pt="report"><article class="md" id="pl-report"></article></div>
+      <div class="pt" data-pt="charts" hidden>
+        <h4>Duración por rep</h4><div class="chart" id="pl-chart-reps"></div>
+        <h4>Mapa de calor (muñecas, tobillos, centro de masa)</h4><canvas class="heat" id="pl-heat"></canvas>
+      </div>
+      <div class="pt" data-pt="log" hidden><ol class="log big" id="pl-log"></ol></div>
+    </aside>
+  </section>
+
+  <!-- ─────────── COMPARAR ─────────── -->
+  <section class="view player" id="view-compare" hidden>
+    <div class="stage-wrap">
+      <div class="row pad">
+        <label>Referencia (gris) <select id="cmp-a"></select></label>
+        <label>Intento (color) <select id="cmp-b"></select></label>
+        <button class="primary" id="cmp-run">Comparar</button>
+      </div>
+      <div class="stage"><canvas id="cmp-canvas"></canvas></div>
+      <div class="toolbar">
+        <button id="cmp-play">▶</button>
+        <input type="range" id="cmp-seek" min="0" max="1000" value="0" class="grow" />
+        <span class="mono" id="cmp-time">0%</span>
+      </div>
+    </div>
+    <aside class="hud wide">
+      <div class="hud-top"><div class="ex-name">Comparación</div></div>
+      <div class="big"><span id="cmp-score">—</span><small>similitud</small></div>
+      <div class="sub" id="cmp-sub"></div>
+      <table class="cmp-table" id="cmp-table"></table>
+      <h4>Duración por rep</h4><div class="chart" id="cmp-chart"></div>
+      <h4>Precisión por rep vs referencia</h4><div id="cmp-prec"></div>
+    </aside>
+  </section>
+
+  <div class="toast" id="toast" hidden></div>
+</body>
+</html>

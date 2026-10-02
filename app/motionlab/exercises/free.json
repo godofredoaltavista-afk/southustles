@@ -1,0 +1,8 @@
+{
+  "id": "free",
+  "name": "Libre (auto-detectar)",
+  "family": "free",
+  "hint": "Movete libre: la app detecta guardia, golpes, pierna adelante y peso, y sugiere qué ejercicio estás haciendo.",
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": []
+}

@@ -1,0 +1,12 @@
+{
+  "id": "dips_bench",
+  "name": "Fondos de banco",
+  "family": "reps",
+  "hint": "Manos en el banco detrás tuyo; bajá hasta ~90° de codo y subí sin balancear.",
+  "counter": { "signal": "elbowAvg", "restThr": 150, "workThr": 105, "outIsConcentric": false, "minRepMs": 700, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 600 },
+    { "id": "elbows_flare", "label": "Codos abiertos", "signal": "elbowGapMax", "op": "gt", "value": 1.0, "holdMs": 350, "when": "active" }
+  ]
+}

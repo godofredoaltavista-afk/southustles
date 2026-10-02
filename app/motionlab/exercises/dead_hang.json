@@ -1,0 +1,16 @@
+{
+  "id": "dead_hang",
+  "name": "Colgarse de la barra",
+  "family": "hold",
+  "hint": "Colgate con ambas manos por encima de la cabeza. Se cuenta el tiempo sostenido.",
+  "hold": {
+    "conditions": [{ "signal": "aboveHeadBoth", "op": "truthy" }],
+    "timer": { "graceMs": 400, "minMs": 1000 },
+    "startText": "colgado de la barra",
+    "targetMs": 30000
+  },
+  "chart": { "signals": ["elbowAvg"] },
+  "checks": [
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 10, "holdMs": 800 }
+  ]
+}

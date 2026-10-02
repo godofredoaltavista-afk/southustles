@@ -1,0 +1,16 @@
+{
+  "id": "crane_balance",
+  "name": "Grulla (equilibrio en un pie)",
+  "family": "hold",
+  "hint": "De frente, parado en un pie con la otra pierna levantada. Se cuenta el tiempo sostenido.",
+  "hold": {
+    "conditions": [{ "signal": "raisedLeg", "op": "absgt", "value": 0 }],
+    "timer": { "graceMs": 300, "minMs": 1500 },
+    "startText": "en equilibrio sobre un pie",
+    "targetMs": 30000
+  },
+  "chart": { "signals": ["balance"] },
+  "checks": [
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 10, "holdMs": 800 }
+  ]
+}

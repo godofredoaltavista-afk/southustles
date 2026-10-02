@@ -1,0 +1,13 @@
+{
+  "id": "jump_rope",
+  "name": "Saltar la soga",
+  "family": "jumps",
+  "hint": "De frente, cuerpo completo en cuadro. Objetivo de ritmo: ~200 saltos/min.",
+  "smoothing": { "minCutoff": 4, "beta": 40, "dCutoff": 1 },
+  "jump": { "hi": 0.022, "lo": 0.006, "minGapMs": 170, "windowMs": 2500 },
+  "targetRate": 200,
+  "chart": { "signals": ["bodyY"] },
+  "checks": [
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 12, "holdMs": 900 }
+  ]
+}

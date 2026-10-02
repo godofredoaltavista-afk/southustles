@@ -1,0 +1,12 @@
+{
+  "id": "pushup_triceps",
+  "name": "Flexión de tríceps (codos pegados)",
+  "family": "reps",
+  "hint": "Manos bien pegadas al cuerpo, codos rozando las costillas. Bajá controlado.",
+  "counter": { "signal": "elbowAvg", "restThr": 150, "workThr": 100, "outIsConcentric": false, "minRepMs": 700, "label": "ángulo de codo (°)" },
+  "chart": { "signals": ["elbowL", "elbowR"] },
+  "checks": [
+    { "id": "elbows_flare", "label": "Codos abiertos: pegalos al cuerpo", "signal": "elbowGapMax", "op": "gt", "value": 0.75, "holdMs": 350, "when": "active" },
+    { "id": "shoulder_tilt", "label": "Hombros desnivelados", "signal": "shoulderTilt", "op": "absgt", "value": 9, "holdMs": 600 }
+  ]
+}
