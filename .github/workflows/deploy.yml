@@ -26,6 +26,9 @@ jobs:
           test -d infra
           test -d docs
 
+      - name: Validate UT frontend
+        run: node tools/ut/validate.mjs
+
       # Build the static site image from the app directory.
       - name: Build Docker image
         run: docker build -t south-hustles ./app
@@ -55,6 +58,9 @@ jobs:
 
           echo "Application did not become ready within 60 seconds."
           exit 1
+
+      - name: Smoke test UT and existing routes
+        run: bash tools/ut/smoke.sh http://localhost:8080
 
       # Print useful diagnostics only when the Docker run or smoke test fails.
       - name: Diagnose Docker failure
