@@ -7,8 +7,10 @@
    Light theme → black logo, dark theme → white logo.
    ═══════════════════════════════════════════ */
 
-const SRC = { light: 'assets/brand/moyon-negro.png', dark: 'assets/brand/moyon-blanco.png' };
-const COLOR = { light: '#0a0a0a', dark: '#f4f2ec' };
+// defaults are the Motion Lab wordmark; a canvas can override them with
+// data-src-light / data-src-dark / data-color-light / data-color-dark (UT button)
+const SRC_DEFAULT = { light: 'assets/brand/moyon-negro.png', dark: 'assets/brand/moyon-blanco.png' };
+const COLOR_DEFAULT = { light: '#0a0a0a', dark: '#f4f2ec' };
 
 const loadImg = (src) => new Promise((res) => {
   const im = new Image();
@@ -32,6 +34,9 @@ function rng(seed) {
 }
 
 function wordmark(canvas) {
+  const d = canvas.dataset;
+  const SRC = { light: d.srcLight || SRC_DEFAULT.light, dark: d.srcDark || SRC_DEFAULT.dark };
+  const COLOR = { light: d.colorLight || COLOR_DEFAULT.light, dark: d.colorDark || COLOR_DEFAULT.dark };
   const imgs = { light: null, dark: null };
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -132,8 +137,7 @@ function wordmark(canvas) {
 }
 
 function init() {
-  const canvas = document.querySelector('.nav-ml canvas');
-  if (canvas) wordmark(canvas);
+  document.querySelectorAll('.nav-ml canvas, .nav-ut canvas').forEach(wordmark);
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -1,0 +1,749 @@
+{
+  "designId": "DAHWnx-0-bg",
+  "designSize": {
+    "width": 1920,
+    "height": 1080
+  },
+  "sources": [
+    {
+      "name": "dna-3d",
+      "sourceFilename": "update portfolio dog.png",
+      "canvaPage": 9,
+      "role": "Color blue and yellow DNA sculptural object",
+      "width": 596,
+      "height": 484,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/dna-3d.png",
+      "web": "dna-3d.webp",
+      "originalBytes": 196401,
+      "webBytes": 20692,
+      "sha256": "4c0b7f255316a11a81e9a501185d3a5628d20213116ab6bf686fed2c9a30f0da",
+      "dominantOpaqueColors": [
+        "#7092cd",
+        "#3362a9",
+        "#5378b9",
+        "#f6d262",
+        "#8ba1c9"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "dna-halftone",
+      "sourceFilename": "update portfolio dog2.png",
+      "canvaPage": 9,
+      "role": "Yellow halftone DNA backdrop",
+      "width": 1010,
+      "height": 821,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/dna-halftone.png",
+      "web": "dna-halftone.webp",
+      "originalBytes": 752072,
+      "webBytes": 396942,
+      "sha256": "eb7e802dbb985dca39e486b3ac4db5fa899dd0f447918fd2a50c1222a664fa5a",
+      "dominantOpaqueColors": [
+        "#fcd542",
+        "#fcd441",
+        "#fbd341",
+        "#fbd241",
+        "#fbd442"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "logo-knot",
+      "sourceFilename": "update portfolio dog3.png",
+      "canvaPage": 3,
+      "role": "UT Digit All horizontal logo with blue knot",
+      "width": 375,
+      "height": 116,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/logo-knot.png",
+      "web": "logo-knot.webp",
+      "originalBytes": 43588,
+      "webBytes": 10962,
+      "sha256": "8f7f0878e25208314eb009faa85356627c4810e1bb053a230479d6bc78a2bdf6",
+      "dominantOpaqueColors": [
+        "#4170bc",
+        "#1557a7",
+        "#dac8a6",
+        "#ffebc9",
+        "#a2a8b3"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "logo-abstract",
+      "sourceFilename": "update portfolio dog4.png",
+      "canvaPage": 3,
+      "role": "UT Digit All horizontal logo with blue abstract object",
+      "width": 395,
+      "height": 99,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/logo-abstract.png",
+      "web": "logo-abstract.webp",
+      "originalBytes": 41661,
+      "webBytes": 9848,
+      "sha256": "dd58f70372a9abfd288720603d038384d87d25c9b6b9e8718435cc56c91061f8",
+      "dominantOpaqueColors": [
+        "#6b97c8",
+        "#366598",
+        "#ffebc8",
+        "#c5bdaa",
+        "#b6b0a0"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "logo-somos",
+      "sourceFilename": "update portfolio dog5.png",
+      "canvaPage": 3,
+      "role": "Somos UT Digitall lockup",
+      "width": 499,
+      "height": 183,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/logo-somos.png",
+      "web": "logo-somos.webp",
+      "originalBytes": 58561,
+      "webBytes": 17124,
+      "sha256": "3c5c80b71c261dfc9de5b3b310c4ff1e8394df6c969f6b4534e1af97cf74859f",
+      "dominantOpaqueColors": [
+        "#f7e4c0",
+        "#5784d1",
+        "#1d5396",
+        "#f8e7cb",
+        "#f6d99c"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "abstract-halftone-white",
+      "sourceFilename": "update portfolio dog6.png",
+      "canvaPage": 2,
+      "role": "White halftone abstract object",
+      "width": 489,
+      "height": 448,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/abstract-halftone-white.png",
+      "web": "abstract-halftone-white.webp",
+      "originalBytes": 184841,
+      "webBytes": 94580,
+      "sha256": "3a8b2eaa63cef3670e297d9551f7a38471c7e0bd6cd47979a64df4b7ee8d6954",
+      "dominantOpaqueColors": [
+        "#ffffff",
+        "#fefefe"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "hero-copy-reference",
+      "sourceFilename": "update portfolio dog7.png",
+      "canvaPage": 2,
+      "role": "Flattened Dejamos nuestra huella text reference",
+      "width": 769,
+      "height": 278,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/hero-copy-reference.png",
+      "web": "hero-copy-reference.webp",
+      "originalBytes": 34744,
+      "webBytes": 27222,
+      "sha256": "50734e72434e1e24a0618f675d894be05ee5074450c01f9c06ff0269719f5c9a",
+      "dominantOpaqueColors": [
+        "#2e62ad",
+        "#2d61ac",
+        "#2d62ad",
+        "#4878bd",
+        "#2e62ac"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "birds-halftone",
+      "sourceFilename": "update portfolio dog8.png",
+      "canvaPage": 1,
+      "role": "Five flying birds halftone silhouette",
+      "width": 1920,
+      "height": 1138,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        242
+      ],
+      "original": "originals/birds-halftone.png",
+      "web": "birds-halftone.webp",
+      "originalBytes": 367046,
+      "webBytes": 114526,
+      "sha256": "2c0c6235f22db9d4eecf545e1a32387b3c34131071b6ae19040fcdc1756ed3cf",
+      "dominantOpaqueColors": [
+        "#070607",
+        "#010101",
+        "#0b0b0b",
+        "#0e0d0e",
+        "#131313"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "huella-copy-reference",
+      "sourceFilename": "update portfolio dog9.png",
+      "canvaPage": 5,
+      "role": "Repeated perspective Deja tu Huella reference",
+      "width": 510,
+      "height": 414,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/huella-copy-reference.png",
+      "web": "huella-copy-reference.webp",
+      "originalBytes": 111000,
+      "webBytes": 77634,
+      "sha256": "9cf067ceea6ad81874f7276e779b797a0be44b5b8ef67b46a2e39dffb8e27b2d",
+      "dominantOpaqueColors": [
+        "#2d62ad",
+        "#3067b7",
+        "#2f65b3",
+        "#2e63b0",
+        "#2d60ac"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "printer-halftone-black",
+      "sourceFilename": "update portfolio dog10.png",
+      "canvaPage": 4,
+      "role": "Black halftone printer",
+      "width": 791,
+      "height": 800,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/printer-halftone-black.png",
+      "web": "printer-halftone-black.webp",
+      "originalBytes": 516871,
+      "webBytes": 199122,
+      "sha256": "d49ac1a45a0bc4e9af9265016348cc0b4af24e850c16b124af208aa8b734352e",
+      "dominantOpaqueColors": [
+        "#000000"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "brand-footer-reference",
+      "sourceFilename": "update portfolio dog11.png",
+      "canvaPage": 6,
+      "role": "Flattened footer text and miniature printer reference",
+      "width": 1540,
+      "height": 480,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/brand-footer-reference.png",
+      "web": "brand-footer-reference.webp",
+      "originalBytes": 129389,
+      "webBytes": 31732,
+      "sha256": "f3d4fdf9ca7f942182716cc71a31257d54bfe9fcb4e524ab21916237b1a8a86a",
+      "dominantOpaqueColors": [
+        "#435d88",
+        "#587299",
+        "#243756",
+        "#f9eedb",
+        "#c5ad76"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "printer-halftone-white",
+      "sourceFilename": "update portfolio dog12.png",
+      "canvaPage": 6,
+      "role": "White halftone printer",
+      "width": 701,
+      "height": 709,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/printer-halftone-white.png",
+      "web": "printer-halftone-white.webp",
+      "originalBytes": 677628,
+      "webBytes": 310284,
+      "sha256": "1d09ca311a183036f865f8d229d1ccf655ba621f65050d0d69e3addfad734bf6",
+      "dominantOpaqueColors": [
+        "#d9d9d9",
+        "#ebebeb",
+        "#b9b9b9",
+        "#f6f6f6",
+        "#fbfbfb"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "knot-3d",
+      "sourceFilename": "update portfolio dog13.png",
+      "canvaPage": 7,
+      "role": "Blue knot with black laptop",
+      "width": 616,
+      "height": 706,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/knot-3d.png",
+      "web": "knot-3d.webp",
+      "originalBytes": 348719,
+      "webBytes": 36760,
+      "sha256": "cac33fcdc8872c4b9474c404d72b0c09cef9f6f64881e91249536bd0cf0b68f4",
+      "dominantOpaqueColors": [
+        "#3559bf",
+        "#0d388b",
+        "#2e478f",
+        "#617ad1",
+        "#4b63b0"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "contact-banner-reference",
+      "sourceFilename": "update portfolio dog14.png",
+      "canvaPage": 7,
+      "role": "Flattened Hora de Comunicar banner reference",
+      "width": 1805,
+      "height": 283,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/contact-banner-reference.png",
+      "web": "contact-banner-reference.webp",
+      "originalBytes": 271172,
+      "webBytes": 28894,
+      "sha256": "66d1a1a912421d0bab979a2c12b44f8f1cbd7caac46196b294f3ee415211280d",
+      "dominantOpaqueColors": [
+        "#020c2d",
+        "#041964",
+        "#010412",
+        "#03144d",
+        "#616d9a"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "knot-halftone-black",
+      "sourceFilename": "update portfolio dog15.png",
+      "canvaPage": 7,
+      "role": "Black halftone knot",
+      "width": 947,
+      "height": 1085,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/knot-halftone-black.png",
+      "web": "knot-halftone-black.webp",
+      "originalBytes": 617733,
+      "webBytes": 168734,
+      "sha256": "6503c28edc546a511247606a56a52aacb2c1035fe08ec5f9d0bd5ca47c9f42bd",
+      "dominantOpaqueColors": [
+        "#000000"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "consulting-copy-reference",
+      "sourceFilename": "update portfolio dog16.png",
+      "canvaPage": 7,
+      "role": "Flattened consulting statements and original symbols",
+      "width": 1700,
+      "height": 437,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/consulting-copy-reference.png",
+      "web": "consulting-copy-reference.webp",
+      "originalBytes": 130524,
+      "webBytes": 31362,
+      "sha256": "44ba02ae4abc63eaedb1271264899ba2f4248d269041058ea36064ef0f57fa7b",
+      "dominantOpaqueColors": [
+        "#ffffff",
+        "#fbc57f",
+        "#d78f4f",
+        "#edaf67",
+        "#fddc9c"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "social-banner-reference",
+      "sourceFilename": "update portfolio dog17.png",
+      "canvaPage": 8,
+      "role": "Flattened social chapter composition reference",
+      "width": 1230,
+      "height": 531,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/social-banner-reference.png",
+      "web": "social-banner-reference.webp",
+      "originalBytes": 414995,
+      "webBytes": 112542,
+      "sha256": "d3227f0c6a92fd65543305508ebbee3cb185c787912d673af43bc795eda13fb8",
+      "dominantOpaqueColors": [
+        "#010821",
+        "#04175a",
+        "#03103e",
+        "#000208",
+        "#6f7696"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "laptop",
+      "sourceFilename": "update portfolio dog18.png",
+      "canvaPage": 10,
+      "role": "Laptop with actual UT political communication slide",
+      "width": 1123,
+      "height": 587,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/laptop.png",
+      "web": "laptop.webp",
+      "originalBytes": 254280,
+      "webBytes": 37810,
+      "sha256": "fc5443bb3ccf9d781c018697694aba5d7faa2e5119ee481b9d104ac286f2c4c5",
+      "dominantOpaqueColors": [
+        "#241c16",
+        "#737170",
+        "#0e0c0b",
+        "#211c18",
+        "#241c17"
+      ],
+      "containsFlattenedText": true
+    },
+    {
+      "name": "abstract-3d",
+      "sourceFilename": "update portfolio dog19.png",
+      "canvaPage": 10,
+      "role": "Blue and yellow abstract 3D object",
+      "width": 857,
+      "height": 740,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/abstract-3d.png",
+      "web": "abstract-3d.webp",
+      "originalBytes": 352257,
+      "webBytes": 36500,
+      "sha256": "386773e478f8b4b9003b004d6ddb38910229fbdef287058c13a2c43bbc63be8d",
+      "dominantOpaqueColors": [
+        "#4f75a3",
+        "#7da7d6",
+        "#6892c1",
+        "#285b8e",
+        "#98b8d7"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "abstract-halftone-black",
+      "sourceFilename": "update portfolio dog20.png",
+      "canvaPage": 10,
+      "role": "Black halftone abstract object",
+      "width": 1128,
+      "height": 974,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/abstract-halftone-black.png",
+      "web": "abstract-halftone-black.webp",
+      "originalBytes": 722962,
+      "webBytes": 227584,
+      "sha256": "e166faf2cb85ae2aee5ac3b9e86db9da049277495e8c1036db1287513cefb102",
+      "dominantOpaqueColors": [
+        "#000000"
+      ],
+      "containsFlattenedText": false
+    },
+    {
+      "name": "printer-3d",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnHipQOU",
+      "canvaPage": 4,
+      "role": "Original blue and yellow 3D printer",
+      "width": 286,
+      "height": 311,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/printer-3d.png",
+      "web": "printer-3d.webp",
+      "originalBytes": 50565,
+      "webBytes": 10448,
+      "sha256": "3de4f7338959018185792c5d6e423991ae9194905cada3c85af4c5f49f42383b",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "social-3d",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnFoILoU",
+      "canvaPage": 8,
+      "role": "Original social UI with hand color layer",
+      "width": 299,
+      "height": 300,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/social-3d.png",
+      "web": "social-3d.webp",
+      "originalBytes": 61710,
+      "webBytes": 10836,
+      "sha256": "cbe805dc4fe7d65b8102ea65eec252455a1cce0959b8cc7406d80f72723aae09",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "social-halftone-black",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnFoILoU",
+      "canvaPage": 8,
+      "role": "Canva black halftone effect social layer",
+      "width": 299,
+      "height": 300,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/social-halftone-black.png",
+      "web": "social-halftone-black.webp",
+      "originalBytes": 36473,
+      "webBytes": 35130,
+      "sha256": "7a837eb019b04fa4772e46855bd5e11a984e60739539473f8ad9b6647259a8df",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "knot-halftone-white",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnA_0q64",
+      "canvaPage": 7,
+      "role": "Canva white knot effect",
+      "width": 226,
+      "height": 259,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/knot-halftone-white.png",
+      "web": "knot-halftone-white.webp",
+      "originalBytes": 20825,
+      "webBytes": 19996,
+      "sha256": "b06082f4035d0c4f5097bfd8b347f9c70d8f8be2fa436974e88b3267bf1da689",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "symbol-geometric",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnJwzLw4",
+      "canvaPage": 3,
+      "role": "Original yellow geometric symbol",
+      "width": 126,
+      "height": 118,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/symbol-geometric.png",
+      "web": "symbol-geometric.webp",
+      "originalBytes": 21808,
+      "webBytes": 5754,
+      "sha256": "44499381a1bd0ff81a1d481c8e0667cf9edb50768a0ad49df947d65ba3116386",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "symbol-award",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnGo_70g",
+      "canvaPage": 7,
+      "role": "Original verified consultant award symbol",
+      "width": 94,
+      "height": 97,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/symbol-award.png",
+      "web": "symbol-award.webp",
+      "originalBytes": 7734,
+      "webBytes": 2076,
+      "sha256": "2ee1abc1d0ef93381377c4059220a1b07805dc114c8148eb879d7946fe55414a",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "symbol-target",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAHWnHyqwoI",
+      "canvaPage": 7,
+      "role": "Original target symbol",
+      "width": 103,
+      "height": 113,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        255
+      ],
+      "original": "originals/symbol-target.png",
+      "web": "symbol-target.webp",
+      "originalBytes": 7687,
+      "webBytes": 2438,
+      "sha256": "203a4ce687b63e817b3d2a093987e65909c33de4ce78bbbd749ced4a52920bed",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "photo-writing",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MAD1uoTtL9g",
+      "canvaPage": 2,
+      "role": "Independent source photo: Person Writing on Notebook next to Laptop",
+      "width": 2400,
+      "height": 1141,
+      "hasAlpha": false,
+      "alphaRange": [
+        255,
+        255
+      ],
+      "original": "originals/photo-writing.jpg",
+      "web": "photo-writing.webp",
+      "originalBytes": 247442,
+      "webBytes": 221852,
+      "sha256": "20871a4cdfc3457b9e706e1477ba8109989b1db57e80f3921095006788301ef9",
+      "containsFlattenedText": false
+    },
+    {
+      "name": "photo-workspace",
+      "source": "Canva observed rendered media URL",
+      "canvaAssetId": "MADGx4815Do",
+      "canvaPage": 4,
+      "role": "Canva rendered source background: Two Pens Beside Macbook",
+      "width": 1280,
+      "height": 864,
+      "hasAlpha": true,
+      "alphaRange": [
+        0,
+        248
+      ],
+      "original": "originals/photo-workspace.png",
+      "web": "photo-workspace.webp",
+      "originalBytes": 685602,
+      "webBytes": 174874,
+      "sha256": "4bc974e6d5316cc5dd479de3f5c4a086e2ba6cdcba696c92a99efffdb6cd01b3",
+      "containsFlattenedText": false
+    }
+  ],
+  "derived": [
+    {
+      "file": "huella-perspective.webp",
+      "source": "huella-copy-reference.webp",
+      "operation": "Byte-for-byte semantic alias"
+    },
+    {
+      "file": "share.jpg",
+      "source": "references/canva-page-07.jpg",
+      "operation": "Resize original slide7 to1200x675 JPEG"
+    },
+    {
+      "file": "favicon.svg",
+      "source": "originals/symbol-geometric.png",
+      "operation": "SVG container embedding original126x118 PNG without alteration"
+    }
+  ],
+  "fonts": [
+    {
+      "file": "fonts/belleza-regular.woff2",
+      "bytes": 14540,
+      "sha256": "07aafd754c7dde271460909a5deb3f002b80347500771a10d421b032d4ac31ad",
+      "validWoff2": true
+    },
+    {
+      "file": "fonts/helios-bold.woff2",
+      "bytes": 12972,
+      "sha256": "f3d7dc758d10c17999e61ba2627ea21aed3993d910be8fae22d36a972f84dfc2",
+      "validWoff2": true
+    },
+    {
+      "file": "fonts/helios-regular.woff2",
+      "bytes": 12916,
+      "sha256": "dca85c57ec3ba658d3605d7ddef5d7c36f40de4cdcf14b40c6bd8050d2bfe411",
+      "validWoff2": true
+    },
+    {
+      "file": "fonts/montserrat-medium.woff2",
+      "bytes": 89852,
+      "sha256": "ebfd494a6ceec690fe9f363a006de17cc2c42d5e78722e6e370574469bbae534",
+      "validWoff2": true
+    },
+    {
+      "file": "fonts/montserrat-regular.woff2",
+      "bytes": 89932,
+      "sha256": "1b7bc69fbc882a903db940f2aa08517b286c264b014ff4ed6426dba2947f8d7b",
+      "validWoff2": true
+    },
+    {
+      "file": "fonts/noto-serif-italic.woff2",
+      "bytes": 161564,
+      "sha256": "c7cee3ef3bbc7a030d89dc426c169c56687dec285981ceef4905d6e578668d01",
+      "validWoff2": true
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 /* Motion Lab nav button — sits after "University" in .site-nav .nav.
    Same pill shape as the other nav links; the wordmark itself is
    painted by js/motionlab-nav.js (canvas, follows data-theme). */
-.nav a.nav-ml {
+.nav a.nav-ml,
+.nav a.nav-ut {
   display: inline-flex;
   align-items: center;
   padding: 7px 12px;
@@ -12,3 +13,15 @@
   height: 12px;
   pointer-events: none;
 }
+
+/* UT Digitall nav button (/UT/) — same canvas treatment as Motion Lab.
+   The colour logo keeps its brand colours and is darkened on the light
+   theme (same brightness trick the UT footer uses). 61:19 ≈ 375:116, the
+   logo's own ratio. */
+.nav-ut canvas {
+  display: block;
+  width: 61px;
+  height: 19px;
+  pointer-events: none;
+}
+:root[data-theme="light"] .nav-ut canvas { filter: brightness(0.32); }

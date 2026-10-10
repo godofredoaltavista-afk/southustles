@@ -1,0 +1,2427 @@
+{
+  "designId": "DAHWnx-0-bg",
+  "readOnlyInspection": true,
+  "inspectionDate": "2026-10-10",
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "pages": [
+    {
+      "page_id": "PB6DT12kCjft1tSF",
+      "page_number": 1,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBwMzrkS3D13XS1s",
+      "page_number": 2,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBqcjQkrNSkJCwhJ",
+      "page_number": 3,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBDzTGg0Fz4lgcP0",
+      "page_number": 4,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PB6hF6Y70DkRdqdh",
+      "page_number": 5,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBRGHZG0sGNZXh45",
+      "page_number": 6,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBtCgsthnjh9XJhl",
+      "page_number": 7,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBTybbZstrLcSDH6",
+      "page_number": 8,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PB1RDsNP4wyhh6zM",
+      "page_number": 9,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PBj1nkTSG7zpBtKV",
+      "page_number": 10,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    },
+    {
+      "page_id": "PB7r6njyzSJG8bcn",
+      "page_number": 11,
+      "dimension": {
+        "width": 1920,
+        "height": 1080
+      },
+      "is_responsive": false,
+      "is_empty": false,
+      "is_editable": true
+    }
+  ],
+  "textElements": [
+    {
+      "page": 1,
+      "text": "are you ready",
+      "type": "TEXT",
+      "position": {
+        "top": 524.8134519175818,
+        "left": 772.7477038946986
+      },
+      "dimension": {
+        "width": 366.52659322094746,
+        "height": 42.875674906467836
+      }
+    },
+    {
+      "page": 2,
+      "text": "NOS DIGITALIZAMOS",
+      "type": "TEXT",
+      "position": {
+        "top": 667.798508667678,
+        "left": 140.7897498482551
+      },
+      "dimension": {
+        "width": 311.10909000048775,
+        "height": 36.393027
+      }
+    },
+    {
+      "page": 2,
+      "text": "Dejamos nuestra",
+      "type": "TEXT",
+      "position": {
+        "top": 350.08347685655247,
+        "left": 390.6728556968848
+      },
+      "dimension": {
+        "width": 731.5045240610253,
+        "height": 110.1791436028872
+      }
+    },
+    {
+      "page": 2,
+      "text": "huella",
+      "type": "TEXT",
+      "position": {
+        "top": 423.6585199326382,
+        "left": 666.6891792663057
+      },
+      "dimension": {
+        "width": 298.7630712633468,
+        "height": 110.1791436028872
+      }
+    },
+    {
+      "page": 2,
+      "text": "finalmente",
+      "type": "TEXT",
+      "position": {
+        "top": 628.120059644433,
+        "left": 147.2124772177432
+      },
+      "dimension": {
+        "width": 299.30200920683336,
+        "height": 46.25050321372732
+      }
+    },
+    {
+      "page": 2,
+      "text": "Y.....",
+      "type": "TEXT",
+      "position": {
+        "top": 997.1269240279561,
+        "left": 1308.313335883879
+      },
+      "dimension": {
+        "width": 371.09899678815515,
+        "height": 50.83477911066011
+      }
+    },
+    {
+      "page": 3,
+      "text": "ut     digitall",
+      "type": "TEXT",
+      "position": {
+        "top": 260.4757381584652,
+        "left": 51.31884035680673
+      },
+      "dimension": {
+        "width": 386.3590617348007,
+        "height": 52.92517018552442
+      }
+    },
+    {
+      "page": 3,
+      "text": "Somos",
+      "type": "TEXT",
+      "position": {
+        "top": 461.4751398983144,
+        "left": 122.09021767858374
+      },
+      "dimension": {
+        "width": 77.66665580005709,
+        "height": 27.316822577837044
+      }
+    },
+    {
+      "page": 3,
+      "text": "ut",
+      "type": "TEXT",
+      "position": {
+        "top": 504.79572263634253,
+        "left": 56.583302724835235
+      },
+      "dimension": {
+        "width": 73.6170082135724,
+        "height": 49.2484728669671
+      }
+    },
+    {
+      "page": 3,
+      "text": "digitall",
+      "type": "TEXT",
+      "position": {
+        "top": 505.7353477411752,
+        "left": 193.04013874574656
+      },
+      "dimension": {
+        "width": 239.37330097783243,
+        "height": 49.24847286696709
+      }
+    },
+    {
+      "page": 3,
+      "text": "Somos",
+      "type": "TEXT",
+      "position": {
+        "top": 189.02125516458838,
+        "left": 775.0762618891987
+      },
+      "dimension": {
+        "width": 97.76334196996626,
+        "height": 34.38520481794732
+      }
+    },
+    {
+      "page": 3,
+      "text": "ut",
+      "type": "TEXT",
+      "position": {
+        "top": 253.7300381389417,
+        "left": 694.8810079044566
+      },
+      "dimension": {
+        "width": 92.66582518136445,
+        "height": 61.991793579817966
+      }
+    },
+    {
+      "page": 3,
+      "text": "digitall",
+      "type": "TEXT",
+      "position": {
+        "top": 254.91279655052844,
+        "left": 866.6468215168684
+      },
+      "dimension": {
+        "width": 301.31249557365766,
+        "height": 61.99179357981795
+      }
+    },
+    {
+      "page": 3,
+      "text": "Somos",
+      "type": "TEXT",
+      "position": {
+        "top": 279.1988364382269,
+        "left": 1317.2736988049264
+      },
+      "dimension": {
+        "width": 97.76334196996626,
+        "height": 34.38520481794732
+      }
+    },
+    {
+      "page": 3,
+      "text": "ut      digitall",
+      "type": "TEXT",
+      "position": {
+        "top": 274.3976140054132,
+        "left": 1470.7428629430221
+      },
+      "dimension": {
+        "width": 461.5325232362255,
+        "height": 52.92517018552442
+      }
+    },
+    {
+      "page": 4,
+      "text": "Programado desde las Sierras de Córdoba",
+      "type": "TEXT",
+      "position": {
+        "top": 964.991198546531,
+        "left": 860.2081954051607
+      },
+      "dimension": {
+        "width": 492.99769609839416,
+        "height": 24.465352
+      }
+    },
+    {
+      "page": 4,
+      "text": "Arte",
+      "type": "TEXT",
+      "position": {
+        "top": 505.2543075771574,
+        "left": 671.5736889492525
+      },
+      "dimension": {
+        "width": 200.0473360350857,
+        "height": 78.37497354814418
+      }
+    },
+    {
+      "page": 4,
+      "text": "y",
+      "type": "TEXT",
+      "position": {
+        "top": 536.0926260617841,
+        "left": 886.4094387731175
+      },
+      "dimension": {
+        "width": 428.28066587100966,
+        "height": 42.80465730361088
+      }
+    },
+    {
+      "page": 4,
+      "text": "produccion",
+      "type": "TEXT",
+      "position": {
+        "top": 505.73880998359584,
+        "left": 915.5051877483265
+      },
+      "dimension": {
+        "width": 572.1451841799263,
+        "height": 78.37497354814418
+      }
+    },
+    {
+      "page": 4,
+      "text": "Producción Cultural Artística",
+      "type": "TEXT",
+      "position": {
+        "top": 531.1341398014029,
+        "left": 106.96162605467885
+      },
+      "dimension": {
+        "width": 363.32244873924355,
+        "height": 69.39302699999998
+      }
+    },
+    {
+      "page": 5,
+      "text": "comunicación",
+      "type": "TEXT",
+      "position": {
+        "top": 367.7660389680997,
+        "left": 616.2144924937912
+      },
+      "dimension": {
+        "width": 732.9956985140514,
+        "height": 83.89191753088714
+      }
+    },
+    {
+      "page": 5,
+      "text": "y",
+      "type": "TEXT",
+      "position": {
+        "top": 476.6071268752514,
+        "left": 1218.306309364627
+      },
+      "dimension": {
+        "width": 503.6761874067698,
+        "height": 50.34008843263884
+      }
+    },
+    {
+      "page": 5,
+      "text": "politica",
+      "type": "TEXT",
+      "position": {
+        "top": 449.4262106998196,
+        "left": 822.0848163182138
+      },
+      "dimension": {
+        "width": 396.2214930464131,
+        "height": 83.89191753088714
+      }
+    },
+    {
+      "page": 5,
+      "text": "DESAFIOS",
+      "type": "TEXT",
+      "position": {
+        "top": 481.55241908196433,
+        "left": 129.34159815903706
+      },
+      "dimension": {
+        "width": 311.10909000048775,
+        "height": 36.393027
+      }
+    },
+    {
+      "page": 5,
+      "text": "Dejá tu huella",
+      "type": "TEXT",
+      "position": {
+        "top": 846.7003941632385,
+        "left": 1569.2070334424322
+      },
+      "dimension": {
+        "width": 274.72963201978524,
+        "height": 60.52546235937789
+      }
+    },
+    {
+      "page": 5,
+      "text": "Estrategia Digital",
+      "type": "TEXT",
+      "position": {
+        "top": 542.3988658446742,
+        "left": 1139.2892755441771
+      },
+      "dimension": {
+        "width": 392.39930480552937,
+        "height": 51.46165832327729
+      }
+    },
+    {
+      "page": 5,
+      "text": "Crear lugares digitales y hacerlos atractivos, con contenido que importe a la audiencia.\nIncrementar la presencia, alcance e interacciones a través de los contenidos publicados.\nConseguir visitas cualificadas y lograr usuarios fidelizados.\nGenerar una ruta de confianza para usuarios sobre los productos ofrecidos.\n",
+      "type": "TEXT",
+      "position": {
+        "top": 45.44582677585852,
+        "left": 1407.541565567078
+      },
+      "dimension": {
+        "width": 468.73427709328917,
+        "height": 198.32021219224103
+      }
+    },
+    {
+      "page": 6,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 14.358097536395803,
+        "left": 811.6981130557316
+      },
+      "dimension": {
+        "width": 1090.5106229094697,
+        "height": 1050.0455984378514
+      }
+    },
+    {
+      "page": 6,
+      "text": "DISEÑO GRAFICO",
+      "type": "TEXT",
+      "position": {
+        "top": 493.08107853979874,
+        "left": 282.35584460409177
+      },
+      "dimension": {
+        "width": 350.51214937053646,
+        "height": 42.41492325955944
+      }
+    },
+    {
+      "page": 6,
+      "text": "DISEÑO",
+      "type": "TEXT",
+      "position": {
+        "top": 451.42599081485105,
+        "left": 1089.6668098462237
+      },
+      "dimension": {
+        "width": 724.9212907196459,
+        "height": 99.30291918138663
+      }
+    },
+    {
+      "page": 6,
+      "text": "Gráfico",
+      "type": "TEXT",
+      "position": {
+        "top": 496.79559744793335,
+        "left": 1476.1959273028986
+      },
+      "dimension": {
+        "width": 542.6415911172753,
+        "height": 54.234499003643634
+      }
+    },
+    {
+      "page": 6,
+      "text": "Te ayudamos a construir y mantener la identidad de tu marca, a comunicar y transmitir los valores de la misma desde la creación del isologotipo como así también del nombre y aspectos esenciales que la definen (colores, tipografías, personalidad, mensajes, posicionamiento). ",
+      "type": "TEXT",
+      "position": {
+        "top": 642.0621120939397,
+        "left": 1263.8153983908644
+      },
+      "dimension": {
+        "width": 575.7412772777589,
+        "height": 198.95915770765043
+      }
+    },
+    {
+      "page": 6,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 558.4506269870847,
+        "left": 336.2163687720433
+      },
+      "dimension": {
+        "width": 330.35304866699335,
+        "height": 33.405143579381956
+      }
+    },
+    {
+      "page": 6,
+      "text": "IMPULSÁ TU MARCA",
+      "type": "TEXT",
+      "position": {
+        "top": 565.1887038319536,
+        "left": 432.0288251534977
+      },
+      "dimension": {
+        "width": 228.03046148548057,
+        "height": 21.233182610563954
+      }
+    },
+    {
+      "page": 6,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 904.476456887533,
+        "left": 1301.0685432159403
+      },
+      "dimension": {
+        "width": 415.6784493897476,
+        "height": 415.6784493897476
+      }
+    },
+    {
+      "page": 6,
+      "text": "Programado desde\nSierras de Cordoba\n",
+      "type": "TEXT",
+      "position": {
+        "top": 929.0604731107576,
+        "left": 349.23912959197924
+      },
+      "dimension": {
+        "width": 278.846773334381,
+        "height": 93.421488
+      }
+    },
+    {
+      "page": 6,
+      "text": "Cuidamos tu Marca",
+      "type": "TEXT",
+      "position": {
+        "top": 975.7712171107576,
+        "left": 1102.432037671345
+      },
+      "dimension": {
+        "width": 349.6954175347016,
+        "height": 45.86120789206103
+      }
+    },
+    {
+      "page": 7,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 767.9844132984775,
+        "left": 40.21766637690234
+      },
+      "dimension": {
+        "width": 1804.685249413368,
+        "height": 282.1278788046346
+      }
+    },
+    {
+      "page": 7,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 898.5077419713114,
+        "left": 1686.4682999530942
+      },
+      "dimension": {
+        "width": 204.8649707937049,
+        "height": 36.295469433122335
+      }
+    },
+    {
+      "page": 7,
+      "text": "conocer mas",
+      "type": "TEXT",
+      "position": {
+        "top": 900.4326279890449,
+        "left": 1698.2575880745496
+      },
+      "dimension": {
+        "width": 183.01744511990873,
+        "height": 31.2852686736528
+      }
+    },
+    {
+      "page": 7,
+      "text": "Alinear toda la comunicación del ecosistema digital para brindar una nueva experiencia a los usuarios, siendo disruptivos desde el diseño creativo conceptual y generando un dialogo de discurso personalizado con los futuros clientes de la marca.",
+      "type": "TEXT",
+      "position": {
+        "top": 537.5658865542326,
+        "left": 719.4934521409393
+      },
+      "dimension": {
+        "width": 789.4036100851266,
+        "height": 173.582455
+      }
+    },
+    {
+      "page": 7,
+      "text": "Impulsa tu empresa.",
+      "type": "TEXT",
+      "position": {
+        "top": 846.8690350089481,
+        "left": 189.48099168867844
+      },
+      "dimension": {
+        "width": 876.9095771426097,
+        "height": 90.81916489808201
+      }
+    },
+    {
+      "page": 7,
+      "text": "Consultora Integral\n",
+      "type": "TEXT",
+      "position": {
+        "top": 594.5956884513994,
+        "left": 210.04714887380305
+      },
+      "dimension": {
+        "width": 802.9524615866176,
+        "height": 172.31247374314543
+      }
+    },
+    {
+      "page": 7,
+      "text": "especializada en ofrecer Soluciones.\n",
+      "type": "TEXT",
+      "position": {
+        "top": 666.9703014913707,
+        "left": 216.65951920716952
+      },
+      "dimension": {
+        "width": 1480.8926875165419,
+        "height": 172.31247374314543
+      }
+    },
+    {
+      "page": 7,
+      "text": "ALINEAR",
+      "type": "TEXT",
+      "position": {
+        "top": 216.69926744106147,
+        "left": 833.5682421770858
+      },
+      "dimension": {
+        "width": 724.9212907196459,
+        "height": 99.30291918138663
+      }
+    },
+    {
+      "page": 7,
+      "text": "y",
+      "type": "TEXT",
+      "position": {
+        "top": 277.82488897585387,
+        "left": 1114.1952571835027
+      },
+      "dimension": {
+        "width": 104.43344568730173,
+        "height": 88.39989694114392
+      }
+    },
+    {
+      "page": 7,
+      "text": "comunicar",
+      "type": "TEXT",
+      "position": {
+        "top": 298.4589406997077,
+        "left": 1173.8410178434224
+      },
+      "dimension": {
+        "width": 724.9212907196459,
+        "height": 99.30291918138663
+      }
+    },
+    {
+      "page": 7,
+      "text": "hora",
+      "type": "TEXT",
+      "position": {
+        "top": 871.1880893774174,
+        "left": 618.05889722083
+      },
+      "dimension": {
+        "width": 278.1001792523993,
+        "height": 94.70879447085748
+      }
+    },
+    {
+      "page": 7,
+      "text": "Comunicar",
+      "type": "TEXT",
+      "position": {
+        "top": 859.6847795721055,
+        "left": 963.676052200744
+      },
+      "dimension": {
+        "width": 483.9475801902538,
+        "height": 102.34748916798262
+      }
+    },
+    {
+      "page": 7,
+      "text": "De",
+      "type": "TEXT",
+      "position": {
+        "top": 892.6797825669374,
+        "left": 906.6811573665956
+      },
+      "dimension": {
+        "width": 62.30369025894253,
+        "height": 51.72540809181765
+      }
+    },
+    {
+      "page": 7,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 269.17616702207573,
+        "left": 63.37789766779477
+      },
+      "dimension": {
+        "width": 398.6327257542759,
+        "height": 32.75857554141166
+      }
+    },
+    {
+      "page": 7,
+      "text": "ESTRATEGIAS DE COMUNICACION",
+      "type": "TEXT",
+      "position": {
+        "top": 275.6737422373234,
+        "left": 78.9138046360869
+      },
+      "dimension": {
+        "width": 369.5332820885016,
+        "height": 22.86367252828906
+      }
+    },
+    {
+      "page": 7,
+      "text": "Dejá tu huella",
+      "type": "TEXT",
+      "position": {
+        "top": 1021.3477197591556,
+        "left": 1078.1457527773982
+      },
+      "dimension": {
+        "width": 197.23212078216557,
+        "height": 43.45204852748292
+      }
+    },
+    {
+      "page": 8,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 790.6467718287572,
+        "left": 36.09612423977342
+      },
+      "dimension": {
+        "width": 1804.685249413368,
+        "height": 634.0842196172067
+      }
+    },
+    {
+      "page": 8,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 428.0312307936918,
+        "left": 1272.0318477732126
+      },
+      "dimension": {
+        "width": 204.8649707937049,
+        "height": 36.295469433122335
+      }
+    },
+    {
+      "page": 8,
+      "text": "conocer mas",
+      "type": "TEXT",
+      "position": {
+        "top": 429.9561168114253,
+        "left": 1283.821135894668
+      },
+      "dimension": {
+        "width": 183.01744511990873,
+        "height": 31.2852686736528
+      }
+    },
+    {
+      "page": 8,
+      "text": "Consultores Verificados",
+      "type": "TEXT",
+      "position": {
+        "top": 925.71539935753,
+        "left": 84.88333681088469
+      },
+      "dimension": {
+        "width": 410.68857883258164,
+        "height": 33.21726456277646
+      }
+    },
+    {
+      "page": 8,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 305.1150261079357,
+        "left": 276.9543027756861
+      },
+      "dimension": {
+        "width": 1102.6411757759329,
+        "height": 282.1278788046346
+      }
+    },
+    {
+      "page": 8,
+      "text": "redes",
+      "type": "TEXT",
+      "position": {
+        "top": 381.3024265610873,
+        "left": 624.0030659523009
+      },
+      "dimension": {
+        "width": 315.1974221872574,
+        "height": 78.37497354814418
+      }
+    },
+    {
+      "page": 8,
+      "text": "sociales",
+      "type": "TEXT",
+      "position": {
+        "top": 440.73472909124064,
+        "left": 757.0525836597717
+      },
+      "dimension": {
+        "width": 572.1451841799263,
+        "height": 78.37497354814418
+      }
+    },
+    {
+      "page": 8,
+      "text": "GESTION DEL CONTENIDO",
+      "type": "TEXT",
+      "position": {
+        "top": 539.2997350693855,
+        "left": 574.0207799462478
+      },
+      "dimension": {
+        "width": 363.32244873924355,
+        "height": 69.39302699999998
+      }
+    },
+    {
+      "page": 8,
+      "text": "y",
+      "type": "TEXT",
+      "position": {
+        "top": 478.464386329319,
+        "left": 731.1187819061629
+      },
+      "dimension": {
+        "width": 98.79362642010027,
+        "height": 50.34008843263884
+      }
+    },
+    {
+      "page": 8,
+      "text": "SOCIAL MEDIA",
+      "type": "TEXT",
+      "position": {
+        "top": 922.5112964760742,
+        "left": 866.9662314726697
+      },
+      "dimension": {
+        "width": 410.1967616820967,
+        "height": 50.65683530710142
+      }
+    },
+    {
+      "page": 9,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 18.57825941638214,
+        "left": 675.7964268911442
+      },
+      "dimension": {
+        "width": 1017.6179197126467,
+        "height": 1050.0455984378514
+      }
+    },
+    {
+      "page": 9,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 14.358097536395803,
+        "left": 1731.7469926056879
+      },
+      "dimension": {
+        "width": 170.46174335951352,
+        "height": 1050.0455984378514
+      }
+    },
+    {
+      "page": 9,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 919.8255565286588,
+        "left": 1485.575121908917
+      },
+      "dimension": {
+        "width": 415.6784493897476,
+        "height": 415.6784493897476
+      }
+    },
+    {
+      "page": 9,
+      "text": "nuestro dna",
+      "type": "TEXT",
+      "position": {
+        "top": 203.91249859693238,
+        "left": 639.5866089786288
+      },
+      "dimension": {
+        "width": 908.7899766723074,
+        "height": 99.30291918138663
+      }
+    },
+    {
+      "page": 9,
+      "text": "Programado desde\nSierras de Cordoba\n",
+      "type": "TEXT",
+      "position": {
+        "top": 147.15424294842893,
+        "left": 29.45501307571601
+      },
+      "dimension": {
+        "width": 278.846773334381,
+        "height": 93.421488
+      }
+    },
+    {
+      "page": 9,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 978.191263606292,
+        "left": 993.6862155118638
+      },
+      "dimension": {
+        "width": 330.35304866699335,
+        "height": 33.405143579381956
+      }
+    },
+    {
+      "page": 9,
+      "text": "IMPULSÁ TU MARCA",
+      "type": "TEXT",
+      "position": {
+        "top": 984.9293404511609,
+        "left": 1089.4986718933183
+      },
+      "dimension": {
+        "width": 228.03046148548057,
+        "height": 21.233182610563954
+      }
+    },
+    {
+      "page": 9,
+      "text": "Cuidamos tu Marca",
+      "type": "TEXT",
+      "position": {
+        "top": 50.856008985247456,
+        "left": 1518.56663783644
+      },
+      "dimension": {
+        "width": 349.6954175347016,
+        "height": 45.86120789206103
+      }
+    },
+    {
+      "page": 9,
+      "text": "Los desafíos digitales se han multiplicado en los últimos años, y ahora las empresas deben ser competitivas no sólo localmente, sino que deben considerar también el mercado digital como parte de su estrategia empresarial.",
+      "type": "TEXT",
+      "position": {
+        "top": 720.4204611365946,
+        "left": 986.9388135266281
+      },
+      "dimension": {
+        "width": 789.4036100851266,
+        "height": 173.582455
+      }
+    },
+    {
+      "page": 10,
+      "text": "",
+      "type": "SHAPE",
+      "position": {
+        "top": 507.6224694132183,
+        "left": 60.439093855146666
+      },
+      "dimension": {
+        "width": 1721.6639629898277,
+        "height": 352.78260645126295
+      }
+    },
+    {
+      "page": 10,
+      "text": "Impulsa tu empresa.",
+      "type": "TEXT",
+      "position": {
+        "top": 722.8541212118,
+        "left": 204.41495413054304
+      },
+      "dimension": {
+        "width": 396.38748245921363,
+        "height": 42.01355983831843
+      }
+    },
+    {
+      "page": 10,
+      "text": "Consultora Integral\n",
+      "type": "TEXT",
+      "position": {
+        "top": 608.8195624157282,
+        "left": 208.12944118903312
+      },
+      "dimension": {
+        "width": 362.9568122860022,
+        "height": 78.21554
+      }
+    },
+    {
+      "page": 10,
+      "text": "especializada en ofrecer soluciones\n",
+      "type": "TEXT",
+      "position": {
+        "top": 641.5348975023336,
+        "left": 216.70040337276419
+      },
+      "dimension": {
+        "width": 669.4046222071051,
+        "height": 78.21554
+      }
+    },
+    {
+      "page": 10,
+      "text": "ideas grandes\ndetalles curados\n",
+      "type": "TEXT",
+      "position": {
+        "top": 230.41659935622852,
+        "left": 147.48720826200338
+      },
+      "dimension": {
+        "width": 835.5522446076409,
+        "height": 196.3555648566992
+      }
+    },
+    {
+      "page": 11,
+      "text": "Muchas Gracias",
+      "type": "TEXT",
+      "position": {
+        "top": 470.0502279902666,
+        "left": 212.68265281835397
+      },
+      "dimension": {
+        "width": 695.4509428994193,
+        "height": 83.56488645970323
+      }
+    },
+    {
+      "page": 11,
+      "text": "Vuelva Pronto",
+      "type": "TEXT",
+      "position": {
+        "top": 628.9473970070695,
+        "left": 1143.6765569988663
+      },
+      "dimension": {
+        "width": 314.86895554630513,
+        "height": 69.36852416299253
+      }
+    }
+  ],
+  "mediaElements": [
+    {
+      "page": 1,
+      "assetId": "MAG66x7OE-0",
+      "type": "RECT",
+      "position": {
+        "top": -20.146705872240545,
+        "left": -3.3773303458045802
+      },
+      "dimension": {
+        "width": 1920.0000000000002,
+        "height": 1137.575043076086
+      }
+    },
+    {
+      "page": 1,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 460.8360080848108,
+        "left": 743.2140101511717
+      },
+      "dimension": {
+        "width": 34.42433090623745,
+        "height": 33.85235487210743
+      }
+    },
+    {
+      "page": 1,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 602.5932683746869,
+        "left": 1135.6069982509819
+      },
+      "dimension": {
+        "width": 34.42433090623745,
+        "height": 33.85235487210743
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 367.6999516636818,
+        "left": 892.343919154312
+      },
+      "dimension": {
+        "width": 488.8197983502307,
+        "height": 447.0409920688211
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 613.4942243415137,
+        "left": 115.72144442419825
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 733.8182964973378,
+        "left": 448.78602338836197
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 468.07192261459545,
+        "left": 870.1459354612228
+      },
+      "dimension": {
+        "width": 116.10686452512529,
+        "height": 117.13176749066864
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAD1uoTtL9g",
+      "type": "GRID",
+      "position": {
+        "top": -390.425080545087,
+        "left": 1536.5510751908987
+      },
+      "dimension": {
+        "width": 522.743383864148,
+        "height": 1505.7130101723653
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 703.5571209937286,
+        "left": 1237.9292372977757
+      },
+      "dimension": {
+        "width": 198.32982737348905,
+        "height": 200.08053202874052
+      }
+    },
+    {
+      "page": 2,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 522.452124380715,
+        "left": 1602.3448551326771
+      },
+      "dimension": {
+        "width": 241.2224884378778,
+        "height": 54.576588009069845
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 792.8353552500063,
+        "left": 722.7544825365867
+      },
+      "dimension": {
+        "width": 293.7856832089436,
+        "height": 66.46901082602349
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 772.400951066599,
+        "left": 37.59385620519038
+      },
+      "dimension": {
+        "width": 293.7856832089436,
+        "height": 66.46901082602349
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 522.5463191763806,
+        "left": 1399.213782275305
+      },
+      "dimension": {
+        "width": 293.7856832089436,
+        "height": 66.46901082602349
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 516.654509063576,
+        "left": 808.3253908172153
+      },
+      "dimension": {
+        "width": 293.7856832089436,
+        "height": 66.46901082602349
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 500.85646944333973,
+        "left": 707.5585215548166
+      },
+      "dimension": {
+        "width": 113.6074816996774,
+        "height": 98.0650900664968
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnKZVmuU",
+      "type": "RECT",
+      "position": {
+        "top": 797.2583700112755,
+        "left": 276.7578356854193
+      },
+      "dimension": {
+        "width": 146.80136153214335,
+        "height": 119.27610624486645
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnHA4O3Y",
+      "type": "RECT",
+      "position": {
+        "top": 444.2936881247483,
+        "left": 1477.9789413772116
+      },
+      "dimension": {
+        "width": 120.16731533519621,
+        "height": 114.31846370383708
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 770.8015157155047,
+        "left": 1021.4450203652336
+      },
+      "dimension": {
+        "width": 113.28432163693161,
+        "height": 113.66319896682099
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 810.7812601050158,
+        "left": 1444.512460467473
+      },
+      "dimension": {
+        "width": 293.7856832089436,
+        "height": 66.46901082602349
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnA_0q64",
+      "type": "RECT",
+      "position": {
+        "top": 785.7155388718636,
+        "left": 1364.1090189844335
+      },
+      "dimension": {
+        "width": 100.64287013663501,
+        "height": 115.33851046632068
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 245.7538283678877,
+        "left": 115.47221773967891
+      },
+      "dimension": {
+        "width": 79.67960225624843,
+        "height": 74.62057989077235
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 490.26004885279514,
+        "left": 119.59347533009594
+      },
+      "dimension": {
+        "width": 71.79621110576336,
+        "height": 67.23772151174663
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnA_0q64",
+      "type": "RECT",
+      "position": {
+        "top": 206.39784921617203,
+        "left": 767.9724771030079
+      },
+      "dimension": {
+        "width": 126.68478163056848,
+        "height": 145.1830019571559
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 174.31181408328916,
+        "left": 745.3497812943699
+      },
+      "dimension": {
+        "width": 36.09779365314565,
+        "height": 33.805870246596726
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 279.9111523536774,
+        "left": 1416.7699846020778
+      },
+      "dimension": {
+        "width": 36.09779365314565,
+        "height": 33.805870246596726
+      }
+    },
+    {
+      "page": 3,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 245.75382836788765,
+        "left": 1540.5937225379844
+      },
+      "dimension": {
+        "width": 97.6815242608856,
+        "height": 98.0082183219588
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MADGx4815Do"
+    },
+    {
+      "page": 4,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 542.8080600808413,
+        "left": 1673.6511584519515
+      },
+      "dimension": {
+        "width": 57.300084555010756,
+        "height": 53.661983948343405
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 538.6947837634686,
+        "left": 1721.4664319282447
+      },
+      "dimension": {
+        "width": 165.74529668142537,
+        "height": 58.328216095081544
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAHWnHipQOU",
+      "type": "RECT",
+      "position": {
+        "top": 183.3089241111212,
+        "left": 914.4649376697957
+      },
+      "dimension": {
+        "width": 659.3373228500456,
+        "height": 666.8918013073776
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 426.6092967973637,
+        "left": 607.8732813585303
+      },
+      "dimension": {
+        "width": 53.337693281262574,
+        "height": 52.45146306357859
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 714.9852398561584,
+        "left": 1158.8141068416098
+      },
+      "dimension": {
+        "width": 53.337693281262574,
+        "height": 52.45146306357859
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAHWnHipQOU",
+      "type": "RECT",
+      "position": {
+        "top": 25.895520651131505,
+        "left": 1188.2929083118624
+      },
+      "dimension": {
+        "width": 504.15309045820544,
+        "height": 509.92951707485895
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 23.00954959389566,
+        "left": 29.911540416878438
+      },
+      "dimension": {
+        "width": 74.36175231810176,
+        "height": 53.932660939313955
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 460.3298554752386,
+        "left": 107.9999999999999
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 646.6539276310626,
+        "left": 441.06457896416356
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 971.2987619096201,
+        "left": 1295.437114365257
+      },
+      "dimension": {
+        "width": 78.00263428052024,
+        "height": 78.69118212410616
+      }
+    },
+    {
+      "page": 4,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 949.5071426946528,
+        "left": 655.0083372252652
+      },
+      "dimension": {
+        "width": 196.9332722879937,
+        "height": 44.55615285515857
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAG66x7OE-0",
+      "type": "RECT",
+      "position": {
+        "top": 718.2468199577895,
+        "left": -456.6673282945644
+      },
+      "dimension": {
+        "width": 3149.4059523428987,
+        "height": 759.4376453017713
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAG66x7OE-0",
+      "type": "RECT",
+      "position": {
+        "top": -20.146705872240545,
+        "left": -3.3773303458045802
+      },
+      "dimension": {
+        "width": 1920.0000000000002,
+        "height": 1137.575043076086
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 306.04392348937705,
+        "left": 539.993426269077
+      },
+      "dimension": {
+        "width": 57.09222170634322,
+        "height": 56.14360827823591
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 609.1473476536461,
+        "left": 1480.7379242690247
+      },
+      "dimension": {
+        "width": 57.09222170634322,
+        "height": 56.14360827823591
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 23.00954959389566,
+        "left": 29.911540416878438
+      },
+      "dimension": {
+        "width": 74.36175231810176,
+        "height": 53.932660939313955
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 427.2481347558,
+        "left": 104.27329273498022
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 547.5722069116241,
+        "left": 437.33787169914393
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 5,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 45.44582677585852,
+        "left": 1288.3912994472582
+      },
+      "dimension": {
+        "width": 98.2924551677795,
+        "height": 99.16010609612056
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAHWnHipQOU",
+      "type": "RECT",
+      "position": {
+        "top": 51.740165347818504,
+        "left": 1113.7495404023596
+      },
+      "dimension": {
+        "width": 790.316455016909,
+        "height": 799.3716509340651
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAHWnHipQOU",
+      "type": "RECT",
+      "position": {
+        "top": 78.38531673283262,
+        "left": 335.2203821319658
+      },
+      "dimension": {
+        "width": 700.5817092763897,
+        "height": 708.6087528653256
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 599.2629758576452,
+        "left": 1198.5124177063449
+      },
+      "dimension": {
+        "width": 44.12425800909349,
+        "height": 43.39111324082732
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 861.0853436467057,
+        "left": 1838.4516012454637
+      },
+      "dimension": {
+        "width": 44.12425800909349,
+        "height": 43.39111324082732
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 535.4960017993583,
+        "left": 361.7831485831619
+      },
+      "dimension": {
+        "width": 84.69164100261999,
+        "height": 79.3143939548346
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 483.0203959086985,
+        "left": 122.53753325123716
+      },
+      "dimension": {
+        "width": 120.10116385550297,
+        "height": 121.16132545321862
+      }
+    },
+    {
+      "page": 6,
+      "assetId": "MAHWnHipQOU",
+      "type": "RECT",
+      "position": {
+        "top": 885.253919905527,
+        "left": 1613.018950278801
+      },
+      "dimension": {
+        "width": 224.32555110556152,
+        "height": 226.89580230252218
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnA_0q64",
+      "type": "RECT",
+      "position": {
+        "top": 95.05347004215571,
+        "left": 152.6893388338807
+      },
+      "dimension": {
+        "width": 716.919125490085,
+        "height": 821.6020066457168
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnHyqwoI",
+      "type": "RECT",
+      "position": {
+        "top": 791.5381989064554,
+        "left": 14.047703985616948
+      },
+      "dimension": {
+        "width": 183.65067452757478,
+        "height": 201.48083710306747
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnGo_70g",
+      "type": "RECT",
+      "position": {
+        "top": 556.9134849076606,
+        "left": 14.047703985616948
+      },
+      "dimension": {
+        "width": 177.1561836288191,
+        "height": 182.81010438293032
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 153.33433834870712,
+        "left": 1000.6084643239656
+      },
+      "dimension": {
+        "width": 43.678563335813536,
+        "height": 42.95282398879869
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 389.48716233750565,
+        "left": 1451.777276841807
+      },
+      "dimension": {
+        "width": 43.678563335813536,
+        "height": 42.95282398879869
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnA_0q64",
+      "type": "RECT",
+      "position": {
+        "top": 26.771676637293467,
+        "left": 916.7274415359394
+      },
+      "dimension": {
+        "width": 615.8583392338271,
+        "height": 705.7845569095629
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnA_0q64",
+      "type": "RECT",
+      "position": {
+        "top": 798.6588786183731,
+        "left": 1429.623498284412
+      },
+      "dimension": {
+        "width": 205.92456497070953,
+        "height": 235.993196138999
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 720.1896413879908,
+        "left": 1650.1890769525942
+      },
+      "dimension": {
+        "width": 102.07019085968362,
+        "height": 95.58954382097356
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 23.00954959389566,
+        "left": 29.911540416878438
+      },
+      "dimension": {
+        "width": 74.36175231810176,
+        "height": 53.932660939313955
+      }
+    },
+    {
+      "page": 7,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 670.2091987580719,
+        "left": 1766.9002815097501
+      },
+      "dimension": {
+        "width": 78.00263428052024,
+        "height": 78.69118212410616
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 853.1194819721933,
+        "left": 642.8997556557063
+      },
+      "dimension": {
+        "width": 252.94970831973228,
+        "height": 157.0622263343328
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnGo_70g",
+      "type": "RECT",
+      "position": {
+        "top": 902.6467718287572,
+        "left": 15.053464784339958
+      },
+      "dimension": {
+        "width": 64.79517651515609,
+        "height": 66.8631076805334
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 907.4621854564797,
+        "left": 1641.9096945557542
+      },
+      "dimension": {
+        "width": 67.08122351772755,
+        "height": 62.82209821501469
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 902.6467718287571,
+        "left": 1697.8870473386307
+      },
+      "dimension": {
+        "width": 194.03806085180523,
+        "height": 68.28485737238445
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 271.5667597820729,
+        "left": 1456.882213998285
+      },
+      "dimension": {
+        "width": 21.615146134701533,
+        "height": 21.25600057579606
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 180.8547159161525,
+        "left": 202.2391110485894
+      },
+      "dimension": {
+        "width": 21.615146134701533,
+        "height": 21.25600057579606
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 23.00954959389566,
+        "left": 29.911540416878438
+      },
+      "dimension": {
+        "width": 74.36175231810176,
+        "height": 53.932660939313955
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 468.4954507432212,
+        "left": 575.0591538915688
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 654.8195228990453,
+        "left": 908.1237328557324
+      },
+      "dimension": {
+        "width": 29.219495829758866,
+        "height": 28.734000515717604
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 191.99827264055625,
+        "left": 194.8100732323203
+      },
+      "dimension": {
+        "width": 528.8796708575735,
+        "height": 530.648499188201
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 528.8044747619579,
+        "left": 1234.513321681111
+      },
+      "dimension": {
+        "width": 189.3688923171739,
+        "height": 101.34715748404122
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 305.11502610793576,
+        "left": 1456.882213998285
+      },
+      "dimension": {
+        "width": 358.0754700544451,
+        "height": 359.27304687736967
+      }
+    },
+    {
+      "page": 8,
+      "assetId": "MAHWnFoILoU",
+      "type": "RECT",
+      "position": {
+        "top": 381.7297225036097,
+        "left": 396.6713508340873
+      },
+      "dimension": {
+        "width": 125.15711565403942,
+        "height": 128.89848601328652
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAHWnKZVmuU",
+      "type": "RECT",
+      "position": {
+        "top": 280.40716113081066,
+        "left": 36.275780548987086
+      },
+      "dimension": {
+        "width": 1009.9951546889326,
+        "height": 820.6210631847575
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 955.2366384185655,
+        "left": 1019.2529953229824
+      },
+      "dimension": {
+        "width": 84.69164100261999,
+        "height": 79.3143939548346
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 17.26940174567239,
+        "left": 36.80586134784489
+      },
+      "dimension": {
+        "width": 120.10116385550297,
+        "height": 121.16132545321862
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 690.7176927231894,
+        "left": 929.0391532120658
+      },
+      "dimension": {
+        "width": 43.678563335813536,
+        "height": 42.95282398879869
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAFXQXAeoos",
+      "type": "RECT",
+      "position": {
+        "top": 872.5265041421952,
+        "left": 1795.662780860739
+      },
+      "dimension": {
+        "width": 43.678563335813536,
+        "height": 42.95282398879869
+      }
+    },
+    {
+      "page": 9,
+      "assetId": "MAHWnKZVmuU",
+      "type": "RECT",
+      "position": {
+        "top": 149.69135524176937,
+        "left": 1239.822426380792
+      },
+      "dimension": {
+        "width": 595.6512240761435,
+        "height": 483.9666195618664
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnHyqwoI",
+      "type": "RECT",
+      "position": {
+        "top": 698.3234341761014,
+        "left": 121.39974888540405
+      },
+      "dimension": {
+        "width": 83.015205245139,
+        "height": 91.0749339097156
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnGo_70g",
+      "type": "RECT",
+      "position": {
+        "top": 578.6291771918828,
+        "left": 125.11423594389427
+      },
+      "dimension": {
+        "width": 80.0795149934708,
+        "height": 82.63524419539007
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 191.07760350722384,
+        "left": 93.71273775386578
+      },
+      "dimension": {
+        "width": 856.2579264914168,
+        "height": 739.1151482743502
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 354.01532898806886,
+        "left": 1118.032014661375
+      },
+      "dimension": {
+        "width": 439.6945592000968,
+        "height": 379.540906149921
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnzxqon0",
+      "type": "SHAPE",
+      "position": {
+        "top": 191.5823838522478,
+        "left": 781.4784722712703
+      },
+      "dimension": {
+        "width": 1122.6516128320875,
+        "height": 586.7725763069044
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAE49qqp_iY",
+      "type": "SHAPE",
+      "position": {
+        "top": 191.5823838522478,
+        "left": 781.4784722712703
+      },
+      "dimension": {
+        "width": 1122.6516128320875,
+        "height": 586.7725763069044
+      }
+    },
+    {
+      "page": 10,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 72.53893446220957,
+        "left": 19.55925638087797
+      },
+      "dimension": {
+        "width": 1127.5846399213683,
+        "height": 973.3222461861981
+      }
+    },
+    {
+      "page": 11,
+      "assetId": "MAFx3BlJQEI",
+      "type": "RECT",
+      "position": {
+        "top": 633.3134181580749,
+        "left": 1476.3844263255332
+      },
+      "dimension": {
+        "width": 64.43373111063231,
+        "height": 65.00250301198719
+      }
+    },
+    {
+      "page": 11,
+      "assetId": "MAHWnJwzLw4",
+      "type": "RECT",
+      "position": {
+        "top": 405.77812891160323,
+        "left": 833.5649993687896
+      },
+      "dimension": {
+        "width": 275.0681497034117,
+        "height": 257.60350527779826
+      }
+    },
+    {
+      "page": 11,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 499.68245351065576,
+        "left": 1774.819123840949
+      },
+      "dimension": {
+        "width": 74.36175231810176,
+        "height": 53.932660939313955
+      }
+    },
+    {
+      "page": 11,
+      "assetId": "MAEK6pdnMyE",
+      "type": "RECT",
+      "position": {
+        "top": 994.6066705461568,
+        "left": 53.09811140252249
+      },
+      "dimension": {
+        "width": 241.2224884378778,
+        "height": 54.576588009069845
+      }
+    },
+    {
+      "page": 11,
+      "assetId": "MAHWnM04ErM",
+      "type": "RECT",
+      "position": {
+        "top": 349.9123759574421,
+        "left": 761.1152346189964
+      },
+      "dimension": {
+        "width": 423.17247712231006,
+        "height": 387.00446386878366
+      }
+    }
+  ],
+  "brandTokens": {
+    "cream": "#f6e3c5",
+    "blue": "#2e62ad",
+    "navyGradientEndpoint": "#051e76",
+    "yellow": "#ffd15c"
+  },
+  "typography": {
+    "headline": {
+      "family": "Helios Extended",
+      "weight": 700,
+      "fontSizePx": 99.8857,
+      "lineHeightPx": 104,
+      "letterSpacingPx": -1.99771,
+      "color": "#f6e3c5"
+    },
+    "editorial": {
+      "family": "Noto Serif Display",
+      "style": "italic",
+      "weight": 400,
+      "fontSizePx": 60,
+      "lineHeightPx": 84,
+      "color": "#ffffff"
+    },
+    "hero": {
+      "family": "Belleza",
+      "weight": 400,
+      "fontSizePx": 146.666,
+      "lineHeightPx": 124,
+      "letterSpacingPx": -2.93332,
+      "color": "#2e62ad"
+    },
+    "bodyPage6": {
+      "family": "Montserrat",
+      "weight": 400,
+      "fontSizePx": 14.6667,
+      "lineHeightPx": 22,
+      "color": "#fdfefe"
+    },
+    "bodyPage7": {
+      "family": "Montserrat",
+      "weight": 400,
+      "fontSizePx": 28.3509,
+      "lineHeightPx": 35,
+      "letterSpacingPx": -0.0850527,
+      "color": "#ffffff"
+    }
+  },
+  "notes": [
+    "Typography measurements are observed CSS values in the original Canva editor; element boxes also have their own transforms. Scale responsive website composition deliberately rather than treating raw font size as a computed effective size.",
+    "The original Canva design was inspected without any editing operations or commit."
+  ]
+}
