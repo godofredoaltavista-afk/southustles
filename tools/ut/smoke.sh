@@ -46,3 +46,13 @@ check_response '/UT/assets/abstract-3d.webp' '^image/webp$'
 check_response '/UT/assets/fonts/helios-bold.woff2' '^(font/woff2|application/font-woff2)$'
 test "$(LC_ALL=C head -c 4 "$scratch_dir/body")" = 'wOF2'
 printf 'UT HTTP smoke checks passed.\n'
+
+# Sport Profile (/francoprofile/): trailing slash — CloudFront uses the S3 website endpoint with no rewrite
+check_response '/francoprofile/' '^text/html$' 'Franco · Perfil vivo'
+check_response '/francoprofile/index.html' '^text/html$' 'importmap'
+check_response '/francoprofile/css/fp-tokens.css' '^text/css$' '--fp-accent'
+check_response '/francoprofile/js/fp-main.js' '^(application|text)/javascript$' 'fp/main'
+check_response '/francoprofile/js/sections/fp-chapters.js' '^(application|text)/javascript$' 'ORDER'
+check_response '/francoprofile/data/plan-v1.json' '^application/json$' 'plan-v1'
+check_response '/francoprofile/data/boxer.json' '^application/json$' '"joints"'
+printf 'Sport Profile HTTP smoke checks passed.\n'

@@ -1,0 +1,100 @@
+{
+  "v": 1,
+  "product": "Franco · Perfil vivo",
+  "motto": "Entrenando duro, durmiendo duro.",
+  "who": {
+    "name": "Franco",
+    "age": 27,
+    "place": "Córdoba, Argentina",
+    "role": "Creative technologist · fundador de South Hustles",
+    "builds": ["South Hustles", "Motion Lab", "Ant on Mars", "Apacheta (con Joaco, OrchestratorS)"],
+    "athlete": "Atleta híbrido: calistenia + boxeo + running",
+    "tag": "U"
+  },
+  "goal": {
+    "main": "Ganar masa muscular sin perder rendimiento ni coordinación.",
+    "targetKg": [65, 65.5],
+    "targetDate": "2026-12-22",
+    "tag": "U",
+    "realistic": { "kgPerMonth": [0.5, 1], "visibleWeeks": [8, 12], "tag": "C", "note": "La app muestra la meta, no la promete." }
+  },
+  "strengths": ["Piernas", "Coordinación", "Conciencia mente-músculo", "Salto", "Equilibrio a una pierna"],
+  "weak": ["Dorsal (ancho y bajo)", "Tríceps", "Deltoide posterior", "Glúteo", "Gemelo", "Core lateral", "Pecho"],
+  "weakQuote": "Una bestia, pero atrofiada hacia adelante.",
+  "posture": [
+    { "id": "hombro", "label": "Hombro derecho elevado", "tag": "U", "x": 36, "y": 22 },
+    { "id": "escapula", "label": "Escápulas altas", "tag": "U", "x": 62, "y": 25 },
+    { "id": "cuello", "label": "Cuello adelantado", "tag": "U", "x": 50, "y": 13 },
+    { "id": "pulgar", "label": "Molestia en un pulgar: evitar agarres que lo carguen", "tag": "U", "x": 22, "y": 50 },
+    { "id": "tobillo", "label": "Vendas de tobillo: en bolsa y patadas", "tag": "U", "x": 42, "y": 93 },
+    { "id": "rodilla", "label": "Rodillera: en bolsa y patadas, no en todo el entreno", "tag": "U", "x": 58, "y": 72 },
+    { "id": "muneca", "label": "Muñequera: golpes y bolsa", "tag": "U", "x": 78, "y": 50 }
+  ],
+  "habits": [
+    { "label": "Sin alcohol", "since": "hace ~5 meses", "tag": "U" },
+    { "label": "Sol diario", "since": "entrena al sol", "tag": "U" },
+    { "label": "Agua ~3 L", "since": "todos los días", "tag": "U" },
+    { "label": "Creatina", "since": "hace ~1,5 meses", "tag": "U" },
+    { "label": "Sueño 8+ h", "since": "masaje, ducha, cama", "tag": "U" },
+    { "label": "Proteína 100–130 g", "since": "huevo, asado, proteína", "tag": "U" }
+  ],
+  "already": [
+    { "label": "Calistenia", "detail": "Dominadas, flexiones con handles, sentadillas a una pierna y cruzadas.", "tag": "U" },
+    { "label": "Boxeo", "detail": "Bolsa de 1,20 m colgada: golpes, patadas bajas, guardia.", "tag": "U" },
+    { "label": "Running", "detail": "~10 km × 3 por semana en la costa, de corrido.", "tag": "U" },
+    { "label": "Soga y fútbol", "detail": "Rebote, coordinación, saltos.", "tag": "U" }
+  ],
+  "gear": [
+    { "id": "barra", "name": "Barra de dominadas", "detail": "Prono, supino, neutro; pulgar adentro/afuera.", "use": "Dominadas, colgado, escápula", "icon": "bar" },
+    { "id": "handles", "name": "Handles de flexiones", "detail": "Abiertas, cerradas, tríceps pegado. [?] lo que Franco llama «pull-up del piso».", "use": "Empuje, diamante, rango extra", "icon": "handles" },
+    { "id": "bandas", "name": "3 bandas elásticas", "detail": "Tres tensiones, tipo futbolistas.", "use": "Glúteo, rodilla, core, dorsal, hombro posterior", "icon": "band" },
+    { "id": "mancuernas", "name": "Mancuernas + barra", "detail": "20 kg totales: 2 × 10, 1 × 15 o barra de 20 con extensor ~40–45 cm. [?]", "use": "Press, remo, tríceps, sentadilla", "icon": "dumbbell" },
+    { "id": "garrafa", "name": "Garrafa", "detail": "Lastre: flexiones con garrafa encima, sentadilla, dominada. Agarre seguro siempre.", "use": "Sobrecarga sin gimnasio", "icon": "jug" },
+    { "id": "soga", "name": "Soga de saltar", "detail": "Calentamiento y coordinación.", "use": "Subidón, cardio", "icon": "rope" },
+    { "id": "bolsa", "name": "Bolsa de boxeo 1,20 m", "detail": "Colgada: patadas bajas, golpes, core.", "use": "Bolsa, acondicionamiento", "icon": "bag" },
+    { "id": "vendas", "name": "Vendas", "detail": "Mano, pie, tobillo; rodillera, muñequera.", "use": "Protección en bolsa", "icon": "wrap" },
+    { "id": "guantes", "name": "Guantes", "detail": "Para la bolsa.", "use": "Bolsa", "icon": "glove" },
+    { "id": "colchoneta", "name": "Colchoneta", "detail": "Piso, core, elongación.", "use": "Core y movilidad", "icon": "mat" },
+    { "id": "espejo", "name": "Espejo", "detail": "Feedback postural: escápula, hombro.", "use": "Técnica", "icon": "mirror" },
+    { "id": "sol", "name": "Sol", "detail": "Entrenar al sol y calentar el cuerpo.", "use": "Hábito", "icon": "sun" }
+  ],
+  "limits": "Carga total 20 kg. Cuando algo se vuelve liviano, se progresa con palancas, no con más peso.",
+  "story": [
+    "Fui ectomorfo toda la vida.",
+    "Pasé por 57 kg y por 59 kg.",
+    "Hace cinco meses cambié el estilo de vida: dejé el alcohol, empecé a entrenar, a tomar sol, agua y proteína.",
+    "Hoy se marcan el antebrazo, el abdomen, empieza a aparecer el dorsal.",
+    "La base está. Lo que falta es método: volumen medido, tempo, recuperación.",
+    "Y un lugar donde quede todo registrado, para que cualquiera que me ayude sepa a quién le habla."
+  ],
+  "objectives": [
+    { "text": "Subir ~1,5–3 kg (mayormente magro) en 12 semanas.", "tag": "C" },
+    { "text": "Dominadas: +2–3 reps estrictas con escápula baja (base a medir en Motion Lab).", "tag": "C" },
+    { "text": "Flexiones cerradas / diamante: +5 reps manteniendo el 3-1-1.", "tag": "C" },
+    { "text": "Bajar la asimetría izquierda/derecha medida en Motion Lab (hombro, codo).", "tag": "C" },
+    { "text": "Plancha lateral: 45 s por lado.", "tag": "C" },
+    { "text": "Brazo, espalda y cintura medidos cada 2 semanas.", "tag": "C" },
+    { "text": "Proteína ≥ 100 g 6 de cada 7 días.", "tag": "C" }
+  ],
+  "nutrition": {
+    "proteinG": [110, 130],
+    "proteinPerKg": [1.6, 2.0],
+    "meals": [3, 4],
+    "perMealG": [25, 40],
+    "maintenanceKcal": [2200, 2500],
+    "runningKcal": 250,
+    "surplusKcal": [250, 350],
+    "gainKgWeek": [0.15, 0.3],
+    "waterL": 3,
+    "creatineG": [3, 5],
+    "foods": ["Huevo", "Asado", "Proteína en polvo", "Café", "Mate", "Galletitas", "Carbos alrededor del entreno"],
+    "tag": "C",
+    "note": "La app no calcula calorías desde fotos: guarda la foto, el texto de tu guía externa y estimaciones editables."
+  },
+  "cardio": {
+    "current": { "km": 10, "perWeek": 3, "place": "la costa", "pace": "«7–8» [?] — se pide en min/km al registrar", "tag": "U" },
+    "weeklyKcal": [1500, 2000],
+    "A": { "title": "Prioridad masa", "detail": "1–2 salidas suaves de 6–10 km en zona 2 por semana. No correr el día antes de piernas.", "recommended": true },
+    "B": { "title": "Mantener 3 × 10 km", "detail": "Subir ~250–300 kcal/día extra, reducir la bolsa del sábado, vigilar fatiga en gemelos y glúteos." }
+  }
+}

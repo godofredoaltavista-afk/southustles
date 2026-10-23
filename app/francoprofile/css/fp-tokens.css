@@ -1,0 +1,192 @@
+/* ═══════════════════════════════════════════
+   FP · TOKENS — estructura de South Hustles (css/tokens.css):
+   constantes invariantes + escalas gemelas redeclaradas ENTERAS por tema
+   + polos del gradient weave. Escala de z-index, densidad --fp-k y
+   duraciones de Apacheta (styles/tokens.css). Acento: terracota de
+   Motion Lab (D3); el HUD de 3 puntos lo repinta en vivo.
+   Si Franco dice que no al terracota: cambiar --fp-accent-base a #6d5efc.
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* acentos (el HUD reescribe --fp-accent / -2 / -soft en <html>) */
+  --fp-accent-base: #e06040;
+  --fp-accent: var(--fp-accent-base);
+  --fp-accent-2: #ff5a7a;
+  --fp-accent-soft: #f0a58f;
+
+  /* semáforo + esqueleto FreeMoCap — fijos entre temas */
+  --fp-ok: #22d36b;
+  --fp-warn: #ffd60a;
+  --fp-bad: #ff3b30;
+  --fp-skel-l: #2f7bff;
+  --fp-skel-r: #ff3b30;
+  --fp-skel-core: #22d36b;
+  --fp-skel-head: #ffd60a;
+
+  /* geometría */
+  --fp-radius-s: 8px;
+  --fp-radius-m: 14px;
+  --fp-radius-l: 24px;
+  --fp-maxw: 1180px;
+  --fp-maxw-wide: 1560px;
+  --fp-gutter: clamp(16px, 4vw, 48px);
+
+  /* movimiento */
+  --fp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --fp-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --fp-dur-fast: 0.18s;
+  --fp-dur: 0.42s;
+  --fp-dur-slow: 0.9s;
+  --fp-stagger: 70ms;
+
+  /* densidad (Apacheta): 0.9 compacto · 1 normal · 1.1 aireado */
+  --fp-k: 1;
+  --fp-s1: calc(4px * var(--fp-k));
+  --fp-s2: calc(8px * var(--fp-k));
+  --fp-s3: calc(12px * var(--fp-k));
+  --fp-s4: calc(16px * var(--fp-k));
+  --fp-s5: calc(24px * var(--fp-k));
+  --fp-s6: calc(32px * var(--fp-k));
+  --fp-s7: calc(48px * var(--fp-k));
+  --fp-s8: calc(72px * var(--fp-k));
+
+  /* z-index: nunca 9999 sueltos */
+  --fp-z-canvas: 0;
+  --fp-z-raised: 10;
+  --fp-z-panel: 60;
+  --fp-z-overlay: 100;
+  --fp-z-nav: 200;
+  --fp-z-modal: 300;
+  --fp-z-toast: 400;
+  --fp-z-cursor: 500;
+
+  /* tipografía (03 §6.3) */
+  --fp-font-ui: 'Archivo', 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fp-font-serif: 'Instrument Serif', Georgia, serif;
+  --fp-font-data: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace; /* SOLO datos */
+  --fp-font-display: 'Bebas Neue', 'Archivo', sans-serif; /* SOLO acción y números gigantes */
+
+  --fp-t-xs: calc(11px * var(--fp-k));
+  --fp-t-s: calc(13px * var(--fp-k));
+  --fp-t-m: calc(15px * var(--fp-k));
+  --fp-t-l: clamp(17px, 1.4vw, 20px);
+  --fp-t-h3: clamp(20px, 2vw, 26px);
+  --fp-t-h2: clamp(36px, 6vw, 84px);
+  --fp-t-h1: clamp(46px, 9vw, 140px);
+  --fp-t-giant: clamp(64px, 16vw, 260px);
+
+  /* ── MOOD (moodboard de Franco, 2026-10-23): posters glitch, Lauren Mia
+     naranja→magenta, neón lima sobre negro, ultramar Day Dance, glifos crema,
+     lienzo navy de Figma, cromo. Fijos entre temas (son «tintas de póster»).
+     Sin cian: el azul es ultramar. ── */
+  --fp-hot: #ff3d1a;
+  --fp-magenta: #ff2bd6;
+  --fp-lime: #c6ff1a;
+  --fp-ultra: #1f2bff;
+  --fp-cream: #efe7d4;
+  --fp-navy: #1a1a33;
+  --fp-ink-black: #050505;
+  --fp-grad-hot: linear-gradient(135deg, #ff3d1a 0%, #ff2b6e 48%, #ff2bd6 100%);
+  --fp-grad-ring: conic-gradient(from 210deg, #ff3d1a, #ff2bd6, #8a2bff, #ff3d1a);
+  --fp-grad-chrome: linear-gradient(180deg, #ffffff 0%, #c9c9c9 22%, #5a5a5a 46%, #f2f2f2 54%, #9a9a9a 72%, #ffffff 100%);
+  --fp-grad-dusk: linear-gradient(180deg, #2b2b2b 0%, #b08a5a 46%, #8fa6c9 100%);
+  --fp-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+  --fp-accent-base: #c24e2f;
+  --fp-bg-0: #e6e6e6;
+  --fp-bg-1: #ededed;
+  --fp-bg-2: #f4f4f4;
+  --fp-bg-3: #dcdcdc;
+  --fp-ink-0: #0d0d0f;
+  --fp-ink-1: #3a3a3d;
+  --fp-ink-2: #636369;
+  --fp-ink-3: #9a9aa0;
+  --fp-line: #cfcfcf;
+  --fp-line-soft: #dcdcdc;
+  --fp-pole-hi: #ececec;
+  --fp-pole-lo: #d8d8d8;
+  --fp-surface: #f4f4f4;
+  --fp-surface-2: #ffffff;
+  --fp-glass-0: rgba(246, 246, 246, 0.96);
+  --fp-glass-1: rgba(250, 250, 250, 0.66);
+  --fp-glass-2: rgba(255, 255, 255, 0.26);
+  --fp-shadow: 0 1px 2px rgba(13, 13, 15, 0.04), 0 18px 50px -24px rgba(13, 13, 15, 0.22);
+  --fp-shadow-lift: 0 2px 6px rgba(13, 13, 15, 0.08), 0 28px 70px -28px rgba(13, 13, 15, 0.3);
+  --fp-gl-alpha: 0.9;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+  /* grises puros R=G=B (Franco: «sin cyan en la versión darkmode») */
+  --fp-bg-0: #0a0a0a;
+  --fp-bg-1: #121212;
+  --fp-bg-2: #1a1a1a;
+  --fp-bg-3: #222222;
+  --fp-ink-0: #f4f4f4;
+  --fp-ink-1: #c9c9c9;
+  --fp-ink-2: #8d8d8d;
+  --fp-ink-3: #555555;
+  --fp-line: #292929;
+  --fp-line-soft: #1f1f1f;
+  --fp-pole-hi: #161616;
+  --fp-pole-lo: #050505;
+  --fp-surface: #151515;
+  --fp-surface-2: #1c1c1c;
+  --fp-glass-0: rgba(20, 20, 20, 0.96);
+  --fp-glass-1: rgba(20, 20, 20, 0.62);
+  --fp-glass-2: rgba(20, 20, 20, 0.24);
+  --fp-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 50px -24px rgba(0, 0, 0, 0.75);
+  --fp-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 70px -28px rgba(0, 0, 0, 0.9);
+  --fp-gl-alpha: 1;
+}
+
+/* polaridad invertida (patrón .section--inverted / sec-dark de SH):
+   el capítulo redeclara la escala local y todos los hijos se re-estilan solos.
+   En dark mode se invierte: el capítulo «punch» se vuelve claro. */
+html[data-theme='light'] .fp-pol-invert,
+html[data-theme='dark'] .fp-pol-invert .fp-pol-invert {
+  color-scheme: dark;
+  --fp-bg-0: #0c0c0c;
+  --fp-bg-1: #131313;
+  --fp-bg-2: #1a1a1a;
+  --fp-bg-3: #222222;
+  --fp-ink-0: #f4f4f4;
+  --fp-ink-1: #c4c4c4;
+  --fp-ink-2: #8a8a8a;
+  --fp-ink-3: #555555;
+  --fp-line: #2a2a2a;
+  --fp-line-soft: #202020;
+  --fp-pole-hi: #141414;
+  --fp-pole-lo: #060606;
+  --fp-surface: #161616;
+  --fp-surface-2: #1d1d1d;
+  --fp-glass-0: rgba(20, 20, 20, 0.96);
+  --fp-glass-1: rgba(20, 20, 20, 0.62);
+  --fp-glass-2: rgba(20, 20, 20, 0.24);
+  --fp-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 50px -24px rgba(0, 0, 0, 0.75);
+}
+html[data-theme='dark'] .fp-pol-invert {
+  color-scheme: light;
+  --fp-bg-0: #e4e4e4;
+  --fp-bg-1: #ececec;
+  --fp-bg-2: #f4f4f4;
+  --fp-bg-3: #d8d8d8;
+  --fp-ink-0: #0d0d0f;
+  --fp-ink-1: #3a3a3d;
+  --fp-ink-2: #636369;
+  --fp-ink-3: #9a9aa0;
+  --fp-line: #cbcbcb;
+  --fp-line-soft: #dadada;
+  --fp-pole-hi: #efefef;
+  --fp-pole-lo: #d6d6d6;
+  --fp-surface: #f4f4f4;
+  --fp-surface-2: #ffffff;
+  --fp-glass-0: rgba(246, 246, 246, 0.96);
+  --fp-glass-1: rgba(250, 250, 250, 0.66);
+  --fp-glass-2: rgba(255, 255, 255, 0.26);
+  --fp-shadow: 0 1px 2px rgba(13, 13, 15, 0.04), 0 18px 50px -24px rgba(13, 13, 15, 0.22);
+}

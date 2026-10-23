@@ -1,0 +1,16 @@
+{
+  "v": 1,
+  "source": "Copiado tal cual de motion-lab-master/app/js/pose/skeleton-map.js (JOINTS y BONES). 'l_'/'r_' = lado de la persona.",
+  "joints": ["nose", "l_eye", "r_eye", "l_ear", "r_ear", "l_shoulder", "r_shoulder", "l_elbow", "r_elbow", "l_wrist", "r_wrist", "l_hip", "r_hip", "l_knee", "r_knee", "l_ankle", "r_ankle", "l_heel", "r_heel", "l_toe", "r_toe"],
+  "bones": [
+    ["l_ear", "l_eye", "L"], ["l_eye", "nose", "L"], ["nose", "r_eye", "R"], ["r_eye", "r_ear", "R"],
+    ["l_shoulder", "r_shoulder", "C"],
+    ["l_shoulder", "l_elbow", "L"], ["l_elbow", "l_wrist", "L"],
+    ["r_shoulder", "r_elbow", "R"], ["r_elbow", "r_wrist", "R"],
+    ["l_shoulder", "l_hip", "L"], ["r_shoulder", "r_hip", "R"], ["l_hip", "r_hip", "C"],
+    ["l_hip", "l_knee", "L"], ["l_knee", "l_ankle", "L"],
+    ["r_hip", "r_knee", "R"], ["r_knee", "r_ankle", "R"],
+    ["l_ankle", "l_heel", "L"], ["l_heel", "l_toe", "L"], ["l_ankle", "l_toe", "L"],
+    ["r_ankle", "r_heel", "R"], ["r_heel", "r_toe", "R"], ["r_ankle", "r_toe", "R"]
+  ]
+}

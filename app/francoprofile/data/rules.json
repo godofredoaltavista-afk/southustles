@@ -1,0 +1,16 @@
+{
+  "v": 1,
+  "source": "02 §6.4 · planificador explicable, sin LLM. Cada sugerencia dice por qué.",
+  "rules": [
+    { "id": "vol-low", "when": "Volumen semanal de un grupo < mínimo del rango, bombeo ≥ 3 y fatiga ≤ 3", "then": "+1 serie a ese grupo la semana próxima", "level": "info" },
+    { "id": "fatigue-high", "when": "Fatiga ≥ 4 en 2 sesiones seguidas del mismo grupo", "then": "−1 a −2 series de ese grupo", "level": "warn" },
+    { "id": "joint-pain", "when": "Dolor articular u hormigueo registrado", "then": "Sacar el ejercicio, marcar la zona y consultar a un profesional", "level": "bad" },
+    { "id": "pain-streak", "when": "Dolor marcado varios días seguidos", "then": "Bajar la carga y consultar. La app no da tratamiento", "level": "bad" },
+    { "id": "deload", "when": "4–6 semanas de progresión continua", "then": "Semana de descarga (≈ −40 % de volumen)", "level": "info" },
+    { "id": "rep-ceiling", "when": "Reps en el techo del rango en todas las series", "then": "Aplicar la siguiente palanca de progresión", "level": "ok" },
+    { "id": "weight-flat", "when": "Peso promedio semanal sin subir 3 semanas", "then": "Probablemente falten calorías: +200–300 kcal (carbos alrededor del entreno)", "level": "warn" },
+    { "id": "cardio-mass", "when": "Km semanales altos + peso estancado", "then": "Revisar cardio vs masa: opción A o B", "level": "warn" },
+    { "id": "protein-low", "when": "Proteína < 100 g en 2 o más de los últimos 7 días", "then": "Sumar una comida de 25–40 g de proteína", "level": "info" },
+    { "id": "water-low", "when": "Agua promedio < 2,5 L en la semana", "then": "Volver a los 3 L: botella a la vista", "level": "info" }
+  ]
+}

@@ -1,0 +1,27 @@
+/* ═══════════════════════════════════════════
+   SPORT PROFILE — entrada del menú full-screen (/francoprofile/).
+   Aditivo: no edita ningún estilo existente. Con 9 links la lista es más
+   alta, así que acá solo se asegura que el menú siga entrando:
+   - en ventanas bajas el tipo se achica según el alto disponible
+     (en pantallas altas queda idéntico a antes);
+   - si aun así no entra (celular horizontal), el menú scrollea en vez de
+     cortar el primer link;
+   - el 9º link entra con el mismo retardo escalonado que los demás.
+   ═══════════════════════════════════════════ */
+
+@media (max-height: 1300px) {
+  #menu-overlay { padding-block: clamp(56px, 8vh, 140px); }
+  .menu-overlay__link {
+    font-size: clamp(1.7rem, min(9vw, calc((70vh - 30px) / 9.3)), 7rem);
+  }
+}
+
+/* centrado con margins auto: centra cuando entra y scrollea desde arriba cuando no */
+#menu-overlay {
+  overflow-y: auto;
+  justify-content: flex-start;
+}
+#menu-overlay .menu-overlay__nav { margin-top: auto; }
+#menu-overlay .menu-overlay__foot { margin-bottom: auto; }
+
+#menu-overlay.is-open .menu-overlay__link:nth-child(9) { transition-delay: 0.58s; }
