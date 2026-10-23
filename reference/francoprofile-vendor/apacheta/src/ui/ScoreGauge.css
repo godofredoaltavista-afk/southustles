@@ -1,0 +1,56 @@
+/* PORTED FROM apacheta/src/ui/ScoreGauge.css @ copia local 2026-10-23 — DO NOT EDIT. Adapted copy lives in css/fp-*.css */
+/* ============================================================================
+   ScoreGauge — aro de progreso vía conic-gradient, sin canvas ni SVG.
+   ========================================================================== */
+
+.score-gauge {
+  --score: 0;
+  position: relative;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.score-gauge__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--signo) calc(var(--score) * 3.6deg),
+    color-mix(in srgb, var(--ink-0) 10%, transparent) 0deg
+  );
+  transition: background var(--dur-slow) var(--ease-out);
+}
+
+.score-gauge__ring::after {
+  content: '';
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background: var(--bg-1);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.score-gauge__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(2px * var(--k));
+}
+
+.score-gauge__value {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  color: var(--ink-0);
+  line-height: 1;
+}
+
+.score-gauge__label {
+  color: var(--ink-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-gauge__ring { transition: none; }
+}

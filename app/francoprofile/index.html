@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es-AR" data-theme="dark" class="fp-no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="noindex" />
+  <title>Franco · Perfil vivo</title>
+  <meta name="description" content="Perfil de entrenamiento de Franco: método, plan, comida, progreso y Motion Lab. Entrenando duro, durmiendo duro." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0a'/%3E%3Ccircle cx='16' cy='8' r='3' fill='%23e06040'/%3E%3Cpath d='M16 11v9M16 14l-6 4M16 14l6 4M16 20l-4 8M16 20l4 8' stroke='%23e06040' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" />
+
+  <!-- no-flash: fija data-theme ANTES del primer paint (snippet de South Hustles, clave fp.theme) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('fp.theme');
+        if (t !== 'dark' && t !== 'light') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+        var k = localStorage.getItem('fp.density'); if (k) document.documentElement.style.setProperty('--fp-k', JSON.parse(k));
+        var c = localStorage.getItem('fp.calm'); if (c && JSON.parse(c)) document.documentElement.dataset.fpCalm = '1';
+        var h = localStorage.getItem('fp.hud.colors');
+        if (h) { h = JSON.parse(h); ['--fp-accent', '--fp-accent-2', '--fp-accent-soft'].forEach(function (v, i) { if (h[i]) document.documentElement.style.setProperty(v, h[i]); }); }
+      } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <!-- import map: MISMA versión que southustles/app/index.html (03 §D5) -->
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }}
+  </script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
+
+  <!-- sistema de diseño: tokens PRIMERO -->
+  <link rel="stylesheet" href="./css/fp-tokens.css" />
+  <link rel="stylesheet" href="./css/fp-base.css" />
+  <link rel="stylesheet" href="./css/fp-chrome.css" />
+  <link rel="stylesheet" href="./css/fp-ch-a.css" />
+  <link rel="stylesheet" href="./css/fp-ch-b.css" />
+  <link rel="stylesheet" href="./css/fp-mood-a.css" />
+  <link rel="stylesheet" href="./css/fp-mood-b.css" />
+  <link rel="stylesheet" href="./css/fp-three.css" />
+  <link rel="stylesheet" href="./css/fp-app.css" />
+  <link rel="stylesheet" href="./css/fp-views-b.css" />
+  <link rel="stylesheet" href="./css/fp-onboarding.css" />
+</head>
+<body>
+  <a class="fp-skip" href="#fp-scroll">Saltar al contenido</a>
+
+  <!-- 00 · LOADER: 5 columnas + contador real (South Hustles) -->
+  <div id="fp-loader" class="fp-loader" aria-hidden="true">
+    <div class="fp-loader__cols"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="fp-loader__in">
+      <div class="fp-loader__mark">Franco<em>perfil vivo</em></div>
+      <div class="fp-loader__count fp-data" data-fp-loader-count>0%</div>
+      <div class="fp-loader__track"><i data-fp-loader-fill></i></div>
+      <p class="fp-loader__motto">Entrenando duro, durmiendo duro.</p>
+    </div>
+  </div>
+
+  <!-- barra de progreso global -->
+  <div class="fp-progress" aria-hidden="true"><i></i></div>
+
+  <!-- canvas Three.js GLOBAL (un solo renderer para toda la página) -->
+  <canvas id="fp-gl" class="fp-gl" aria-hidden="true"></canvas>
+
+  <!-- NAV píldora (South Hustles .site-nav) -->
+  <header class="fp-nav" aria-label="Principal">
+    <a class="fp-nav__brand" href="#ch-ch01-hero" aria-label="Franco · Perfil vivo — inicio">
+      <span class="fp-nav__glyph" aria-hidden="true"></span><b>Franco</b><span>perfil vivo</span>
+    </a>
+    <nav class="fp-nav__links" aria-label="Capítulos" data-fp-nav-links></nav>
+    <div class="fp-nav__right">
+      <a class="fp-pill fp-pill--app" href="#/hoy" data-fp-magnetic>App</a>
+      <button type="button" class="fp-pill fp-pill--solid" data-fp-menu-open aria-expanded="false" aria-controls="fp-menu" data-fp-magnetic>Menú</button>
+      <button type="button" class="fp-theme-toggle" aria-label="Cambiar tema" aria-pressed="false">
+        <span class="fp-theme-toggle__grid" aria-hidden="true"></span><span class="fp-theme-toggle__knob" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- tira lateral: un segmento por capítulo (theme-strip de South Hustles) -->
+  <nav class="fp-strip" id="fp-strip" aria-label="Mapa del recorrido"></nav>
+
+  <!-- MENÚ full-screen: círculo que crece desde el botón, links numerados, trampa de foco -->
+  <div id="fp-menu" class="fp-menu" role="dialog" aria-modal="true" aria-label="Menú" aria-hidden="true">
+    <div class="fp-menu__bg"></div>
+    <div class="fp-menu__in">
+      <div class="fp-menu__top">
+        <span class="fp-eyebrow">Franco · Perfil vivo</span>
+        <button type="button" class="fp-menu__close fp-btn fp-btn--icon" data-fp-menu-close aria-label="Cerrar menú"></button>
+      </div>
+      <div class="fp-menu__cols">
+        <div><p class="fp-menu__h">El recorrido</p><ol class="fp-menu__list" data-fp-menu-chapters></ol></div>
+        <div><p class="fp-menu__h">La app</p><ol class="fp-menu__list fp-menu__list--app" data-fp-menu-app></ol></div>
+      </div>
+      <div class="fp-menu__foot">
+        <a class="fp-btn fp-btn--sm" href="#/vault" data-fp-menu-close-link>Vault</a>
+        <a class="fp-btn fp-btn--sm" href="#/vault" data-fp-export-context>Exportar contexto</a>
+        <button type="button" class="fp-btn fp-btn--sm" data-fp-onboarding-open>Ver guía de nuevo</button>
+        <span class="fp-small">Todo queda en este dispositivo.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD de color (3 puntos) · HUD de modos de campo + telemetría · cursor de 3 capas -->
+  <div id="fp-color-hud" class="fp-color-hud" aria-label="Color de acento"></div>
+  <div id="fp-drive" class="fp-drive" aria-label="Modos del campo de partículas"></div>
+  <div id="fp-cursor" class="fp-cursor" aria-hidden="true"></div>
+
+  <!-- CARA A: el scroll infinito (capítulos inyectados por js/sections/fp-chapters.js) -->
+  <main id="fp-scroll" class="fp-scroll" tabindex="-1"></main>
+
+  <!-- CARA B: modo app (dashboard de ventanas de vidrio, router por hash #/hoy …) -->
+  <div id="fp-app" class="fp-app" role="dialog" aria-modal="true" aria-label="Franco · App" hidden></div>
+
+  <!-- onboarding (ventana de vidrio sobre la app) -->
+  <div id="fp-ob" class="fp-ob" hidden></div>
+
+  <div id="fp-toasts" class="fp-toasts" role="status" aria-live="polite"></div>
+
+  <noscript><p style="padding:24px">Esta página necesita JavaScript para armar el recorrido y la app.</p></noscript>
+  <script type="module" src="./js/fp-main.js"></script>
+</body>
+</html>

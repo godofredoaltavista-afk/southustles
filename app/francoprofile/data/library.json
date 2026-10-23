@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "glossary": [
+    { "term": "Excéntrica", "def": "El músculo se alarga bajo carga. Bajar en la dominada, agacharte en la sentadilla.", "tag": "C" },
+    { "term": "Isométrica", "def": "El músculo sostiene sin cambiar de largo. Pausa abajo, plancha, trabar la escápula.", "tag": "C" },
+    { "term": "Concéntrica", "def": "El músculo se acorta y vence la carga. Subir en la dominada, levantarte en la sentadilla.", "tag": "C" },
+    { "term": "Tempo 3-1-1", "def": "3 s bajando, 1 s de pausa en el punto de más tensión, 1 s subiendo sin inercia.", "tag": "U" },
+    { "term": "RIR", "def": "Repeticiones en reserva: cuántas reps te quedaban antes del fallo. RIR 1–2 = terminás a una o dos del fallo.", "tag": "C" },
+    { "term": "Fallo", "def": "No podés hacer otra rep con buena técnica. Solo en la última serie de ejercicios seguros.", "tag": "C" },
+    { "term": "Tensión mecánica", "def": "La fuerza que soporta el músculo, sobre todo en rango largo. Es el estímulo principal; el cansancio no.", "tag": "C" },
+    { "term": "Sobrecarga progresiva", "def": "Hacer un poco más que la vez anterior (reps, tempo, palanca, series) y dejarlo registrado.", "tag": "C" },
+    { "term": "Serie efectiva", "def": "Una serie que termina cerca del fallo (RIR 0–3). Las de calentamiento no cuentan.", "tag": "C" },
+    { "term": "Volumen semanal", "def": "Series efectivas por músculo en 7 días. Rango de referencia: 12–20.", "tag": "C" },
+    { "term": "Superserie antagonista", "def": "Dos ejercicios de músculos opuestos uno detrás del otro (empuje + tracción). Descanso 60–90 s entre pares.", "tag": "C" },
+    { "term": "Palanca de progresión", "def": "Cómo hacer más difícil un ejercicio sin sumar peso: más reps, bajada más lenta, pausa, unilateral, más palanca, banda, mochila, menos descanso, más series.", "tag": "C" },
+    { "term": "Progresión doble", "def": "Cuando llegás al tope del rango de reps en todas las series con buena técnica, aplicás la siguiente palanca.", "tag": "C" },
+    { "term": "Descarga", "def": "Una semana con ~40 % menos de volumen después de 4–6 semanas de progresión continua.", "tag": "C" },
+    { "term": "Mente-músculo", "def": "Poner la atención en el músculo que trabaja («sentí el dorsal bajar»).", "tag": "U" },
+    { "term": "Depresión escapular", "def": "Bajar las escápulas (alejarlas de las orejas) antes de tirar o empujar.", "tag": "C" },
+    { "term": "Agujetas (DOMS)", "def": "Dolor muscular 24–72 h después. Permitido, pero no es objetivo ni mide el progreso.", "tag": "C" },
+    { "term": "Zona 2", "def": "Ritmo en el que podés hablar mientras corrés. Base del running.", "tag": "C" },
+    { "term": "Cadencia", "def": "Pasos por minuto. Se sube de a 3–4 por bloque con metrónomo; 160–180 es el rango típico.", "tag": "C" },
+    { "term": "Superávit calórico", "def": "Comer más de lo que gastás. Para ganar masa: +250–350 kcal/día sobre mantenimiento.", "tag": "C" },
+    { "term": "Pallof press", "def": "Antirrotación con banda: el core frena el giro.", "tag": "C" },
+    { "term": "TKE", "def": "Extensión terminal de rodilla con banda: trabar la rodilla sin hiperextender.", "tag": "C" },
+    { "term": "RDL", "def": "Peso muerto rumano: bisagra de cadera con la espalda larga.", "tag": "C" },
+    { "term": "Unilateral", "def": "Un brazo o una pierna por vez. Duplica la exigencia sin sumar peso.", "tag": "C" }
+  ],
+  "sources": [
+    { "id": "S0", "title": "Briefs 01 · 02 · 03", "topic": "Perfil, app y frontend", "privacy": "Privado", "files": ["01_PERFIL_Y_METODO.md", "02_BRIEF_APP_ENTRENAMIENTO.md", "03_FRONTEND_FRANCOPROFILE_ADDITIVE.md"] },
+    { "id": "S1", "title": "Datos de salud", "topic": "Nunca se publican ni se interpretan acá: viven solo en tu dispositivo y los lee un médico.", "privacy": "Privado máximo", "files": [] },
+    { "id": "S2", "title": "Mentores · músculo", "topic": "Volumen, palancas, tensión, suplementos, recomposición", "privacy": "Resumen propio", "files": ["m-s-volumen-de-entrenamiento-m-s-m-sculo.md", "experto-en-m-sculo-la-forma-m-s-r-pida-de-ganar-m-sculo-seg-n-la-ciencia-282.md", "ganar-m-sculo-se-reduce-a-estas-4-cosas.md", "trucos-simples-para-ganar-m-sculo.md", "los-nicos-suplementos-que-s-sirven-para-el-m-sculo.md", "perder-grasa-y-ganar-m-sculo-lo-que-nadie-te-dice.md"] },
+    { "id": "S2", "title": "Mentores · running", "topic": "Ritmo, zonas, cadencia, respiración, bajadas, errores, corazón, resistencia", "privacy": "Resumen propio", "files": ["el-secreto-para-empezar-a-correr.md", "qu-es-el-ritmo-y-cu-l-es-tu-nivel-corriendo.md", "zonas-de-entrenamiento-explicaci-n-did-ctica.md", "estrategia-de-carrera-la-velocidad-a-la-que-debes-hacer-tus-competencias.md", "entrenamientos-para-mejorar-tu-ritmo-de-carrera.md", "mejora-tu-cadencia-te-ense-o-c-mo.md", "haz-pasos-largos-para-correr-m-s-r-pido.md", "c-mo-debes-correr-en-las-bajadas.md", "los-5-errores-m-s-comunes-corriendo-corr-gelos.md", "respira-mejor-para-cansarte-menos-corriendo-te-ense-o-c-mo.md", "mejorar-tu-resistencia-y-algo-de-t-cnica.md", "todo-sobre-el-coraz-n-corriendo.md", "entrenamiento-antes-de-una-carrera.md", "sigue-este-entrenamiento-y-notar-s-mejor-a-r-pidamente.md"] },
+    { "id": "S3", "title": "Motion Lab / Moyon Lab", "topic": "Esquema de sesión, esqueleto de 21 puntos, ventanas de vidrio", "privacy": "Código interno", "files": ["motion-lab-master/"] },
+    { "id": "S4", "title": "South Hustles", "topic": "Huésped de la ruta: tokens, tema, nav, menú, partículas", "privacy": "Código interno", "files": ["southustles-main/"] },
+    { "id": "S5", "title": "Ant on Mars", "topic": "HUD de modos, cursor de 3 capas, ventanas flotantes", "privacy": "Código interno", "files": ["ant-on-mars-super-frontend-main/"] },
+    { "id": "S6", "title": "Apacheta", "topic": "Referencia: bus de scroll, medidor circular, menú, dock", "privacy": "Código interno", "files": ["apacheta-main/"] }
+  ],
+  "phrases": [
+    "Una serie bien hecha vale más que tres apuradas.",
+    "El músculo se construye recuperando, no rompiendo.",
+    "Tres fases, un solo tempo.",
+    "No sé, y está bien: lo marqué para revisar.",
+    "Entrenando duro, durmiendo duro."
+  ]
+}

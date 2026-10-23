@@ -1,0 +1,112 @@
+{
+  "v": 1,
+  "id": "plan-v1",
+  "title": "Plan semanal v1",
+  "tag": "C",
+  "source": "01 §6 · plan oficial Lun/Mar/Mié/Vie/Sáb entrena, Jue/Dom descansa",
+  "variant6d": { "tag": "?", "note": "En el chat apareció una versión de 6 días (Lun–Sáb). Queda como variante para confirmar, no como default." },
+  "blocks": [
+    { "id": "subidon", "name": "Subidón", "min": [8, 10], "goal": "Activar: soga o sombra, bandas en rodillas, movilidad de escápula, respiración." },
+    { "id": "fuerza", "name": "Fuerza", "min": [35, 45], "goal": "El bloque del día con tempo 3-1-1." },
+    { "id": "bolsa", "name": "Bolsa", "min": [10, 15], "goal": "4–5 rounds × 2 min. Técnico y suave en empuje y pierna; el sábado es el día fuerte." }
+  ],
+  "preOrder": { "tag": "C", "text": "Agua + creatina (3–5 g) + comida con 30–40 g de proteína; entrenar 30–40 min después. La creatina no necesita timing: cuenta la constancia diaria." },
+  "days": [
+    {
+      "key": "mon", "short": "Lun", "name": "Lunes", "train": true, "focus": "empuje", "title": "Empuje + tríceps",
+      "groups": ["pecho", "triceps", "hombro_lat"],
+      "bag": "Técnica y guardia, suave.",
+      "items": [
+        { "ex": "handle_pushup", "sets": 4, "reps": "10–15", "note": "Alternar abiertas / cerradas" },
+        { "ex": "pushup_diamond", "sets": 3, "reps": "8–12" },
+        { "ex": "db_shoulder_press", "sets": 3, "reps": "8–12", "note": "2 × 10 kg o 1 × 15 kg" },
+        { "ex": "tri_overhead", "sets": 3, "reps": "10–12", "note": "Bajada 3 s" },
+        { "ex": "dips_bench", "sets": 3, "reps": "10–15", "note": "Bajada 3 s" },
+        { "ex": "lateral_raise", "sets": 3, "reps": "12–15" }
+      ]
+    },
+    {
+      "key": "tue", "short": "Mar", "name": "Martes", "train": true, "focus": "traccion", "title": "Tracción, dorsal y deltoide posterior",
+      "groups": ["dorsal", "delt_post", "biceps", "antebrazo"],
+      "bag": "Técnica suave.",
+      "note": "Día pesado de dominadas de la semana.",
+      "items": [
+        { "ex": "pullup", "sets": 4, "reps": "4–8", "note": "Bajar escápula antes de tirar" },
+        { "ex": "one_arm_row", "sets": 3, "reps": "10–12", "note": "Por lado" },
+        { "ex": "band_pullover", "sets": 3, "reps": "12–15", "note": "Banda anclada arriba" },
+        { "ex": "band_pull_apart", "sets": 3, "reps": "15–20" },
+        { "ex": "band_face_pull", "sets": 3, "reps": "12–15" },
+        { "ex": "biceps_curl", "sets": 3, "reps": "10–12", "note": "Meñique hacia adentro" },
+        { "ex": "dead_hang", "sets": 2, "reps": "30–45 s" }
+      ]
+    },
+    {
+      "key": "wed", "short": "Mié", "name": "Miércoles", "train": true, "focus": "piernas", "title": "Piernas, glúteo y gemelo",
+      "groups": ["cuadriceps", "gluteo", "gemelo", "core"],
+      "bag": "Muy suave, sin patadas fuertes.",
+      "items": [
+        { "ex": "squat_loaded", "sets": 4, "reps": "8–12", "note": "Mochila o barra" },
+        { "ex": "bulgarian_split", "sets": 3, "reps": "8–10", "note": "Por pierna" },
+        { "ex": "single_leg_rdl", "sets": 3, "reps": "8–10", "note": "Por pierna" },
+        { "ex": "glute_bridge_single", "sets": 3, "reps": "10–15", "note": "O hip thrust con mancuerna" },
+        { "ex": "band_tke", "sets": 2, "reps": "15" },
+        { "ex": "calf_single", "sets": 4, "reps": "12–15", "note": "2 s de pausa abajo" },
+        { "ex": "pallof_press", "sets": 3, "reps": "10", "note": "Por lado" },
+        { "ex": "dead_bug", "sets": 3, "reps": "8", "note": "Por lado, con banda" }
+      ]
+    },
+    {
+      "key": "thu", "short": "Jue", "name": "Jueves", "train": false, "focus": "descanso", "title": "Descanso",
+      "groups": [],
+      "rest": "Sol, caminata, elongación suave de glúteo, respiración. Sin entrenamiento.",
+      "items": []
+    },
+    {
+      "key": "fri", "short": "Vie", "name": "Viernes", "train": true, "focus": "torso", "title": "Torso con superseries antagonistas",
+      "groups": ["pecho", "dorsal", "triceps", "biceps", "hombro_lat", "delt_post", "core"],
+      "bag": "Técnica suave.",
+      "note": "Descanso 60–90 s entre pares.",
+      "items": [
+        { "ex": "feet_elevated_pushup", "sets": 3, "reps": "8–12", "pair": "A1" },
+        { "ex": "pullup", "sets": 3, "reps": "5–8", "pair": "A2" },
+        { "ex": "db_shoulder_press", "sets": 3, "reps": "10", "pair": "B1" },
+        { "ex": "one_arm_row", "sets": 3, "reps": "10", "pair": "B2" },
+        { "ex": "tri_overhead", "sets": 3, "reps": "10–12", "pair": "C1" },
+        { "ex": "biceps_curl", "sets": 3, "reps": "10–12", "pair": "C2" },
+        { "ex": "lateral_raise", "sets": 3, "reps": "12–15", "pair": "D1" },
+        { "ex": "band_face_pull", "sets": 3, "reps": "12–15", "pair": "D2", "note": "O pull-apart" },
+        { "ex": "band_superman", "sets": 3, "reps": "10–12", "pair": "E1" },
+        { "ex": "side_plank_abd", "sets": 3, "reps": "20–30 s", "pair": "E2", "note": "Por lado" }
+      ]
+    },
+    {
+      "key": "sat", "short": "Sáb", "name": "Sábado", "train": true, "focus": "boxeo", "title": "Boxeo, core y coordinación",
+      "groups": ["core", "gemelo"],
+      "bag": "6–8 rounds × 2 min: patadas bajas, guardia baja, rodillas, saltos a una pierna, coordinación con música.",
+      "note": "Es habilidad y acondicionamiento: no se lleva al fallo.",
+      "items": [
+        { "ex": "boxing_shadow", "sets": 1, "reps": "10 min", "note": "Subidón" },
+        { "ex": "bag_rounds", "sets": 7, "reps": "2 min", "note": "6–8 rounds" },
+        { "ex": "side_plank_abd", "sets": 3, "reps": "20–30 s" },
+        { "ex": "dead_bug", "sets": 3, "reps": "8–12" },
+        { "ex": "pallof_press", "sets": 3, "reps": "8–12" },
+        { "ex": "hanging_leg_raise", "sets": 3, "reps": "8–12" },
+        { "ex": "calf_single", "sets": 3, "reps": "15" },
+        { "ex": "hip_mobility", "sets": 1, "reps": "10 min", "note": "Cierre: glúteo y cadera" }
+      ]
+    },
+    {
+      "key": "sun", "short": "Dom", "name": "Domingo", "train": false, "focus": "descanso", "title": "Descanso total",
+      "groups": [],
+      "rest": "Comer fuerte, dormir, sol.",
+      "items": []
+    }
+  ],
+  "dailyPullups": { "tag": "C", "text": "Opcional: 3–5 dominadas fáciles varias veces al día, siempre bajando escápula primero. Las pesadas quedan para martes y viernes. Vigilar codos y hombro derecho." },
+  "rules": {
+    "reps": "8–12 en la mayoría; 12–20 en aislados y bandas; dominadas 4–8 (si pasás de 10, aplicá palancas).",
+    "sets": "3–4 por ejercicio.",
+    "rir": "Terminar a 1–2 repeticiones del fallo (RIR 1–2). La última serie de ejercicios seguros puede ir al fallo.",
+    "rest": "60–90 s en compuestos; 45–60 s en aislados; 60–90 s entre pares de superseries."
+  }
+}
