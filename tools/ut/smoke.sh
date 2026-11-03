@@ -56,3 +56,16 @@ check_response '/francoprofile/js/sections/fp-chapters.js' '^(application|text)/
 check_response '/francoprofile/data/plan-v1.json' '^application/json$' 'plan-v1'
 check_response '/francoprofile/data/boxer.json' '^application/json$' '"joints"'
 printf 'Sport Profile HTTP smoke checks passed.\n'
+
+# Apacheta (/apacheta/): static demo build of the HUD frontend. Bundle names are hashed, so read them from the page.
+check_response '/apacheta/' '^text/html$' '/apacheta/assets/'
+apacheta_html="$(curl --silent --show-error --fail --max-time 30 "$base_url/apacheta/")"
+apacheta_js="$(printf '%s' "$apacheta_html" | grep -Eo '/apacheta/assets/index-[^"]+\.js' | head -n 1)"
+apacheta_css="$(printf '%s' "$apacheta_html" | grep -Eo '/apacheta/assets/index-[^"]+\.css' | head -n 1)"
+test -n "$apacheta_js" && test -n "$apacheta_css"
+check_response "$apacheta_js" '^(application|text)/javascript$'
+check_response "$apacheta_css" '^text/css$'
+check_response '/apacheta/assets/logo/apacheta-wordmark.png' '^image/png$'
+check_response '/apacheta/assets/glb/logo-serenity.glb' '^(model/gltf-binary|application/octet-stream|binary/octet-stream)$'
+check_response '/apacheta/zen/index.html' '^text/html$' '/apacheta/zen/'
+printf 'Apacheta HTTP smoke checks passed.\n'
