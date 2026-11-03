@@ -137,7 +137,7 @@ function wordmark(canvas) {
 }
 
 function init() {
-  document.querySelectorAll('.nav-ml canvas, .nav-ut canvas').forEach(wordmark);
+  document.querySelectorAll('.nav-ml canvas, .nav-ut canvas, .nav-ap canvas').forEach(wordmark);
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

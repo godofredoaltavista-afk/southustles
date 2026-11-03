@@ -2,7 +2,8 @@
    Same pill shape as the other nav links; the wordmark itself is
    painted by js/motionlab-nav.js (canvas, follows data-theme). */
 .nav a.nav-ml,
-.nav a.nav-ut {
+.nav a.nav-ut,
+.nav a.nav-ap {
   display: inline-flex;
   align-items: center;
   padding: 7px 12px;
@@ -25,3 +26,15 @@
   pointer-events: none;
 }
 :root[data-theme="light"] .nav-ut canvas { filter: brightness(0.32); }
+
+/* Apacheta nav button (/apacheta/) — same canvas treatment. The wordmark is
+   a single black logo (and its particles are drawn black too), so the dark
+   theme inverts the whole canvas to white. 57:19 = 1575:522, the logo's own
+   ratio. */
+.nav-ap canvas {
+  display: block;
+  width: 57px;
+  height: 19px;
+  pointer-events: none;
+}
+:root[data-theme="dark"] .nav-ap canvas { filter: invert(1); }
